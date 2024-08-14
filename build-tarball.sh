@@ -36,5 +36,5 @@ rm -f configure; make -f Makefile.maint
 make > log2 2>&1; rc=$?; cat log2; test $rc = 0 || exit 1
 # Run the tests.
 make check > log3 2>&1; rc=$?; cat log3; test $rc = 0 || exit 1
-# Check that tarballs are correct.
-make distcheck > log4 2>&1; rc=$?; cat log4; test $rc = 0 || exit 1
+# Create a tarball. (No "make distcheck" exists in this package.)
+make dist > log4 2>&1; rc=$?; cat log4; test $rc = 0 || exit 1
