@@ -23,14 +23,12 @@ package="$1"
 
 set -e
 
-# Fetch sources (uses package 'git').
-git clone --depth 1 https://git.savannah.gnu.org/git/"$package".git
+# We expect the sources from a tarball to be unpacked here.
 cd "$package"
-./autopull.sh --one-time
 
 # Fetch extra files and generate files (uses packages wget, python3, automake, autoconf, m4).
-date=`date --utc --iso-8601 | sed -e 's/-//g'`; sed -i -e "/AM_INIT_AUTOMAKE/s/\\([0-9][0-9.]*\\)/\\1-${date}/" configure.ac
-./autogen.sh
+date=`date --utc --iso-8601 | sed -e 's/-//g'`; sed -i -e "s/\\([0-9][0-9.]*\\)/\\1-${date}/" VERSION
+rm -f configure; make -f Makefile.maint
 
 # Configure (uses package 'file').
 ./configure --config-cache CPPFLAGS="-Wall" > log1 2>&1; rc=$?; cat log1; test $rc = 0 || exit 1
