@@ -1,7 +1,7 @@
 /* Trampoline construction */
 
 /*
- * Copyright 1995-2022 Bruno Haible <bruno@clisp.org>
+ * Copyright 1995-2024 Bruno Haible <bruno@clisp.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -81,8 +81,14 @@ extern void (*tramp_r) (); /* trampoline prototype */
     #elif HAVE_MPROTECT_AFTER_MMAP_CAN_EXEC > 0
       /* mprotect() [or equivalent] the mmap'ed area. */
       #define EXECUTABLE_VIA_MMAP_THEN_MPROTECT
-    #elif HAVE_MMAP_SHARED_CAN_EXEC                /* Linux, HardenedBSD */
-      #define EXECUTABLE_VIA_MMAP_FILE_SHARED
+    #elif HAVE_MMAP_SHARED_MACOS_CAN_EXEC          /* macOS >= 10.4 */
+      #define EXECUTABLE_VIA_MMAP_SHARED_MACOS
+    #elif HAVE_MMAP_SHARED_NETBSD_CAN_EXEC         /* NetBSD >= 8.0 */
+      #define EXECUTABLE_VIA_MMAP_SHARED_NETBSD
+    #elif HAVE_MMAP_SHARED_MEMFD_CAN_EXEC          /* Linux >= 3.17, FreeBSD >= 13.0 */
+      #define EXECUTABLE_VIA_MMAP_SHARED_MEMFD
+    #elif HAVE_MMAP_SHARED_POSIX_CAN_EXEC          /* Linux, HardenedBSD */
+      #define EXECUTABLE_VIA_MMAP_SHARED_POSIX
     #else
       #error "Don't know how to make memory pages executable."
     #endif
@@ -123,22 +129,54 @@ extern
 #endif
 
 /* Declare mprotect(). */
-#if defined(EXECUTABLE_VIA_MALLOC_THEN_MPROTECT) || defined(EXECUTABLE_VIA_MMAP_THEN_MPROTECT)
+#if defined(EXECUTABLE_VIA_MALLOC_THEN_MPROTECT) || defined(EXECUTABLE_VIA_MMAP_THEN_MPROTECT) || defined(EXECUTABLE_VIA_MMAP_SHARED_MACOS) || defined(EXECUTABLE_VIA_MMAP_SHARED_NETBSD)
 #include <sys/types.h>
 #include <sys/mman.h>
 #endif
 
-/* Declare mmap(). */
-#if defined(EXECUTABLE_VIA_MMAP) || defined(EXECUTABLE_VIA_MMAP_FILE_SHARED)
+/* Declare mmap() and, if present, mremap() or memfd_create(). */
+#if defined(EXECUTABLE_VIA_MMAP) || defined(EXECUTABLE_VIA_MMAP_SHARED_MACOS) || defined(EXECUTABLE_VIA_MMAP_SHARED_NETBSD) || defined(EXECUTABLE_VIA_MMAP_SHARED_MEMFD) || defined(EXECUTABLE_VIA_MMAP_SHARED_POSIX)
 #include <sys/types.h>
 #include <sys/mman.h>
 #endif
 
+/* Declare mach_vm_remap.  */
+#if defined(EXECUTABLE_VIA_MMAP_SHARED_MACOS)
+#include <mach/mach.h>
+/* Declaring it ourselves is easier than including <mach/mach_vm.h>.  */
+extern
+#ifdef __cplusplus
+"C"
+#endif
+kern_return_t mach_vm_remap (vm_map_t target_task,
+                             mach_vm_address_t *target_address, /* in/out */
+                             mach_vm_size_t size,
+                             mach_vm_offset_t mask,
+                             int flags,
+                             vm_map_t src_task,
+                             mach_vm_address_t src_address,
+                             boolean_t copy,
+                             vm_prot_t *cur_protection, /* out */
+                             vm_prot_t *max_protection, /* out */
+                             vm_inherit_t inheritance);
+#endif
+
+#if !defined(CODE_EXECUTABLE) && defined(EXECUTABLE_VIA_MMAP_SHARED_POSIX)
 /* Declare open(). */
-#if defined(EXECUTABLE_VIA_MMAP_FILE_SHARED)
-#include <sys/types.h>
-#include <unistd.h>
-#include <fcntl.h>
+# include <sys/types.h>
+# include <unistd.h>
+# include <fcntl.h>
+/* For finding an appropriate location for the temporary file. */
+# if defined(__linux__) || defined(__ANDROID__)
+#  include <sys/statfs.h>
+#  include <sys/statvfs.h>
+#  include <mntent.h>
+# endif
+# if defined(__OpenBSD__)
+#  include <sys/types.h>
+#  include <sys/mount.h>
+# endif
+# include <string.h>
 #endif
 
 /* Declare VirtualAlloc(), GetSystemInfo. */
@@ -201,7 +239,8 @@ extern void __TR_clear_cache();
 #include "clean-temp-simple.h"
 #endif
 
-#if !defined(CODE_EXECUTABLE) && defined(EXECUTABLE_VIA_MMAP_FILE_SHARED)
+#if !defined(CODE_EXECUTABLE) && defined(EXECUTABLE_VIA_MMAP_SHARED_POSIX)
+
 /* Opens a file descriptor and attempts to make it non-inheritable. */
 static int open_noinherit (const char *filename, int flags, int mode)
 {
@@ -220,6 +259,148 @@ static int open_noinherit (const char *filename, int flags, int mode)
   return fd;
 # endif
 }
+
+/* Finding an appropriate location for the temporary file. */
+# if defined(__linux__) || defined(__ANDROID__)
+static int is_usable_mount(const struct statfs *fsp, const char *dir)
+{
+  unsigned int fs_type = fsp->f_type;
+  if (fs_type == 0xef53                                 /* ext2, ext3, ext4 */
+      || fs_type == 0x58465342                          /* xfs */
+      || fs_type == 0x3153464a                          /* IBM jfs */
+      || fs_type == 0x9123683e                          /* btrfs */
+      || fs_type == 0x4d44                              /* vfat */
+      || fs_type == 0x2011bab0                          /* exfat */
+      || fs_type == 0x00011954 || fs_type == 0x19540119 /* BSD ufs */
+      || fs_type == 0x858458f6                          /* ramfs */
+      || fs_type == 0x01021994                          /* tmpfs */)
+    /* A local, possibly writable file system. */
+    if ((fsp->f_flags & (ST_RDONLY | ST_NOEXEC)) == 0)
+      /* It is writable and does not use the "noexec" mount option. */
+      if (access (dir, R_OK | W_OK | X_OK) == 0)
+        /* This directory should work.  */
+        return 1;
+  return 0;
+}
+static int is_usable_mntent(const struct mntent *me, const char *dir)
+{
+  const char *me_type = me->mnt_type;
+  if (strcmp (me_type, "ext2") == 0     /* ext2 */
+      || strcmp (me_type, "ext3") == 0  /* ext3 */
+      || strcmp (me_type, "ext4") == 0  /* ext4 */
+      || strcmp (me_type, "xfs") == 0   /* xfs */
+      || strcmp (me_type, "jfs") == 0   /* IBM jfs */
+      || strcmp (me_type, "btrfs") == 0 /* btrfs */
+      || strcmp (me_type, "vfat") == 0  /* vfat */
+      || strcmp (me_type, "exfat") == 0 /* exfat */
+      || strcmp (me_type, "ufs") == 0   /* BSD ufs */
+      || strcmp (me_type, "ramfs") == 0 /* ramfs */
+      || strcmp (me_type, "tmpfs") == 0 /* tmpfs */)       //?
+    /* A local, possibly writable file system. */
+    if (!hasmntopt (me, "ro") && !hasmntopt (me, "noexec"))
+      /* It is writable and does not use the "noexec" mount option. */
+      if (access (dir, R_OK | W_OK | X_OK) == 0)
+        /* This directory should work.  */
+        return 1;
+  return 0;
+}
+# endif
+# if defined(__OpenBSD__)
+static int is_usable_mount(const struct statfs *fsp, const char *dir)
+{
+  const char *fs_type = fsp->f_fstypename;
+  /* For the full list of file systems, look at /usr/share/man/man8/mount_*. */
+  if (strcmp (fs_type, "ffs") == 0
+      || strcmp (fs_type, "tmpfs") == 0
+      || strcmp (fs_type, "ext2fs") == 0
+      || strcmp (fs_type, "ntfs") == 0
+      || strcmp (fs_type, "msdos") == 0)
+    /* This should imply (fsp->f_flags & MNT_LOCAL) != 0. */
+    /* A local, possibly writable file system. */
+    if ((fsp->f_flags & (MNT_RDONLY | MNT_NOEXEC)) == 0)
+      /* It is writable and does not use the "noexec" mount option. */
+      if (access (dir, R_OK | W_OK | X_OK) == 0)
+        /* This directory should work.  */
+        return 1;
+  return 0;
+}
+# endif
+
+# if defined(__linux__) || defined(__ANDROID__) || defined(__OpenBSD__)
+/* Return the name of some directory, hopefully
+    - with rwx permissions for the current user,
+    - on a local (not network-backed) file system,
+    - without mount options that prevent PROT_EXEC mappings. */
+static const char * local_rwx_tmp_dir (void)
+{
+  {
+    /* Try /tmp first.  */
+    const char *dir = "/tmp";
+    struct statfs fs;
+    if (statfs (dir, &fs) == 0 && is_usable_mount (&fs, dir))
+      /* This directory should work.  */
+      return dir;
+  }
+#  if defined(__linux__) || defined(__ANDROID__)
+  {
+    FILE *fp = setmntent (MOUNTED, "r");
+    if (fp != NULL)
+      {
+        struct mntent mntent_buf;
+        char buf[1000];
+        struct mntent *me;
+        while ((me = getmntent_r (fp, &mntent_buf, buf, sizeof (buf))) != NULL)
+          {
+            const char *dir = me->mnt_dir;
+            if (is_usable_mntent (me, dir))
+              {
+                /* This directory should work. */
+                dir = strdup (dir);
+                if (dir != NULL)
+                  {
+                    endmntent (fp);
+                    return dir;
+                  }
+              }
+          }
+        endmntent (fp);
+      }
+  }
+#  endif
+#  if defined(__OpenBSD__)
+  {
+    struct statfs *fsp;
+    int entries = getmntinfo (&fsp, MNT_NOWAIT);
+    if (entries >= 0)
+      for (; entries-- > 0; fsp++)
+        {
+          const char *dir = fsp->f_mntonname;
+          if (is_usable_mount (fsp, dir))
+            {
+              /* This directory should work. */
+              dir = strdup (dir);
+              if (dir != NULL)
+                  return dir;
+            }
+        }
+  }
+#  endif
+  {
+    /* Try $TMPDIR last.  */
+    const char *dir = getenv("TMPDIR");
+    if (dir != NULL && dir[0] == '/')
+      {
+        struct statfs fs;
+        if (statfs (dir, &fs) == 0 && is_usable_mount (&fs, dir))
+          /* This directory should work.  */
+          return dir;
+      }
+  }
+  /* This will probably not work... */
+  return "/tmp";
+}
+# endif
+
 #endif
 
 /* Length and alignment of trampoline */
@@ -341,7 +522,7 @@ static int open_noinherit (const char *filename, int flags, int mode)
 static long pagesize = 0;
 #endif
 
-#if !defined(CODE_EXECUTABLE) && defined(EXECUTABLE_VIA_MMAP_FILE_SHARED)
+#if !defined(CODE_EXECUTABLE) && (defined(EXECUTABLE_VIA_MMAP_SHARED_MEMFD) || defined(EXECUTABLE_VIA_MMAP_SHARED_POSIX))
 
 /* Variables needed for obtaining memory pages via mmap(). */
 static int file_fd;
@@ -350,30 +531,55 @@ static long file_length;
 /* Initialization of these variables. */
 static void for_mmap_init (void)
 {
+#if defined(EXECUTABLE_VIA_MMAP_SHARED_MEMFD)
   {
     char filename[100];
-    sprintf(filename, "%s/trampdata-%d-%ld", "/tmp", getpid (), random ());
-#if defined(KEEP_TEMP_FILE_VISIBLE)
+    sprintf(filename, "trampdata-%d-%ld", getpid (), random ());
+    file_fd = memfd_create (filename, MFD_CLOEXEC);
+    if (file_fd < 0)
+      {
+        fprintf(stderr,"trampoline: Cannot allocate RAM at %s!\n",filename);
+        abort();
+      }
+  }
+#endif
+#if defined(EXECUTABLE_VIA_MMAP_SHARED_POSIX)
+  {
+# if defined(__linux__) || defined(__ANDROID__) || defined(__OpenBSD__)
+    const char *tmpdir = local_rwx_tmp_dir();
+# else
+    const char *tmpdir = "/tmp";
+# endif
+    int pid = getpid ();
+    long int r = random ();
+    /* The sprintf below may produce up to 11 bytes for %d and up to 21 bytes
+       for %ld. */
+    char *filename = (char *) malloc (strlen(tmpdir)+1+10+11+1+21+1);
+    if (filename == NULL)
+      { fprintf(stderr,"trampoline: Out of virtual memory!\n"); abort(); }
+    sprintf(filename, "%s/trampdata-%d-%ld", tmpdir, pid, r);
+ #if defined(KEEP_TEMP_FILE_VISIBLE)
     if (register_temporary_file(filename) < 0)
       { fprintf(stderr,"trampoline: Out of virtual memory!\n"); abort(); }
-#endif
+ #endif
     file_fd = open_noinherit (filename, O_CREAT | O_RDWR | O_TRUNC, 0700);
     if (file_fd < 0)
       {
-#if defined(KEEP_TEMP_FILE_VISIBLE)
+ #if defined(KEEP_TEMP_FILE_VISIBLE)
         unregister_temporary_file(filename);
-#endif
+ #endif
         fprintf(stderr,"trampoline: Cannot open %s!\n",filename);
         abort();
       }
-#if !defined(KEEP_TEMP_FILE_VISIBLE)
+ #if !defined(KEEP_TEMP_FILE_VISIBLE)
     /* Remove the file from the file system as soon as possible, to make
        sure there is no leftover after this process terminates or crashes.
        On macOS 11.2, this does not work: It would make the mmap call below,
        with arguments PROT_READ|PROT_EXEC and MAP_SHARED, fail. */
     unlink(filename);
-#endif
+ #endif
   }
+#endif
   file_length = 0;
 }
 
@@ -403,7 +609,7 @@ __TR_function alloc_trampoline_r (__TR_function address, void* data0, void* data
   /* First, get the page size once and for all. */
   if (!pagesize)
     {
-#if defined(EXECUTABLE_VIA_MMAP_FILE_SHARED)
+#if defined(EXECUTABLE_VIA_MMAP_SHARED_MEMFD) || defined(EXECUTABLE_VIA_MMAP_SHARED_POSIX)
       /* Use a once-only initializer here, since simultaneous execution of
          for_mmap_init() in multiple threads must be avoided. */
       gl_once (for_mmap_once, for_mmap_init);
@@ -440,8 +646,38 @@ __TR_function alloc_trampoline_r (__TR_function address, void* data0, void* data
         { fprintf(stderr,"trampoline: Out of virtual memory!\n"); abort(); }
       page_end = page + pagesize;
 #else
-#ifdef EXECUTABLE_VIA_MMAP_FILE_SHARED
+#if defined(EXECUTABLE_VIA_MMAP_SHARED_MACOS) || defined(EXECUTABLE_VIA_MMAP_SHARED_NETBSD) || defined(EXECUTABLE_VIA_MMAP_SHARED_MEMFD) || defined(EXECUTABLE_VIA_MMAP_SHARED_POSIX)
       char* page_x;
+ #if defined(EXECUTABLE_VIA_MMAP_SHARED_MACOS)
+      /* Allocate one more page. */
+      page = (char*)mmap(NULL,pagesize,PROT_READ|PROT_WRITE,MAP_PRIVATE|MAP_ANON,-1,0);
+      if (page == (char*)(-1))
+        { fprintf(stderr,"trampoline: Out of virtual memory!\n"); abort(); }
+      {
+        vm_map_t self = mach_task_self ();
+        mach_vm_address_t target_address = 0;
+        vm_prot_t cur_prot;
+        vm_prot_t max_prot;
+        kern_return_t ret = mach_vm_remap (self, &target_address, pagesize, 0, VM_FLAGS_ANYWHERE, self, (mach_vm_address_t) (unsigned long) page, FALSE, &cur_prot, &max_prot, VM_INHERIT_NONE);
+        if (ret != KERN_SUCCESS)
+          { fprintf(stderr,"trampoline: mach_vm_remap failed!\n"); abort(); }
+        page_x = (char *) (unsigned long) target_address;
+      }
+      if (mprotect(page_x,pagesize,PROT_READ|PROT_EXEC) < 0)
+        { fprintf(stderr,"trampoline: mprotect after mach_vm_remap failed!\n"); abort(); }
+ #endif
+ #if defined(EXECUTABLE_VIA_MMAP_SHARED_NETBSD)
+      /* Allocate one more page. */
+      page = (char*)mmap(NULL,pagesize,PROT_READ|PROT_WRITE|PROT_MPROTECT(PROT_READ|PROT_WRITE|PROT_EXEC),MAP_PRIVATE|MAP_ANON,-1,0);
+      if (page == (char*)(-1))
+        { fprintf(stderr,"trampoline: Out of virtual memory!\n"); abort(); }
+      page_x = (char*)mremap(page,pagesize,NULL,pagesize,MAP_REMAPDUP);
+      if (page_x == (char*)(-1))
+        { fprintf(stderr,"trampoline: mremap failed!\n"); abort(); }
+      if (mprotect(page_x,pagesize,PROT_READ|PROT_EXEC) < 0)
+        { fprintf(stderr,"trampoline: mprotect after mremap failed!\n"); abort(); }
+ #endif
+ #if defined(EXECUTABLE_VIA_MMAP_SHARED_MEMFD) || defined(EXECUTABLE_VIA_MMAP_SHARED_POSIX)
       /* Extend the file by one page. */
       long new_file_length = file_length + pagesize;
       if (ftruncate(file_fd,new_file_length) < 0)
@@ -452,6 +688,7 @@ __TR_function alloc_trampoline_r (__TR_function address, void* data0, void* data
       if (page == (char*)(-1) || page_x == (char*)(-1))
         { fprintf(stderr,"trampoline: Out of virtual memory!\n"); abort(); }
       file_length = new_file_length;
+ #endif
       page_end = page + pagesize;
       /* Link the two pages together. */
       ((intptr_t*)page)[0] = page_x - page;
@@ -489,7 +726,7 @@ __TR_function alloc_trampoline_r (__TR_function address, void* data0, void* data
   }
 #endif
 
-#if !defined(CODE_EXECUTABLE) && defined(EXECUTABLE_VIA_MMAP_FILE_SHARED)
+#if !defined(CODE_EXECUTABLE) && (defined(EXECUTABLE_VIA_MMAP_SHARED_MACOS) || defined(EXECUTABLE_VIA_MMAP_SHARED_NETBSD) || defined(EXECUTABLE_VIA_MMAP_SHARED_MEMFD) || defined(EXECUTABLE_VIA_MMAP_SHARED_POSIX))
   /* Find the executable address corresponding to the writable address. */
   { uintptr_t page = (uintptr_t) function & -(intptr_t)pagesize;
     function_x = function + ((intptr_t*)page)[0];
@@ -1455,7 +1692,7 @@ void free_trampoline_r (__TR_function function)
   function = (__TR_function)((char*)function - TRAMP_BIAS);
 #endif
 #if !defined(CODE_EXECUTABLE) && !defined(EXECUTABLE_VIA_MALLOC_THEN_MPROTECT)
-#ifdef EXECUTABLE_VIA_MMAP_FILE_SHARED
+#if defined(EXECUTABLE_VIA_MMAP_SHARED_MACOS) || defined(EXECUTABLE_VIA_MMAP_SHARED_NETBSD) || defined(EXECUTABLE_VIA_MMAP_SHARED_MEMFD) || defined(EXECUTABLE_VIA_MMAP_SHARED_POSIX)
   /* Find the writable address corresponding to the executable address. */
   { uintptr_t page_x = (uintptr_t) function & -(intptr_t)pagesize;
     function -= ((intptr_t*)page_x)[0];
@@ -1480,7 +1717,7 @@ int is_trampoline_r (void* function)
   if (is_tramp(((char*)function - TRAMP_BIAS)))
     {
       char* function_w;
-#ifdef EXECUTABLE_VIA_MMAP_FILE_SHARED
+#if defined(EXECUTABLE_VIA_MMAP_SHARED_MACOS) || defined(EXECUTABLE_VIA_MMAP_SHARED_NETBSD) || defined(EXECUTABLE_VIA_MMAP_SHARED_MEMFD) || defined(EXECUTABLE_VIA_MMAP_SHARED_POSIX)
       /* Find the writable address corresponding to the executable address. */
       { uintptr_t page_x = (uintptr_t) function & -(intptr_t)pagesize;
         function_w = function - ((intptr_t*)page_x)[0];

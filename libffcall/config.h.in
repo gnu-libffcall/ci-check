@@ -394,9 +394,21 @@
 /* mmaping of the special device /dev/zero works */
 #undef HAVE_MMAP_DEVZERO
 
-/* have an mmap() function that, with MAP_SHARED, can make memory pages
+/* have an mmap() function that, together with mach_vm_remap(), can make
+   memory pages executable */
+#undef HAVE_MMAP_SHARED_MACOS_CAN_EXEC
+
+/* have an mmap() function that, with MAP_SHARED on a memfd descriptor, can
+   make memory pages executable */
+#undef HAVE_MMAP_SHARED_MEMFD_CAN_EXEC
+
+/* have an mmap() function that, together with mremap(), can make memory pages
    executable */
-#undef HAVE_MMAP_SHARED_CAN_EXEC
+#undef HAVE_MMAP_SHARED_NETBSD_CAN_EXEC
+
+/* have an mmap() function that, with MAP_SHARED on a file, can make memory
+   pages executable */
+#undef HAVE_MMAP_SHARED_POSIX_CAN_EXEC
 
 /* Define to 1 if you have the 'mprotect' function. */
 #undef HAVE_MPROTECT
