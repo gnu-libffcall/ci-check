@@ -1,3 +1,245 @@
+2024-09-02  Bruno Haible  <bruno@clisp.org>
+
+	build: Trim the code size of gnulib dependencies.
+	* gnulib-local/modules/libffcall-imports: New file.
+	* Makefile.maint (GNULIB_MODULES): Remove clean-temp-simple, hasmntopt,
+	lock, vma-prot. Add libffcall-imports.
+	(gnulib-m4/gnulib-cache.m4): Pass the options --local-dir and
+	--conditional-dependencies to gnulib-tool.
+
+2024-09-02  Bruno Haible  <bruno@clisp.org>
+
+	vacall: Fix build failure on Haiku (x86_64).
+	* vacall/Makefile.devel (vacall-x86_64-macro.S): On Haiku as well, use
+	the variant compiled with -fPIC. Needed because without -fPIC, the .text
+	section has a R_X86_64_PC32 relocation.
+
+2024-08-29  Bruno Haible  <bruno@clisp.org>
+
+	Avoid collision of different functions with the same name.
+	* trampoline/cache-powerpc.c (__TR_clear_cache_3): Renamed from
+	__TR_clear_cache.
+	* trampoline/cache-powerpc64.c (__TR_clear_cache_3): Renamed from
+	__TR_clear_cache.
+	* trampoline/trampoline.c: On powerpc*, use __TR_clear_cache_3 instead
+	of __TR_clear_cache.
+	* callback/trampoline_r/cache-powerpc.c (__TR_clear_cache_2): Renamed
+	from __TR_clear_cache.
+	* callback/trampoline_r/cache-powerpc64.c (__TR_clear_cache_2): Renamed
+	from __TR_clear_cache.
+	* callback/trampoline_r/trampoline.c: On powerpc*, use
+	__TR_clear_cache_2 instead of __TR_clear_cache.
+
+2024-08-29  Bruno Haible  <bruno@clisp.org>
+
+	trampoline: Drop support for K&R C compilers.
+	* trampoline/cache.c (__TR_clear_cache): Use ANSI C syntax.
+	* trampoline/trampoline.c (__TR_clear_cache_4, __TR_clear_cache):
+	Declare with parameters.
+	* callback/trampoline_r/trampoline.c (__TR_clear_cache_2,
+	__TR_clear_cache): Likewise.
+
+2024-08-29  Bruno Haible  <bruno@clisp.org>
+
+	trampoline: Simplify code structure.
+	* trampoline/trampoline.c (alloc_trampoline): Do the final mprotect call
+	before filling out the trampoline.
+	* callback/trampoline_r/trampoline.c (alloc_trampoline_r): Likewise.
+
+2024-08-29  Bruno Haible  <bruno@clisp.org>
+
+	trampoline: Fix test failure on OpenBSD/arm64.
+	* Makefile.maint (GNULIB_MODULES): Add vma-prot.
+	* trampoline/trampoline.c: Include vma-prot.h.
+	(is_trampoline): On OpenBSD, test first whether the function's code is
+	readable.
+	* callback/trampoline_r/trampoline.c: Include vma-prot.h.
+	(is_trampoline_r): On OpenBSD, test first whether the function's code is
+	readable.
+	* NEWS: Mention the improvement.
+
+2024-08-29  Bruno Haible  <bruno@clisp.org>
+
+	build: Verify the license of imported gnulib modules.
+	* Makefile.maint (gnulib-m4/gnulib-cache.m4): Pass option --gpl=2 to
+	gnulib-tool.
+
+2024-08-25  Bruno Haible  <bruno@clisp.org>
+
+	trampoline: Fix compilation error on Linux/hppa.
+	* trampoline/trampoline.c (alloc_trampoline, is_trampoline): Use
+	'volatile' to block an invalid GCC optimization.
+	* callback/trampoline_r/trampoline.c (alloc_trampoline_r,
+	is_trampoline_r): Likewise.
+	* NEWS: Mention it.
+
+2024-08-25  Bruno Haible  <bruno@clisp.org>
+
+	vacall: Fix build failure on Linux/hppa.
+	* vacall/Makefile.devel (vacall-hppa-linux-pic.s): New rule.
+	(vacall-hppa-macro.S): Combine the PIC and non-PIC code in a single
+	file.
+
+2024-08-25  Bruno Haible  <bruno@clisp.org>
+
+	A simpler fix for Linux/ia64.
+	* avcall/avcall-ia64.c (avcall_call): Revert last change. Use
+	__builtin_alloca to allocate the stack frame.
+
+2024-08-25  Bruno Haible  <bruno@clisp.org>
+
+	Fix the support for Linux/ia64.
+	In avcall, the l_l6J and l_l4K tests were failing.
+	* avcall/avcall-ia64.c (avcall_call): Remove argframe variable. Don't
+	make side effects on sp = r12. Instead, force the compiler to build a
+	stack frame for up to 256 arguments.
+	* NEWS: Mention the fix.
+
+2024-08-24  Bruno Haible  <bruno@clisp.org>
+
+	Fix shared library support in 32-bit mode on FreeBSD/powerpc64.
+	* libtool-patches/libtool-freebsd-biarch.diff: New file, from
+	<https://savannah.gnu.org/patch/index.php?10469>.
+	* libtool-patches/README: Mention it.
+	* Makefile.maint (libtool-imported-files): Apply it.
+
+2024-08-23  Bruno Haible  <bruno@clisp.org>
+
+	Add support for FreeBSD 14/powerpc64.
+	This is the first big-endian powerpc64-ELFv2 platform.
+	* avcall/avcall-powerpc64.c (avcall_call): Add big-endian variant of the
+	small-struct return handling code.
+	* vacall/vacall-powerpc64.c (vacall_receiver): Likewise.
+	* avcall/Makefile.devel (avcall-powerpc64-elfv2-linux.S): Include the
+	code for both little-endian and big-endian platforms.
+	* vacall/Makefile.devel (vacall-powerpc64-elfv2-linux.S): Likewise.
+	* callback/vacall_r/Makefile.devel (vacall-powerpc64-elfv2-linux.S):
+	Likewise.
+	* NEWS: Mention the new port.
+
+2024-08-23  Bruno Haible  <bruno@clisp.org>
+
+	Add support for FreeBSD 14/powerpc64le.
+	FreeBSD 14 breaks the long-standing convention that, on powerpc64,
+	_BIG_ENDIAN is defined on big-endian machines only and _LITTLE_ENDIAN
+	is defined on little-endian machines only.
+	* avcall/avcall-internal.h: On powerpc64, test __BIG_ENDIAN__ or
+	__LITTLE_ENDIAN__, not _BIG_ENDIAN or _LITTLE_ENDIAN, as FreeBSD 14
+	breaks the latter.
+	* vacall/vacall-internal.h: Likewise.
+	* NEWS: Mention the new port.
+
+2024-08-21  Bruno Haible  <bruno@clisp.org>
+
+	Add support for FreeBSD/powerpc and NetBSD/powerpc.
+	* avcall/avcall-powerpc.c (avcall_call): Add support for structs
+	returned in registers, of size 3, 5..7. Code copied from avcall-hppa.c.
+	* avcall/avcall-internal.h (__av_reg_struct_return): Define differently
+	for FreeBSD/powerpc and NetBSD/powerpc.
+	* avcall/avcall.h (__AV_STRUCT_RETURN): Include the
+	__AV_SMALL_STRUCT_RETURN flag on FreeBSD/powerpc and NetBSD/powerpc.
+	* vacall/vacall-powerpc.c (vacall_receiver): Add support for structs
+	returned in registers, of size 3, 5..7. Code copied from vacall-hppa.c.
+	* vacall/vacall-internal.h (__va_reg_struct_return): Define differently
+	for FreeBSD/powerpc and NetBSD/powerpc.
+	* vacall/vacall.h (__VA_STRUCT_RETURN): Include the
+	__VA_SMALL_STRUCT_RETURN flag on FreeBSD/powerpc and NetBSD/powerpc.
+	* callback/vacall_r/vacall_r.h: Likewise.
+	* NEWS: Mention the new ports.
+
+2024-08-21  Bruno Haible  <bruno@clisp.org>
+
+	Add support for Linux/riscv64 with musl libc.
+	* trampoline/trampoline.c (__riscv_flush_icache): New declaration.
+	* callback/trampoline_r/trampoline.c: Likewise.
+	* NEWS: Mention the new port.
+
+2024-08-20  Bruno Haible  <bruno@clisp.org>
+
+	Fix support for older Linux versions (regression 2024-08-18).
+	* trampoline/trampoline.c (is_usable_mount): Skip f_flags test if
+	'struct statfs' does not have this field.
+	* callback/trampoline_r/trampoline.c: Likewise.
+
+2024-08-20  Bruno Haible  <bruno@clisp.org>
+
+	Fix support for FreeBSD 12/arm, broken by last commit.
+	* m4/cc-gcc.m4 (CL_CC_GCC): Revert last change.
+	* cross-tools/cross.conf (arm): Add cross-compiler for
+	arm-linux-gnueabi.
+	* configure.ac: If HOST_CPU_C_ABI is arm or armhf, add a '-old' or
+	'-eabi' suffix.
+	* avcall/avcall-arm.c (avcall_call): With GCC >= 4, use __builtin_alloca
+	to reserve room for the stack frame.
+	* avcall/avcall-armhf.c (avcall_call): Remove redundant stack pointer
+	alignment.
+	* avcall/Makefile.devel (avcall-arm-old-macro.S): Renamed from
+	avcall-arm-macro.S.
+	(avcall-arm-eabi-macro.S): New rule.
+	(avcall-armhf-eabi-macro.S): Renamed from avcall-armhf-macro.S. Use
+	gcc 6.5 option -masm-syntax-unified.
+	* avcall/Makefile.in (avcall-arm-old.lo): Renamed from avcall-arm.lo.
+	(avcall-arm-old.s): Renamed from avcall-arm.s.
+	(avcall-arm-eabi.lo, avcall-arm-eabi.s): New rules.
+	(avcall-armhf-eabi.lo): Renamed from avcall-armhf.lo.
+	(avcall-armhf-eabi.s): Renamed from avcall-armhf.s.
+	(clean, SOURCE_FILES): Update.
+	* vacall/Makefile.devel (vacall-arm-old-linux.s): Renamed from
+	vacall-arm-linux.s.
+	(vacall-arm-old-linux-pic.s): Renamed from vacall-arm-linux-pic.s.
+	(vacall-arm-old-macro.S): Renamed from vacall-arm-macro.S.
+	(vacall-arm-eabi-linux.s, vacall-arm-eabi-linux-pic.s,
+	vacall-arm-eabi-macro.S): New rules.
+	(vacall-armhf-eabi-linux.s): Renamed from vacall-armhf-linux.s. Use
+	gcc 6.5 option -masm-syntax-unified.
+	(vacall-armhf-eabi-linux-pic.s): Renamed from vacall-armhf-linux-pic.s.
+	Use gcc 6.5 option -masm-syntax-unified.
+	(vacall-armhf-eabi-macro.S): Renamed from vacall-armhf-macro.S.
+	* vacall/Makefile.in (vacall-arm-old.@OBJEXT@): Renamed from
+	vacall-arm.@OBJEXT@.
+	(vacall-arm-old.s): Renamed from vacall-arm.s.
+	(vacall-arm-eabi.@OBJEXT@, vacall-arm-eabi.s): New rules.
+	(vacall-armhf-eabi.@OBJEXT@): Renamed from vacall-armhf.@OBJEXT@.
+	(vacall-armhf-eabi.s): Renamed from vacall-armhf.s.
+	(clean, SOURCE_FILES): Update.
+	* callback/vacall_r/Makefile.devel (vacall-arm-old-macro.S): Renamed
+	from vacall-arm-macro.S.
+	(vacall-arm-eabi-macro.S): New rule.
+	(vacall-armhf-eabi-macro.S): Renamed from vacall-armhf-macro.S. Use
+	gcc 6.5 option -masm-syntax-unified.
+	* callback/vacall_r/Makefile.in (vacall-arm-old.lo): Renamed from
+	vacall-arm.lo.
+	(vacall-arm-old.s): Renamed from vacall-arm.s.
+	(vacall-arm-eabi.lo, vacall-arm-eabi.s): New rules.
+	(vacall-armhf-eabi.lo): Renamed from vacall-armhf.lo.
+	(vacall-armhf-eabi.s): Renamed from vacall-armhf.s.
+	(clean, SOURCE_FILES): Update.
+
+	Add support for Android.
+	* m4/cc-gcc.m4 (CL_CC_GCC): If using clang as compiler, add the option
+	-no-integrated-as to GCC_X_NONE.
+	* NEWS: Mention Android as supported.
+
+2024-08-19  Bruno Haible  <bruno@clisp.org>
+
+	trampoline: Fix portability problems to Android API levels < 30.
+	* m4/codeexec.m4 (FFCALL_CODEEXEC): Test whether mmap()+mprotect works,
+	independently of the result of whether malloc()+mprotect works. Test
+	whether memfd_create exists at the given API level, before trying to use
+	it.
+	* trampoline/trampoline.c: On Android, prefer mmap()+mprotect to the
+	temp file location approach.
+	* callback/trampoline_r/trampoline.c: Likewise.
+
+2024-08-19  Bruno Haible  <bruno@clisp.org>
+
+	trampoline: Fix portability problems to Android API levels < 26.
+	* configure.ac: Test for setmntent.
+	* trampoline/trampoline.c: On Android, test HAVE_SETMNTENT, since
+	API levels < 21 don't have the necessary functions.
+	* callback/trampoline_r/trampoline.c: Likewise.
+	* Makefile.maint (GNULIB_MODULES): Add hasmntopt.
+
 2024-08-18  Bruno Haible  <bruno@clisp.org>
 
 	trampoline: Try harder to find a temp file location on Linux, OpenBSD.

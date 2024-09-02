@@ -87,6 +87,16 @@ extern void (*tramp_r) (); /* trampoline prototype */
       #define EXECUTABLE_VIA_MMAP_SHARED_NETBSD
     #elif HAVE_MMAP_SHARED_MEMFD_CAN_EXEC          /* Linux >= 3.17, FreeBSD >= 13.0 */
       #define EXECUTABLE_VIA_MMAP_SHARED_MEMFD
+    #elif defined __ANDROID__ && HAVE_MPROTECT_AFTER_MMAP_CAN_EXEC < 0 /* Linux */
+      /* On Android, SELinux is controlling what is allowed, see
+         <https://source.android.com/docs/security/features/selinux>.
+         Using memfd_create() might violate the Android API level.
+         Using malloc()/mmap() then mprotect PROT_WRITE|PROT_EXEC might be
+         blocked by SELinux.
+         Using a temporary file with separate memory mappings would depend
+         on finding an appropriate writable directory.
+         It's a dilemma. Let's hope that mmap() then mprotect works.  */
+      #define EXECUTABLE_VIA_MMAP_THEN_MPROTECT
     #elif HAVE_MMAP_SHARED_POSIX_CAN_EXEC          /* Linux, HardenedBSD */
       #define EXECUTABLE_VIA_MMAP_SHARED_POSIX
     #else
@@ -167,7 +177,7 @@ kern_return_t mach_vm_remap (vm_map_t target_task,
 # include <unistd.h>
 # include <fcntl.h>
 /* For finding an appropriate location for the temporary file. */
-# if defined(__linux__) || defined(__ANDROID__)
+# if defined(__linux__) || (defined(__ANDROID__) && HAVE_SETMNTENT)
 #  include <sys/statfs.h>
 #  include <sys/statvfs.h>
 #  include <mntent.h>
@@ -214,6 +224,10 @@ kern_return_t mach_vm_remap (vm_map_t target_task,
 #if defined(__mips__) || defined(__mipsn32__) || defined(__mips64__) || defined(__riscv32__) || defined(__riscv64__)
 #ifdef HAVE_SYS_CACHECTL_H /* IRIX, Linux */
 #include <sys/cachectl.h>
+#if defined(__riscv64__) && !defined(__GLIBC__)
+/* musl libc lacks a declaration of this function. */
+extern int __riscv_flush_icache (void *start, void *end, unsigned long flags);
+#endif
 #else
 #ifdef __OpenBSD__
 #include <machine/sysarch.h>
@@ -221,12 +235,17 @@ kern_return_t mach_vm_remap (vm_map_t target_task,
 #endif
 #endif
 /* Inline assembly function for instruction cache flush. */
-#if defined(__sparc__) || defined(__sparc64__) || defined(__alpha__) || defined(__hppaold__) || defined(__hppa64old__) || defined(__powerpcsysv4__) || defined(__powerpc64_elfv2__)
 #if defined(__sparc__) || defined(__sparc64__)
-extern void __TR_clear_cache_2();
-#else
-extern void __TR_clear_cache();
+extern void __TR_clear_cache_2 (char* first_addr, char* last_addr);
 #endif
+#if defined(__alpha__)
+extern void __TR_clear_cache (void);
+#endif
+#if defined(__hppaold__) || defined(__hppa64old__)
+extern void __TR_clear_cache (char* first_addr, char* last_addr);
+#endif
+#if defined(__powerpcsysv4__) || defined(__powerpc64_elfv2__)
+extern void __TR_clear_cache_2 (char* first_addr);
 #endif
 #endif
 
@@ -238,6 +257,9 @@ extern void __TR_clear_cache();
 /* Support for temporary files that are cleaned up automatically. */
 #include "clean-temp-simple.h"
 #endif
+
+/* Support for testing the protection of a memory range.  */
+#include "vma-prot.h"
 
 #if !defined(CODE_EXECUTABLE) && defined(EXECUTABLE_VIA_MMAP_SHARED_POSIX)
 
@@ -261,7 +283,7 @@ static int open_noinherit (const char *filename, int flags, int mode)
 }
 
 /* Finding an appropriate location for the temporary file. */
-# if defined(__linux__) || defined(__ANDROID__)
+# if defined(__linux__) || (defined(__ANDROID__) && HAVE_SETMNTENT)
 static int is_usable_mount(const struct statfs *fsp, const char *dir)
 {
   unsigned int fs_type = fsp->f_type;
@@ -275,7 +297,10 @@ static int is_usable_mount(const struct statfs *fsp, const char *dir)
       || fs_type == 0x858458f6                          /* ramfs */
       || fs_type == 0x01021994                          /* tmpfs */)
     /* A local, possibly writable file system. */
+    /* Older Linux (glibc < 2.13) has no f_flags in 'struct statfs'.  */
+#  if !(__GLIBC__ == 2 && __GLIBC_MINOR__ < 13)
     if ((fsp->f_flags & (ST_RDONLY | ST_NOEXEC)) == 0)
+#  endif
       /* It is writable and does not use the "noexec" mount option. */
       if (access (dir, R_OK | W_OK | X_OK) == 0)
         /* This directory should work.  */
@@ -326,7 +351,7 @@ static int is_usable_mount(const struct statfs *fsp, const char *dir)
 }
 # endif
 
-# if defined(__linux__) || defined(__ANDROID__) || defined(__OpenBSD__)
+# if defined(__linux__) || (defined(__ANDROID__) && HAVE_SETMNTENT) || defined(__OpenBSD__)
 /* Return the name of some directory, hopefully
     - with rwx permissions for the current user,
     - on a local (not network-backed) file system,
@@ -341,7 +366,7 @@ static const char * local_rwx_tmp_dir (void)
       /* This directory should work.  */
       return dir;
   }
-#  if defined(__linux__) || defined(__ANDROID__)
+#  if defined(__linux__) || (defined(__ANDROID__) && HAVE_SETMNTENT)
   {
     FILE *fp = setmntent (MOUNTED, "r");
     if (fp != NULL)
@@ -545,7 +570,7 @@ static void for_mmap_init (void)
 #endif
 #if defined(EXECUTABLE_VIA_MMAP_SHARED_POSIX)
   {
-# if defined(__linux__) || defined(__ANDROID__) || defined(__OpenBSD__)
+# if defined(__linux__) || (defined(__ANDROID__) && HAVE_SETMNTENT) || defined(__OpenBSD__)
     const char *tmpdir = local_rwx_tmp_dir();
 # else
     const char *tmpdir = "/tmp";
@@ -726,6 +751,21 @@ __TR_function alloc_trampoline_r (__TR_function address, void* data0, void* data
   }
 #endif
 
+  /* Set memory protection to "executable". */
+#if !defined(CODE_EXECUTABLE)
+#if defined(EXECUTABLE_VIA_MALLOC_THEN_MPROTECT) || defined(EXECUTABLE_VIA_MMAP_THEN_MPROTECT)
+  /* Call mprotect on the pages that contain the range. */
+  { uintptr_t start_addr = (uintptr_t) function;
+    uintptr_t end_addr = (uintptr_t) (function + TRAMP_LENGTH);
+    start_addr = start_addr & -pagesize;
+    end_addr = (end_addr + pagesize-1) & -pagesize;
+   {uintptr_t len = end_addr - start_addr;
+    if (mprotect((void*)start_addr, len, PROT_READ|PROT_WRITE|PROT_EXEC) < 0)
+      { fprintf(stderr,"trampoline: cannot make memory executable\n"); abort(); }
+  }}
+#endif
+#endif
+
 #if !defined(CODE_EXECUTABLE) && (defined(EXECUTABLE_VIA_MMAP_SHARED_MACOS) || defined(EXECUTABLE_VIA_MMAP_SHARED_NETBSD) || defined(EXECUTABLE_VIA_MMAP_SHARED_MEMFD) || defined(EXECUTABLE_VIA_MMAP_SHARED_POSIX))
   /* Find the executable address corresponding to the writable address. */
   { uintptr_t page = (uintptr_t) function & -(intptr_t)pagesize;
@@ -743,11 +783,11 @@ __TR_function alloc_trampoline_r (__TR_function address, void* data0, void* data
    */
 #ifdef __i386__
   /* function:
-   *    movl $<data>,%ecx		B9 <data>
-   *    jmp <address>			E9 <address>-<here>
+   *    movl $<data>,%ecx               B9 <data>
+   *    jmp <address>                   E9 <address>-<here>
    * here:
-   *    nop				90
-   *    nop				90
+   *    nop                             90
+   *    nop                             90
    */
   *(char *)  (function + 0) = 0xB9;
   *(long *)  (function + 1) = (long) data;
@@ -764,9 +804,9 @@ __TR_function alloc_trampoline_r (__TR_function address, void* data0, void* data
 #endif
 #ifdef __m68k__
   /* function:
-   *    movel #<data>,a0		20 7C <data>
-   *    jmp <address>			4E F9 <address>
-   *    nop				4E 71
+   *    movel #<data>,a0                20 7C <data>
+   *    jmp <address>                   4E F9 <address>
+   *    nop                             4E 71
    */
   *(short *) (function + 0) = 0x207C;
   *(long *)  (function + 2) = (long) data;
@@ -784,12 +824,12 @@ __TR_function alloc_trampoline_r (__TR_function address, void* data0, void* data
 #endif
 #if (defined(__mips__) || defined(__mipsn32__)) && !defined(__mips64__)
   /* function:
-   *    lw $2,16($25)			8F 22 00 10
-   *    lw $25,20($25)			8F 39 00 14
-   *    jal $0,$25			03 20 00 09  was:  j $25   03 20 00 08
-   *    nop				00 00 00 00
-   *    .word <data>			<data>
-   *    .word <address>			<address>
+   *    lw $2,16($25)                   8F 22 00 10
+   *    lw $25,20($25)                  8F 39 00 14
+   *    jal $0,$25                      03 20 00 09  was:  j $25   03 20 00 08
+   *    nop                             00 00 00 00
+   *    .word <data>                    <data>
+   *    .word <address>                 <address>
    */
   *(unsigned int *) (function + 0) = 0x8F220010;
   *(unsigned int *) (function + 4) = 0x8F390014;
@@ -810,20 +850,20 @@ __TR_function alloc_trampoline_r (__TR_function address, void* data0, void* data
 #endif
 #ifdef __mips64old__
   /* function:
-   *    dli $2,<data>			3C 02 hi16(hi32(<data>))
-   *					34 42 lo16(hi32(<data>))
-   *					00 02 14 38
-   *					34 42 hi16(lo32(<data>))
-   *					00 02 14 38
-   *					34 42 lo16(lo32(<data>))
-   *    dli $25,<address>		3C 19 hi16(hi32(<address>))
-   *					37 39 lo16(hi32(<address>))
-   *					00 19 CC 38
-   *					37 39 hi16(lo32(<address>))
-   *					00 19 CC 38
-   *					37 39 lo16(lo32(<address>))
-   *    jal $0,$25			03 20 00 09  was:  j $25   03 20 00 08
-   *    nop				00 00 00 00
+   *    dli $2,<data>                   3C 02 hi16(hi32(<data>))
+   *                                    34 42 lo16(hi32(<data>))
+   *                                    00 02 14 38
+   *                                    34 42 hi16(lo32(<data>))
+   *                                    00 02 14 38
+   *                                    34 42 lo16(lo32(<data>))
+   *    dli $25,<address>               3C 19 hi16(hi32(<address>))
+   *                                    37 39 lo16(hi32(<address>))
+   *                                    00 19 CC 38
+   *                                    37 39 hi16(lo32(<address>))
+   *                                    00 19 CC 38
+   *                                    37 39 lo16(lo32(<address>))
+   *    jal $0,$25                      03 20 00 09  was:  j $25   03 20 00 08
+   *    nop                             00 00 00 00
    */
   /* What about big endian / little endian ?? */
   *(short *) (function + 0) = 0x3C02;
@@ -879,12 +919,12 @@ __TR_function alloc_trampoline_r (__TR_function address, void* data0, void* data
 #endif
 #ifdef __mips64__
   /* function:
-   *    ld $2,16($25)			DF 22 00 10
-   *    ld $25,24($25)			DF 39 00 18
-   *    jal $0,$25			03 20 00 09  was:  j $25   03 20 00 08
-   *    nop				00 00 00 00
-   *    .dword <data>			<data>
-   *    .dword <address>		<address>
+   *    ld $2,16($25)                   DF 22 00 10
+   *    ld $25,24($25)                  DF 39 00 18
+   *    jal $0,$25                      03 20 00 09  was:  j $25   03 20 00 08
+   *    nop                             00 00 00 00
+   *    .dword <data>                   <data>
+   *    .dword <address>                <address>
    */
   *(unsigned int *)  (function + 0) = 0xDF220010;
   *(unsigned int *)  (function + 4) = 0xDF390018;
@@ -905,10 +945,10 @@ __TR_function alloc_trampoline_r (__TR_function address, void* data0, void* data
 #endif
 #if defined(__sparc__) && !defined(__sparc64__)
   /* function:
-   *    sethi %hi(<data>),%g2		05000000 | (<data> >> 10)
-   *    sethi %hi(<address>),%g1	03000000 | (<address> >> 10)
-   *    jmp %g1+%lo(<address>)		81C06000 | (<address> & 0x3ff)
-   *    or %g2,%lo(<data>),%g2		8410A000 | (<data> & 0x3ff)
+   *    sethi %hi(<data>),%g2           05000000 | (<data> >> 10)
+   *    sethi %hi(<address>),%g1        03000000 | (<address> >> 10)
+   *    jmp %g1+%lo(<address>)          81C06000 | (<address> & 0x3ff)
+   *    or %g2,%lo(<data>),%g2          8410A000 | (<data> & 0x3ff)
    */
 #define hi(word)  ((unsigned long) (word) >> 10)
 #define lo(word)  ((unsigned long) (word) & 0x3ff)
@@ -929,14 +969,14 @@ __TR_function alloc_trampoline_r (__TR_function address, void* data0, void* data
 #endif
 #ifdef __sparc64__
   /* function:
-   *    rd %pc,%g1			83414000
-   *    ldx [%g1+24],%g2		C4586018
-   *    jmp %g2				81C08000
-   *    ldx [%g1+16],%g5		CA586010
-   *    .long high32(<data>)		<data> >> 32
-   *    .long low32(<data>)		<data> & 0xffffffff
-   *    .long high32(<address>)		<address> >> 32
-   *    .long low32(<address>)		<address> & 0xffffffff
+   *    rd %pc,%g1                      83414000
+   *    ldx [%g1+24],%g2                C4586018
+   *    jmp %g2                         81C08000
+   *    ldx [%g1+16],%g5                CA586010
+   *    .long high32(<data>)            <data> >> 32
+   *    .long low32(<data>)             <data> & 0xffffffff
+   *    .long high32(<address>)         <address> >> 32
+   *    .long low32(<address>)          <address> & 0xffffffff
    */
   *(int *)  (function + 0) = 0x83414000;
   *(int *)  (function + 4) = 0xC4586018;
@@ -957,13 +997,13 @@ __TR_function alloc_trampoline_r (__TR_function address, void* data0, void* data
 #endif
 #ifdef __alpha__
   /* function:
-   *    br $1,function..ng	00 00 20 C0
+   *    br $1,function..ng      00 00 20 C0
    * function..ng:
-   *    ldq $27,20($1)		14 00 61 A7
-   *    ldq $1,12($1)		0C 00 21 A4
-   *    jmp $31,($27),0		00 00 FB 6B
-   *    .quad <data>		<data>
-   *    .quad <address>		<address>
+   *    ldq $27,20($1)          14 00 61 A7
+   *    ldq $1,12($1)           0C 00 21 A4
+   *    jmp $31,($27),0         00 00 FB 6B
+   *    .quad <data>            <data>
+   *    .quad <address>         <address>
    */
   { static int code [4] =
       { 0xC0200000, 0xA7610014, 0xA421000C, 0x6BFB0000 };
@@ -985,19 +1025,19 @@ __TR_function alloc_trampoline_r (__TR_function address, void* data0, void* data
 #endif
 #ifdef __hppaold__
   /* function:
-   *    ldil L'<data>,%r29		23A00000 | hi(<data>)
-   *    ldil L'<address>,%r21		22A00000 | hi(<address>)
-   *    ldo R'<data>(%r29),%r29		37BD0000 | lo(<data>)
-   *    ldo R'<address>(%r21),%r21	36B50000 | lo(<address>)
-   *    bb,>=,n %r21,30,function2	C7D5C012
-   *    depi 0,31,2,%r21		D6A01C1E
-   *    ldw 4(0,%r21),%r19		4AB30008
-   *    ldw 0(0,%r21),%r21		4AB50000
+   *    ldil L'<data>,%r29              23A00000 | hi(<data>)
+   *    ldil L'<address>,%r21           22A00000 | hi(<address>)
+   *    ldo R'<data>(%r29),%r29         37BD0000 | lo(<data>)
+   *    ldo R'<address>(%r21),%r21      36B50000 | lo(<address>)
+   *    bb,>=,n %r21,30,function2       C7D5C012
+   *    depi 0,31,2,%r21                D6A01C1E
+   *    ldw 4(0,%r21),%r19              4AB30008
+   *    ldw 0(0,%r21),%r21              4AB50000
    * function2:
-   *    ldsid (0,%r21),%r1		02A010A1
-   *    mtsp %r1,%sr0			00011820
-   *    be,n 0(%sr0,%r21)		E2A00002
-   *    nop				08000240
+   *    ldsid (0,%r21),%r1              02A010A1
+   *    mtsp %r1,%sr0                   00011820
+   *    be,n 0(%sr0,%r21)               E2A00002
+   *    nop                             08000240
    */
   /* When decoding a 21-bit argument in an instruction, the hppa performs
    * the following bit manipulation:
@@ -1059,8 +1099,9 @@ __TR_function alloc_trampoline_r (__TR_function address, void* data0, void* data
    *    .long   <data>
    *    .long   <address>
    */
-  { /* work around a bug in gcc 3.* */
-    void* tramp_r_address = &tramp_r;
+  { /* The 'volatile' below works around GCC bug
+       <https://gcc.gnu.org/bugzilla/show_bug.cgi?id=116481>. */
+    void* volatile tramp_r_address = &tramp_r;
     *(long *) (function + 0) = ((long *) ((char*)tramp_r_address-2))[0];
     *(long *) (function + 4) = (long) (function + 8);
     *(long *) (function + 8) = (long) data;
@@ -1076,13 +1117,13 @@ __TR_function alloc_trampoline_r (__TR_function address, void* data0, void* data
 #endif
 #ifdef __hppa64old__
   /* function:
-   *    mfia %r27			000014BB
-   *    ldd 32(%r27),%r31		537F0040
-   *    ldd 40(%r27),%r27		537B0050
-   *    ldd 16(%r27),%r1		53610020
-   *    ldd 24(%r27),%r27		537B0030
-   *    bve (%r1)			E820D000
-   *     nop				08000240
+   *    mfia %r27                       000014BB
+   *    ldd 32(%r27),%r31               537F0040
+   *    ldd 40(%r27),%r27               537B0050
+   *    ldd 16(%r27),%r1                53610020
+   *    ldd 24(%r27),%r27               537B0030
+   *    bve (%r1)                       E820D000
+   *     nop                            08000240
    *    .align 8
    *    .dword <data>
    *    .dword <address>
@@ -1146,20 +1187,20 @@ __TR_function alloc_trampoline_r (__TR_function address, void* data0, void* data
 #endif
 #if defined(__arm__) || defined(__armhf__)
   /* function:
-   *	mov	ip,sp			E1A0C00D
-   *	stmdb	sp!,{r0,r1,r2,r3}	E92D000F
-   *	stmfd	sp!,{fp,ip,lr,pc}	E92DD800
-   *	sub	fp,ip,#20		E24CB014
-   *	sub	sp,sp,#8		E24DD008
-   *	ldr	ip,[pc,#12]		E59FC00C	@ Get <data>
-   *	str	ip,[sp,#0]		E58DC000	@ Put <data> on stack
-   *	mov	lr,pc			E1A0E00F	@ Prepare call (put return address in lr)
-   *	ldr	pc,[pc,#4]		E59FF004	@ Call <address> with the same args in registers
-   *	ldmea	fp,{fp,sp,pc}		E91BA800	@ Restore fp and sp, and return to return address.
+   *    mov     ip,sp                   E1A0C00D
+   *    stmdb   sp!,{r0,r1,r2,r3}       E92D000F
+   *    stmfd   sp!,{fp,ip,lr,pc}       E92DD800
+   *    sub     fp,ip,#20               E24CB014
+   *    sub     sp,sp,#8                E24DD008
+   *    ldr     ip,[pc,#12]             E59FC00C        @ Get <data>
+   *    str     ip,[sp,#0]              E58DC000        @ Put <data> on stack
+   *    mov     lr,pc                   E1A0E00F        @ Prepare call (put return address in lr)
+   *    ldr     pc,[pc,#4]              E59FF004        @ Call <address> with the same args in registers
+   *    ldmea   fp,{fp,sp,pc}           E91BA800        @ Restore fp and sp, and return to return address.
    * _data:
-   *	.word	<data>
+   *    .word   <data>
    * _address:
-   *	.word	<address>
+   *    .word   <address>
    */
   {
     ((long *) function)[0] = 0xE1A0C00D;
@@ -1194,12 +1235,12 @@ __TR_function alloc_trampoline_r (__TR_function address, void* data0, void* data
 #endif
 #ifdef __arm64__
   /* function:
-   *    ldr x17,.+24		580000D1
-   *    ldr x18,.+12		58000072
-   *    br x17			D61F0220
-   *    nop			D503201F
-   *    .xword <data>		<data>
-   *    .xword <address>	<address>
+   *    ldr x17,.+24            580000D1
+   *    ldr x18,.+12            58000072
+   *    br x17                  D61F0220
+   *    nop                     D503201F
+   *    .xword <data>           <data>
+   *    .xword <address>        <address>
    */
   *(int *)   (function + 0) = 0x580000D1;
   *(int *)   (function + 4) = 0x58000072;
@@ -1220,12 +1261,12 @@ __TR_function alloc_trampoline_r (__TR_function address, void* data0, void* data
 #endif
 #ifdef __powerpcsysv4__
   /* function:
-   *    {liu|lis} 11,hi16(<data>)		3D 60 hi16(<data>)
-   *    {oril|ori} 11,11,lo16(<data>)		61 6B lo16(<data>)
-   *    {liu|lis} 0,hi16(<address>)		3C 00 hi16(<address>)
-   *    {oril|ori} 0,0,lo16(<address>)		60 00 lo16(<address>)
-   *    mtctr 0					7C 09 03 A6
-   *    bctr					4E 80 04 20
+   *    {liu|lis} 11,hi16(<data>)               3D 60 hi16(<data>)
+   *    {oril|ori} 11,11,lo16(<data>)           61 6B lo16(<data>)
+   *    {liu|lis} 0,hi16(<address>)             3C 00 hi16(<address>)
+   *    {oril|ori} 0,0,lo16(<address>)          60 00 lo16(<address>)
+   *    mtctr 0                                 7C 09 03 A6
+   *    bctr                                    4E 80 04 20
    */
   *(short *) (function + 0) = 0x3D60;
   *(short *) (function + 2) = (unsigned long) data >> 16;
@@ -1275,10 +1316,10 @@ __TR_function alloc_trampoline_r (__TR_function address, void* data0, void* data
 #endif
 #ifdef __powerpc64_elfv2__
   /* function:
-   *    ld 11,16(12)		10 00 6C E9
-   *    ld 12,24(12)		18 00 8C E9
-   *    mtctr 12		A6 03 89 7D
-   *    bctr			20 04 80 4E
+   *    ld 11,16(12)            10 00 6C E9
+   *    ld 12,24(12)            18 00 8C E9
+   *    mtctr 12                A6 03 89 7D
+   *    bctr                    20 04 80 4E
    *    .quad <data>
    *    .quad <address>
    */
@@ -1345,9 +1386,9 @@ __TR_function alloc_trampoline_r (__TR_function address, void* data0, void* data
 #ifdef __x86_64__
 #ifdef __x86_64_x32__
   /* function:
-   *    movl $<data>,%r10d		41 BA <data>
-   *    movl $<address>,%rax		B8 <address>
-   *    jmp *%rax			FF E0
+   *    movl $<data>,%r10d              41 BA <data>
+   *    movl $<address>,%rax            B8 <address>
+   *    jmp *%rax                       FF E0
    */
   *(int *)   (function + 0) = ((unsigned long) data << 16) | 0xBA41;
   *(int *)   (function + 4) = ((unsigned long) address << 24) | 0xB80000 | ((unsigned long) data >> 16);
@@ -1366,9 +1407,9 @@ __TR_function alloc_trampoline_r (__TR_function address, void* data0, void* data
    (*(unsigned long *) (function + 4) << 16))
 #else
   /* function:
-   *    movabsq $<data>,%r10		49 BA <data>
-   *    movabsq $<address>,%rax		48 B8 <address>
-   *    jmp *%rax			FF E0
+   *    movabsq $<data>,%r10            49 BA <data>
+   *    movabsq $<address>,%rax         48 B8 <address>
+   *    jmp *%rax                       FF E0
    */
   *(short *) (function + 0) = 0xBA49;
   *(short *) (function + 2) = (unsigned long long) data & 0xffff;
@@ -1397,11 +1438,11 @@ __TR_function alloc_trampoline_r (__TR_function address, void* data0, void* data
 #endif
 #if defined(__s390__) && !defined(__s390x__)
   /* function:
-   *    bras %r1,.L1			A7150002
+   *    bras %r1,.L1                    A7150002
    * .L1:
-   *    lm %r0,%r1,data-.L1(%r1)	98011008
-   *    br %r1				07F1
-   *    nop				0707
+   *    lm %r0,%r1,data-.L1(%r1)        98011008
+   *    br %r1                          07F1
+   *    nop                             0707
    * data:    .long <data>
    * address: .long <address>
    */
@@ -1422,11 +1463,11 @@ __TR_function alloc_trampoline_r (__TR_function address, void* data0, void* data
 #endif
 #ifdef __s390x__
   /* function:
-   *    larl %r1,.L1			C01000000003
+   *    larl %r1,.L1                    C01000000003
    * .L1:
-   *    lmg %r0,%r1,data-.L1(%r1)	EB01100A0004
-   *    br %r1				07F1
-   *    nop				0707
+   *    lmg %r0,%r1,data-.L1(%r1)       EB01100A0004
+   *    br %r1                          07F1
+   *    nop                             0707
    * data:    .quad <data>
    * address: .quad <address>
    */
@@ -1449,10 +1490,10 @@ __TR_function alloc_trampoline_r (__TR_function address, void* data0, void* data
 #endif
 #ifdef __riscv32__
   /* function:
-   *    auipc t0,0			00000297
-   *    lw t1,20(t0)			0142A303
-   *    lw t2,16(t0)			0102A383
-   *    jr t1				00030067
+   *    auipc t0,0                      00000297
+   *    lw t1,20(t0)                    0142A303
+   *    lw t2,16(t0)                    0102A383
+   *    jr t1                           00030067
    * data:    .quad <data>
    * address: .quad <address>
    */
@@ -1475,10 +1516,10 @@ __TR_function alloc_trampoline_r (__TR_function address, void* data0, void* data
 #endif
 #ifdef __riscv64__
   /* function:
-   *    auipc t0,0			00000297
-   *    ld t1,24(t0)			0182B303
-   *    ld t2,16(t0)			0102B383
-   *    jr t1				00030067
+   *    auipc t0,0                      00000297
+   *    ld t1,24(t0)                    0182B303
+   *    ld t2,16(t0)                    0102B383
+   *    jr t1                           00030067
    * data:    .quad <data>
    * address: .quad <address>
    */
@@ -1501,12 +1542,12 @@ __TR_function alloc_trampoline_r (__TR_function address, void* data0, void* data
 #endif
 #ifdef __loongarch64__
   /* function:
-   *    pcaddu12i $r12,0		1C00000C
-   *    ld.d $r20,$r12,16		28C04194
-   *    ld.d $r12,$r12,24		28C0618C
-   *    jirl $r0,$r12,0			4C000180
-   *    .dword <data>			<data>
-   *    .dword <address>		<address>
+   *    pcaddu12i $r12,0                1C00000C
+   *    ld.d $r20,$r12,16               28C04194
+   *    ld.d $r12,$r12,24               28C0618C
+   *    jirl $r0,$r12,0                 4C000180
+   *    .dword <data>                   <data>
+   *    .dword <address>                <address>
    */
   *(unsigned int *)  (function + 0) = 0x1C00000C;
   *(unsigned int *)  (function + 4) = 0x28C04194;
@@ -1527,29 +1568,13 @@ __TR_function alloc_trampoline_r (__TR_function address, void* data0, void* data
 #endif
   /*
    * data:
-   *    <data0>				<data0>
-   *    <data1>				<data1>
+   *    <data0>                         <data0>
+   *    <data1>                         <data1>
    */
   *(void* *) (data + 0*sizeof(void*)) = data0;
   *(void* *) (data + 1*sizeof(void*)) = data1;
 
-  /* 3. Set memory protection to "executable" */
-
-#if !defined(CODE_EXECUTABLE)
-#if defined(EXECUTABLE_VIA_MALLOC_THEN_MPROTECT) || defined(EXECUTABLE_VIA_MMAP_THEN_MPROTECT)
-  /* Call mprotect on the pages that contain the range. */
-  { uintptr_t start_addr = (uintptr_t) function;
-    uintptr_t end_addr = (uintptr_t) (function + TRAMP_LENGTH);
-    start_addr = start_addr & -pagesize;
-    end_addr = (end_addr + pagesize-1) & -pagesize;
-   {uintptr_t len = end_addr - start_addr;
-    if (mprotect((void*)start_addr, len, PROT_READ|PROT_WRITE|PROT_EXEC) < 0)
-      { fprintf(stderr,"trampoline: cannot make memory executable\n"); abort(); }
-  }}
-#endif
-#endif
-
-  /* 4. Flush instruction cache */
+  /* 3. Flush instruction cache */
   /* We need this because some CPUs have separate data cache and instruction
    * cache. The freshly built trampoline is visible to the data cache, but not
    * maybe not to the instruction cache. This is hairy.
@@ -1665,7 +1690,7 @@ __TR_function alloc_trampoline_r (__TR_function address, void* data0, void* data
 #endif
 #endif
 #if defined(__powerpc__) || defined(__powerpc64__)
-  __TR_clear_cache(function_x);
+  __TR_clear_cache_2(function_x);
 #endif
 #if defined(__riscv32__) || defined(__riscv64__)
 #if defined(__linux__)
@@ -1682,7 +1707,7 @@ __TR_function alloc_trampoline_r (__TR_function address, void* data0, void* data
 #endif
 #endif
 
-  /* 5. Return. */
+  /* 4. Return. */
   return (__TR_function) (function_x + TRAMP_BIAS);
 }
 
@@ -1711,8 +1736,21 @@ int is_trampoline_r (void* function)
 {
 #if defined(is_tramp) && defined(tramp_data)
 #ifdef __hppanew__
-  void* tramp_r_address = &tramp_r;
+  /* The 'volatile' below works around GCC bug
+     <https://gcc.gnu.org/bugzilla/show_bug.cgi?id=116481>. */
+  void* volatile tramp_r_address = &tramp_r;
   if (!(((uintptr_t)function & 3) == (TRAMP_BIAS & 3))) return 0;
+#endif
+#ifdef __OpenBSD__
+  /* OpenBSD mmaps code VMAs with protection PROT_EXEC, not PROT_READ|PROT_EXEC.
+     Therefore is_tramp may crash if given the address of a normal function.
+     Seen on OpenBSD 7.5/arm64. */
+  int prot = get_vma_prot (function, 1);
+  if (prot != -1
+      && (prot & VMA_PROT_READ) == 0)
+    /* Memory of the given function is not readable. Therefore it cannot be
+       a trampoline. */
+    return 0;
 #endif
   if (is_tramp(((char*)function - TRAMP_BIAS)))
     {
