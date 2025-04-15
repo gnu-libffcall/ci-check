@@ -1,6 +1,6 @@
 /* A GNU-like <string.h>.
 
-   Copyright (C) 1995-1996, 2001-2024 Free Software Foundation, Inc.
+   Copyright (C) 1995-1996, 2001-2025 Free Software Foundation, Inc.
 
    This file is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as
@@ -20,7 +20,7 @@
 #endif
 @PRAGMA_COLUMNS@
 
-#if defined _GL_ALREADY_INCLUDING_STRING_H
+#if defined _@GUARD_PREFIX@_ALREADY_INCLUDING_STRING_H
 /* Special invocation convention:
    - On OS X/NetBSD we have a sequence of nested includes
        <string.h> -> <strings.h> -> "string.h"
@@ -34,12 +34,12 @@
 
 #ifndef _@GUARD_PREFIX@_STRING_H
 
-#define _GL_ALREADY_INCLUDING_STRING_H
+#define _@GUARD_PREFIX@_ALREADY_INCLUDING_STRING_H
 
 /* The include_next requires a split double-inclusion guard.  */
 #@INCLUDE_NEXT@ @NEXT_STRING_H@
 
-#undef _GL_ALREADY_INCLUDING_STRING_H
+#undef _@GUARD_PREFIX@_ALREADY_INCLUDING_STRING_H
 
 #ifndef _@GUARD_PREFIX@_STRING_H
 #define _@GUARD_PREFIX@_STRING_H
@@ -53,6 +53,11 @@
 
 /* NetBSD 5.0 mis-defines NULL.  */
 #include <stddef.h>
+
+#if @GNULIB_STRERROR_L@
+/* Get locale_t.  */
+# include <locale.h>
+#endif
 
 /* MirBSD defines mbslen as a macro.  */
 #if @GNULIB_MBSLEN@ && defined __MirBSD__
@@ -213,7 +218,7 @@ _GL_WARN_ON_USE (explicit_bzero, "explicit_bzero is unportable - "
 /* Find the index of the least-significant set bit.  */
 #if @GNULIB_FFSL@
 # if !@HAVE_FFSL@
-_GL_FUNCDECL_SYS (ffsl, int, (long int i));
+_GL_FUNCDECL_SYS (ffsl, int, (long int i), );
 # endif
 _GL_CXXALIAS_SYS (ffsl, int, (long int i));
 _GL_CXXALIASWARN (ffsl);
@@ -231,11 +236,11 @@ _GL_WARN_ON_USE (ffsl, "ffsl is not portable - use the ffsl module");
 #  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
 #   define ffsll rpl_ffsll
 #  endif
-_GL_FUNCDECL_RPL (ffsll, int, (long long int i));
+_GL_FUNCDECL_RPL (ffsll, int, (long long int i), );
 _GL_CXXALIAS_RPL (ffsll, int, (long long int i));
 # else
 #  if !@HAVE_FFSLL@
-_GL_FUNCDECL_SYS (ffsll, int, (long long int i));
+_GL_FUNCDECL_SYS (ffsll, int, (long long int i), );
 #  endif
 _GL_CXXALIAS_SYS (ffsll, int, (long long int i));
 # endif
@@ -429,7 +434,9 @@ _GL_FUNCDECL_SYS (memset_explicit, void *,
 #  endif
 _GL_CXXALIAS_SYS (memset_explicit, void *, (void *__dest, int __c, size_t __n));
 # endif
+# if __GLIBC__ >= 2
 _GL_CXXALIASWARN (memset_explicit);
+# endif
 #elif defined GNULIB_POSIXCHECK
 # undef memset_explicit
 # if HAVE_RAW_DECL_MEMSET_EXPLICIT
@@ -1077,6 +1084,22 @@ _GL_WARN_ON_USE (strtok_r, "strtok_r is unportable - "
 /* The following functions are not specified by POSIX.  They are gnulib
    extensions.  */
 
+#if @GNULIB_STR_STARTSWITH@
+/* Returns true if STRING starts with PREFIX.
+   Returns false otherwise.  */
+_GL_EXTERN_C bool str_startswith (const char *string, const char *prefix)
+     _GL_ATTRIBUTE_PURE
+     _GL_ARG_NONNULL ((1, 2));
+#endif
+
+#if @GNULIB_STR_ENDSWITH@
+/* Returns true if STRING ends with SUFFIX.
+   Returns false otherwise.  */
+_GL_EXTERN_C bool str_endswith (const char *string, const char *prefix)
+     _GL_ATTRIBUTE_PURE
+     _GL_ARG_NONNULL ((1, 2));
+#endif
+
 #if @GNULIB_MBSLEN@
 /* Return the number of multibyte characters in the character string STRING.
    This considers multibyte characters, unlike strlen, which counts bytes.  */
@@ -1162,6 +1185,33 @@ _GL_CXXALIASWARN (mbsrchr);
 _GL_EXTERN_C char * mbsstr (const char *haystack, const char *needle)
      _GL_ATTRIBUTE_PURE
      _GL_ARG_NONNULL ((1, 2));
+# ifndef _GL_NO_CONST_GENERICS
+/* Don't silently convert a 'const char *' to a 'char *'.  Programmers want
+   compiler warnings for 'const' related mistakes.  */
+#  ifdef __cplusplus
+extern "C++" { /* needed for AIX */
+template <typename T>
+  T * mbsstr_template (T* haystack, const char *needle);
+template <>
+  inline char * mbsstr_template (char *haystack, const char *needle)
+  { return mbsstr (haystack, needle); }
+template <>
+  inline const char * mbsstr_template (const char *haystack, const char *needle)
+  { return mbsstr (haystack, needle); }
+}
+#   undef mbsstr
+#   define mbsstr mbsstr_template
+#  elif !defined mbsstr
+#   if ((__GNUC__ + (__GNUC_MINOR__ >= 9) > 4) || (__clang_major__ >= 3) \
+        || defined __ICC  || defined __TINYC__ \
+        || (__STDC_VERSION__ >= 201112L && !(defined __GNUC__ || defined __clang__)))
+#    define mbsstr(h,n) \
+       _Generic ((h), \
+                 char const *: (char const *) mbsstr ((h), (n)), \
+                 default     :                mbsstr ((h), (n)))
+#   endif
+#  endif
+# endif
 #endif
 
 #if @GNULIB_MBSCASECMP@
@@ -1203,6 +1253,33 @@ _GL_EXTERN_C int mbsncasecmp (const char *s1, const char *s2, size_t n)
 _GL_EXTERN_C char * mbspcasecmp (const char *string, const char *prefix)
      _GL_ATTRIBUTE_PURE
      _GL_ARG_NONNULL ((1, 2));
+# ifndef _GL_NO_CONST_GENERICS
+/* Don't silently convert a 'const char *' to a 'char *'.  Programmers want
+   compiler warnings for 'const' related mistakes.  */
+#  ifdef __cplusplus
+extern "C++" { /* needed for AIX */
+template <typename T>
+  T * mbspcasecmp_template (T* string, const char *prefix);
+template <>
+  inline char * mbspcasecmp_template (char *string, const char *prefix)
+  { return mbspcasecmp (string, prefix); }
+template <>
+  inline const char * mbspcasecmp_template (const char *string, const char *prefix)
+  { return mbspcasecmp (string, prefix); }
+}
+#   undef mbspcasecmp
+#   define mbspcasecmp mbspcasecmp_template
+#  elif !defined mbspcasecmp
+#   if ((__GNUC__ + (__GNUC_MINOR__ >= 9) > 4) || (__clang_major__ >= 3) \
+        || defined __ICC  || defined __TINYC__ \
+        || (__STDC_VERSION__ >= 201112L && !(defined __GNUC__ || defined __clang__)))
+#    define mbspcasecmp(s,p) \
+       _Generic ((s), \
+                 char const *: (char const *) mbspcasecmp ((s), (p)), \
+                 default     :                mbspcasecmp ((s), (p)))
+#   endif
+#  endif
+# endif
 #endif
 
 #if @GNULIB_MBSCASESTR@
@@ -1214,6 +1291,33 @@ _GL_EXTERN_C char * mbspcasecmp (const char *string, const char *prefix)
 _GL_EXTERN_C char * mbscasestr (const char *haystack, const char *needle)
      _GL_ATTRIBUTE_PURE
      _GL_ARG_NONNULL ((1, 2));
+# ifndef _GL_NO_CONST_GENERICS
+/* Don't silently convert a 'const char *' to a 'char *'.  Programmers want
+   compiler warnings for 'const' related mistakes.  */
+#  ifdef __cplusplus
+extern "C++" { /* needed for AIX */
+template <typename T>
+  T * mbscasestr_template (T* haystack, const char *needle);
+template <>
+  inline char * mbscasestr_template (char *haystack, const char *needle)
+  { return mbscasestr (haystack, needle); }
+template <>
+  inline const char * mbscasestr_template (const char *haystack, const char *needle)
+  { return mbscasestr (haystack, needle); }
+}
+#   undef mbscasestr
+#   define mbscasestr mbscasestr_template
+#  elif !defined mbscasestr
+#   if ((__GNUC__ + (__GNUC_MINOR__ >= 9) > 4) || (__clang_major__ >= 3) \
+        || defined __ICC  || defined __TINYC__ \
+        || (__STDC_VERSION__ >= 201112L && !(defined __GNUC__ || defined __clang__)))
+#    define mbscasestr(h,n) \
+       _Generic ((h), \
+                 char const *: (char const *) mbscasestr ((h), (n)), \
+                 default     :                mbscasestr ((h), (n)))
+#   endif
+#  endif
+# endif
 #endif
 
 #if @GNULIB_MBSCSPN@
@@ -1301,6 +1405,26 @@ _GL_EXTERN_C char * mbstok_r (char *restrict string, const char *delim,
      _GL_ARG_NONNULL ((2, 3));
 #endif
 
+#if @GNULIB_MBS_STARTSWITH@
+/* Returns true if STRING starts with PREFIX.
+   Returns false otherwise.  */
+_GL_EXTERN_C bool mbs_startswith (const char *string, const char *prefix)
+     _GL_ATTRIBUTE_PURE
+     _GL_ARG_NONNULL ((1, 2));
+/* No extra code is needed for multibyte locales for this function.  */
+# define mbs_startswith str_startswith
+#endif
+
+#if @GNULIB_MBS_ENDSWITH@
+/* Returns true if STRING ends with SUFFIX.
+   Returns false otherwise.
+   Unlike str_endswith(), this function works correctly in multibyte locales.
+ */
+_GL_EXTERN_C bool mbs_endswith (const char *string, const char *suffix)
+     _GL_ATTRIBUTE_PURE
+     _GL_ARG_NONNULL ((1, 2));
+#endif
+
 /* Map any int, typically from errno, into an error message.  */
 #if @GNULIB_STRERROR@
 # if @REPLACE_STRERROR@
@@ -1308,7 +1432,7 @@ _GL_EXTERN_C char * mbstok_r (char *restrict string, const char *delim,
 #   undef strerror
 #   define strerror rpl_strerror
 #  endif
-_GL_FUNCDECL_RPL (strerror, char *, (int));
+_GL_FUNCDECL_RPL (strerror, char *, (int), );
 _GL_CXXALIAS_RPL (strerror, char *, (int));
 # else
 _GL_CXXALIAS_SYS (strerror, char *, (int));
@@ -1352,6 +1476,44 @@ _GL_WARN_ON_USE (strerror_r, "strerror_r is unportable - "
 # endif
 #endif
 
+/* Map any int, typically from errno, into an error message.
+   With locale_t argument.  */
+#if @GNULIB_STRERROR_L@
+# if @REPLACE_STRERROR_L@
+#  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
+#   undef strerror_l
+#   define strerror_l rpl_strerror_l
+#  endif
+_GL_FUNCDECL_RPL (strerror_l, char *, (int errnum, locale_t locale),
+                                                   _GL_ARG_NONNULL ((2)));
+_GL_CXXALIAS_RPL (strerror_l, char *, (int errnum, locale_t locale));
+# else
+#  if !@HAVE_STRERROR_L@
+_GL_FUNCDECL_SYS (strerror_l, char *, (int errnum, locale_t locale),
+                                                   _GL_ARG_NONNULL ((2)));
+#  endif
+_GL_CXXALIAS_SYS (strerror_l, char *, (int errnum, locale_t locale));
+# endif
+# if __GLIBC__ >= 2
+_GL_CXXALIASWARN (strerror_l);
+# endif
+#elif defined GNULIB_POSIXCHECK
+# undef strerror_l
+# if HAVE_RAW_DECL_STRERROR_L
+_GL_WARN_ON_USE (strerror_l, "strerror_l is unportable - "
+                 "use gnulib module strerror_l for portability");
+# endif
+#endif
+
+/* Map any int, typically from errno, into an error message.  Multithread-safe,
+   with locale_t argument.
+   Not portable! Only provided by gnulib.  */
+#if @GNULIB_STRERROR_L@
+_GL_FUNCDECL_SYS (strerror_l_r, int,
+                  (int errnum, char *buf, size_t buflen, locale_t locale),
+                  _GL_ARG_NONNULL ((2, 4)));
+#endif
+
 /* Return the name of the system error code ERRNUM.  */
 #if @GNULIB_STRERRORNAME_NP@
 # if @REPLACE_STRERRORNAME_NP@
@@ -1359,15 +1521,17 @@ _GL_WARN_ON_USE (strerror_r, "strerror_r is unportable - "
 #   undef strerrorname_np
 #   define strerrorname_np rpl_strerrorname_np
 #  endif
-_GL_FUNCDECL_RPL (strerrorname_np, const char *, (int errnum));
+_GL_FUNCDECL_RPL (strerrorname_np, const char *, (int errnum), );
 _GL_CXXALIAS_RPL (strerrorname_np, const char *, (int errnum));
 # else
 #  if !@HAVE_STRERRORNAME_NP@
-_GL_FUNCDECL_SYS (strerrorname_np, const char *, (int errnum));
+_GL_FUNCDECL_SYS (strerrorname_np, const char *, (int errnum), );
 #  endif
 _GL_CXXALIAS_SYS (strerrorname_np, const char *, (int errnum));
 # endif
+# if __GLIBC__ >= 2
 _GL_CXXALIASWARN (strerrorname_np);
+# endif
 #elif defined GNULIB_POSIXCHECK
 # undef strerrorname_np
 # if HAVE_RAW_DECL_STRERRORNAME_NP
@@ -1379,7 +1543,7 @@ _GL_WARN_ON_USE (strerrorname_np, "strerrorname_np is unportable - "
 /* Return an abbreviation string for the signal number SIG.  */
 #if @GNULIB_SIGABBREV_NP@
 # if ! @HAVE_SIGABBREV_NP@
-_GL_FUNCDECL_SYS (sigabbrev_np, const char *, (int sig));
+_GL_FUNCDECL_SYS (sigabbrev_np, const char *, (int sig), );
 # endif
 _GL_CXXALIAS_SYS (sigabbrev_np, const char *, (int sig));
 _GL_CXXALIASWARN (sigabbrev_np);
@@ -1394,7 +1558,7 @@ _GL_WARN_ON_USE (sigabbrev_np, "sigabbrev_np is unportable - "
 /* Return an English description string for the signal number SIG.  */
 #if @GNULIB_SIGDESCR_NP@
 # if ! @HAVE_SIGDESCR_NP@
-_GL_FUNCDECL_SYS (sigdescr_np, const char *, (int sig));
+_GL_FUNCDECL_SYS (sigdescr_np, const char *, (int sig), );
 # endif
 _GL_CXXALIAS_SYS (sigdescr_np, const char *, (int sig));
 _GL_CXXALIASWARN (sigdescr_np);
@@ -1411,11 +1575,11 @@ _GL_WARN_ON_USE (sigdescr_np, "sigdescr_np is unportable - "
 #  if !(defined __cplusplus && defined GNULIB_NAMESPACE)
 #   define strsignal rpl_strsignal
 #  endif
-_GL_FUNCDECL_RPL (strsignal, char *, (int __sig));
+_GL_FUNCDECL_RPL (strsignal, char *, (int __sig), );
 _GL_CXXALIAS_RPL (strsignal, char *, (int __sig));
 # else
 #  if ! @HAVE_DECL_STRSIGNAL@
-_GL_FUNCDECL_SYS (strsignal, char *, (int __sig));
+_GL_FUNCDECL_SYS (strsignal, char *, (int __sig), );
 #  endif
 /* Need to cast, because on Cygwin 1.5.x systems, the return type is
    'const char *'.  */

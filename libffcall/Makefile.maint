@@ -50,11 +50,6 @@ libtool-imported-files : force
 	rm -rf libtool.tmp
 	chmod u+w build-aux/ltmain.sh
 	patch build-aux/ltmain.sh < libtool-patches/libtool-allow-static.diff
-	chmod u+w m4/libtool.m4
-	patch -p1 < libtool-patches/libtool-solaris11-fix.diff
-	patch -p1 < libtool-patches/libtool-hurd-64.diff
-	patch -p1 < libtool-patches/libtool-android.diff
-	patch -p0 < libtool-patches/libtool-freebsd-biarch.diff
 	chmod u+w build-aux/ltmain.sh m4/libtool.m4
 
 .PHONY : libtool-clean
@@ -68,8 +63,8 @@ GNULIB_MODULES = \
   ansi-c++-opt \
   host-cpu-c-abi \
   nocrash \
-  stdint \
-  stdnoreturn \
+  stdint-h \
+  stdnoreturn-h \
   libffcall-imports
 
 gnulib-m4/gnulib-cache.m4 :
@@ -104,6 +99,10 @@ gnulib-imported-files : force
 	    $$GNULIB_TOOL --copy-file build-aux/$$file || exit $$?; \
 	    chmod a+x build-aux/$$file || exit $$?; \
 	  done; \
+	fi
+# Get up-to-date version of INSTALL.generic.
+	if test -n "$$GNULIB_TOOL"; then \
+	  $$GNULIB_TOOL --copy-file doc/INSTALL.UTF-8 INSTALL.generic || exit $$?; \
 	fi
 
 .PHONY : gnulib-clean

@@ -1,3 +1,75 @@
+2025-04-15  Bruno Haible  <bruno@clisp.org>
+
+	Fix cross-compilation.
+	* m4/codeexec.m4 (FFCALL_CODEEXEC): Assume that a shared mmap with
+	NetBSD primitives works only on NetBSD.
+
+2024-12-28  Bruno Haible  <bruno@clisp.org>
+
+	Update after gnulib changed.
+	* Makefile.maint (GNULIB_MODULES): Use the new names of renamed gnulib
+	modules.
+
+2024-11-27  Bruno Haible  <bruno@clisp.org>
+
+	Add installation information for the tarball users and from a git checkout.
+	* Makefile.maint (gnulib-imported-files): Import INSTALL.generic from
+	gnulib.
+	* INSTALL: New file, based on poke/INSTALL.
+	* HACKING: Renamed from README-hacking.
+	* Makefile.in (SOURCE_FILES): Add INSTALL, INSTALL.generic, HACKING.
+	Remove README-hacking.
+
+2024-11-22  Bruno Haible  <bruno@clisp.org>
+
+	Switch to libtool 2.5.4.
+	* autopull.sh (LIBTOOL_VERSION): Set to 2.5.4.
+
+2024-11-07  Bruno Haible  <bruno@clisp.org>
+
+	Update the GPL text.
+	* COPYING: Update from <https://ftp.gnu.org/gnu/Licenses/gpl-2.0.txt>.
+
+2024-09-26  Bruno Haible  <bruno@clisp.org>
+
+	Switch to libtool 2.5.3.
+	* autopull.sh (LIBTOOL_VERSION): Set to 2.5.3.
+	* libtool-patches/libtool-android.diff: Remove file.
+	* libtool-patches/libtool-freebsd-biarch.diff: Remove file.
+	* libtool-patches/libtool-hurd-64.diff: Remove file.
+	* libtool-patches/libtool-solaris11-fix.diff: Remove file.
+	* libtool-patches/README: Don't mention them.
+	* Makefile.maint (libtool-imported-files): Don't apply them.
+
+2024-09-15  Bruno Haible  <bruno@clisp.org>
+
+	build: Avoid build failure caused by GNU Make's parallel make.
+	Reported by Thomas Klausner <wiz@netbsd.org>
+	at <https://savannah.gnu.org/bugs/?66220>.
+	* Makefile.in (.NOTPARALLEL): New target.
+	* callback/Makefile.in (.NOTPARALLEL): New target.
+
+2024-09-02  Bruno Haible  <bruno@clisp.org>
+
+	vacall: Generalize OpenBSD/x86_64 and Haiku/x86_64 fix.
+	* vacall/Makefile.devel (vacall-x86_64-macro.S): Test __PIC__, like for
+	i386, sparc, sparc64, hppa, arm-old, arm-eabi, armhf-eabi,
+	riscv32-ilp32d, riscv64-lp64d.
+
+2024-09-02  Bruno Haible  <bruno@clisp.org>
+
+	Prepare for 2.5 release.
+	* VERSION: Set to 2.5.
+	* NEWS: Update.
+
+2024-09-02  Bruno Haible  <bruno@clisp.org>
+
+	Bump shared library version numbers.
+	* Makefile.in (LIBFFCALL_VERSION_INFO): Bump to 1:1:1.
+	* avcall/Makefile.in (LIBAVCALL_VERSION_INFO): Bump to 2:1:1.
+	* trampoline/Makefile.in (LIBTRAMPOLINE_VERSION_INFO): Bump to 1:4:0.
+	* callback/Makefile.in (LIBCALLBACK_VERSION_INFO): Bump to 1:5:0.
+
 2024-09-02  Bruno Haible  <bruno@clisp.org>
 
 	build: Trim the code size of gnulib dependencies.
