@@ -796,6 +796,8 @@ jobs:
   check-sanitized:
     name: make check with sanitizers
     needs: build-tarball
+    # Disable, because the sanitizer does not allow to make memory pages executable.
+    if: ${{ false }}
     runs-on: ubuntu-22.04
     steps:
       # This is needed because we run a script stored in this repository.
