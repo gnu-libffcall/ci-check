@@ -430,6 +430,14 @@ libgnu_la_SOURCES += gettext.h
 endif
 ## end   gnulib module gettext-h
 
+## begin gnulib module hashkey-string
+
+if gl_GNULIB_ENABLED_2096e05902597f4254055f5a07612ed2
+libgnu_la_SOURCES += hashkey-string.h hashkey-string.c
+
+endif
+## end   gnulib module hashkey-string
+
 ## begin gnulib module hasmntopt
 
 if gl_GNULIB_ENABLED_hasmntopt
@@ -554,6 +562,16 @@ EXTRA_DIST += locale.in.h
 libgnu_la_SOURCES += glthread/lock.h glthread/lock.c
 
 ## end   gnulib module lock
+
+## begin gnulib module lstat
+
+if gl_GNULIB_ENABLED_lstat
+if GL_COND_OBJ_LSTAT
+libgnu_la_SOURCES += lstat.c
+endif
+
+endif
+## end   gnulib module lstat
 
 ## begin gnulib module malloca
 
@@ -991,6 +1009,18 @@ EXTRA_DIST += warn-on-use.h
 
 ## end   gnulib module snippet/warn-on-use
 
+## begin gnulib module spin
+
+if gl_GNULIB_ENABLED_spin
+if GL_COND_OBJ_SPIN
+libgnu_la_SOURCES += glthread/spin.c
+endif
+
+endif
+EXTRA_DIST += glthread/spin.h
+
+## end   gnulib module spin
+
 ## begin gnulib module stat
 
 if gl_GNULIB_ENABLED_stat
@@ -1025,6 +1055,15 @@ BUILT_SOURCES += $(STDCKDINT_H)
 if GL_GENERATE_STDCKDINT_H
 stdckdint.h: stdckdint.in.h $(top_builddir)/config.status
 	$(gl_V_at)$(SED_HEADER_STDOUT) \
+	      -e 's|@''GUARD_PREFIX''@|GL|g' \
+	      -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
+	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
+	      -e 's|@''PRAGMA_COLUMNS''@|@PRAGMA_COLUMNS@|g' \
+	      -e 's|@''NEXT_STDCKDINT_H''@|$(NEXT_STDCKDINT_H)|g' \
+	      -e 's|@''HAVE_C_STDCKDINT_H''@|$(HAVE_C_STDCKDINT_H)|g' \
+	      -e 's|@''HAVE_WORKING_C_STDCKDINT_H''@|$(HAVE_WORKING_C_STDCKDINT_H)|g' \
+	      -e 's|@''HAVE_CXX_STDCKDINT_H''@|$(HAVE_CXX_STDCKDINT_H)|g' \
+	      -e 's|@''HAVE_WORKING_CXX_STDCKDINT_H''@|$(HAVE_WORKING_CXX_STDCKDINT_H)|g' \
 	  $(srcdir)/stdckdint.in.h > $@-t
 	$(AM_V_at)mv $@-t $@
 else
@@ -1057,6 +1096,7 @@ stddef.h: stddef.in.h $(top_builddir)/config.status
 	      -e 's|@''STDDEF_NOT_IDEMPOTENT''@|$(STDDEF_NOT_IDEMPOTENT)|g' \
 	      -e 's|@''REPLACE_NULL''@|$(REPLACE_NULL)|g' \
 	      -e 's|@''HAVE_MAX_ALIGN_T''@|$(HAVE_MAX_ALIGN_T)|g' \
+	      -e 's|@''HAVE_C_UNREACHABLE''@|$(HAVE_C_UNREACHABLE)|g' \
 	      $(srcdir)/stddef.in.h > $@-t
 	$(AM_V_at)mv $@-t $@
 else

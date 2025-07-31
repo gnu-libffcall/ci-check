@@ -1,3 +1,27 @@
+2025-05-31  Bruno Haible  <bruno@clisp.org>
+
+	Mark automake 1.18 as supported.
+	* autogen.sh: Update comment.
+
+2025-05-08  Collin Funk  <collin.funk1@gmail.com>  (tiny change)
+
+	Update HACKING.
+	* HACKING: Link to the Ubuntu 20.04 image instead of the dead 16.04
+	image.
+
+2025-04-26  Bruno Haible  <bruno@clisp.org>
+
+	Fix gcc warnings "pointer to a function used in arithmetic".
+	* trampoline/trampoline.c (free_trampoline): Cast to 'char*' before
+	performing pointer arithmetic.
+	* callback/trampoline_r/trampoline.c (free_trampoline_r,
+	is_trampoline_r): Likewise.
+
+2025-04-16  Bruno Haible  <bruno@clisp.org>
+
+	Update after gnulib changed.
+	* gitsub.sh: Update from gnulib.
+
 2025-04-15  Bruno Haible  <bruno@clisp.org>
 
 	Fix cross-compilation.

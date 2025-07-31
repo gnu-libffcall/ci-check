@@ -22,7 +22,6 @@
 #include "clean-temp-private.h"
 
 #include <errno.h>
-#include <limits.h>
 #include <signal.h>
 #include <stdlib.h>
 #include <string.h>
@@ -36,6 +35,7 @@
 #include "thread-optim.h"
 #include "gl_list.h"
 #include "gl_linkedhash_list.h"
+#include "hashkey-string.h"
 #include "gettext.h"
 
 #define _(msgid) dgettext ("gnulib", msgid)
@@ -106,33 +106,6 @@ gl_list_t /* <closeable_fd *> */ volatile descriptors;
         asynchronous signal.
  */
 
-/* String equality and hash code functions used by the lists.  */
-
-bool
-clean_temp_string_equals (const void *x1, const void *x2)
-{
-  const char *s1 = (const char *) x1;
-  const char *s2 = (const char *) x2;
-  return strcmp (s1, s2) == 0;
-}
-
-#define SIZE_BITS (sizeof (size_t) * CHAR_BIT)
-
-/* A hash function for NUL-terminated char* strings using
-   the method described by Bruno Haible.
-   See https://www.haible.de/bruno/hashfunc.html.  */
-size_t
-clean_temp_string_hash (const void *x)
-{
-  const char *s = (const char *) x;
-  size_t h = 0;
-
-  for (; *s; s++)
-    h = *s + ((h << 9) | (h >> (SIZE_BITS - 9)));
-
-  return h;
-}
-
 
 /* The set of fatal signal handlers.
    Cached here because we are not allowed to call get_fatal_signal_set ()
@@ -157,7 +130,7 @@ clean_temp_asyncsafe_close (struct closeable_fd *element)
   int ret;
   int saved_errno;
 
-  asyncsafe_spin_lock (&element->lock, fatal_signal_set, &saved_mask);
+  asyncsafe_spin_lock (&element->lock, true, fatal_signal_set, &saved_mask);
   if (!element->closed)
     {
       ret = close (element->fd);
@@ -169,7 +142,7 @@ clean_temp_asyncsafe_close (struct closeable_fd *element)
       ret = 0;
       saved_errno = 0;
     }
-  asyncsafe_spin_unlock (&element->lock, &saved_mask);
+  asyncsafe_spin_unlock (&element->lock, true, &saved_mask);
   element->done = true;
 
   errno = saved_errno;
@@ -326,8 +299,8 @@ register_temporary_file (const char *absolute_file_name)
         }
       file_cleanup_list =
         gl_list_nx_create_empty (GL_LINKEDHASH_LIST,
-                                 clean_temp_string_equals,
-                                 clean_temp_string_hash,
+                                 hashkey_string_equals,
+                                 hashkey_string_hash,
                                  NULL, false);
       if (file_cleanup_list == NULL)
         {
