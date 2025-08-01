@@ -1,5 +1,5 @@
 #include "asm-x86_64.h"
-#if defined __PIC__
+#if defined __PIC__ && !(defined __APPLE__ && defined __MACH__)
 	TEXT()
 	P2ALIGN(4,15)
 GLOBL(C(vacall_receiver))
