@@ -7,7 +7,7 @@
 FUNBEGIN(callback_receiver)
 	stp	x29, x30, [sp, -256]!
 	add	x29, sp, 0
-	ldr	x10, [x18]
+	ldr	x10, [x17]
 	add	x11, x29, 256
 	stp	s0, s1, [x29, 156]
 	stp	s2, s3, [x29, 164]
@@ -26,7 +26,7 @@ FUNBEGIN(callback_receiver)
 	str	wzr, [x29, 24]
 	add	x1, x29, 24
 	str	wzr, [x29, 56]
-	ldr	x0, [x18, 8]
+	ldr	x0, [x17, 8]
 	str	wzr, [x29, 80]
 	str	wzr, [x29, 152]
 	blr	x10

@@ -1,5 +1,5 @@
 /* Sequential list data type implemented by a linked list.
-   Copyright (C) 2006, 2009-2025 Free Software Foundation, Inc.
+   Copyright (C) 2006, 2009-2026 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This file is free software: you can redistribute it and/or modify
@@ -36,8 +36,9 @@ struct gl_list_impl
   struct gl_list_impl_base base;
 #if WITH_HASHTABLE
   /* A hash table: managed as an array of collision lists.  */
-  struct gl_hash_entry **table;
   size_t table_size;
+  struct gl_hash_entry **table
+    _GL_ATTRIBUTE_COUNTED_BY (table_size);
 #endif
   /* A circular list anchored at root.
      The first node is = root.next, the last node is = root.prev.

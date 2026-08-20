@@ -1,6 +1,4 @@
-VACALL(3)                  Library Functions Manual                  VACALL(3)
-
-
+[4mVACALL[24m(3)                  Library Functions Manual                  [4mVACALL[24m(3)
 
 [1mNAME[0m
        vacall - C functions called with variable arguments
@@ -28,12 +26,12 @@ VACALL(3)                  Library Functions Manual                  VACALL(3)
        fied at run time.
 
        Function calling conventions differ considerably on different machines,
-       and  [4mvacall[24m  attempts  to  provide  some  degree of isolation from such
-       architecture dependencies.
+       and [4mvacall[24m attempts to provide some degree of isolation from  such  ar‐
+       chitecture dependencies.
 
-       The function that can be called with any number and type  of  arguments
-       and  which  will return any type of return value is [1mvacall[22m.  It will do
-       some magic and call the function stored in  the  variable  [1mvacall_func‐[0m
+       The  function  that can be called with any number and type of arguments
+       and which will return any type of return value is [1mvacall[22m.  It  will  do
+       some  magic  and  call the function stored in the variable [1mvacall_func‐[0m
        [1mtion[22m.  If you want to make more than one use of [4mvacall[24m, use the [4mtrampo‐[0m
        [4mline[24m(3) facility to store [4m&function[24m into  [1mvacall_function  [22mjust  before
        calling [1mvacall[22m.
@@ -42,8 +40,8 @@ VACALL(3)                  Library Functions Manual                  VACALL(3)
        argument list and specify a return value:
 
        [1mva_start_[4m[22mtype[24m[1m([4m[22malist[24m[1m[, [4m[22mreturn_type[24m[1m]);[0m
-              starts the walk through the  argument  list  and  specifies  the
-              return type.
+              starts the walk through the argument list and specifies the  re‐
+              turn type.
 
        [4marg[24m [1m= va_arg_[4m[22mtype[24m[1m([4m[22malist[24m[1m[, [4m[22marg_type[24m[1m]);[0m
               fetches the next argument from the argument list.
@@ -58,12 +56,12 @@ VACALL(3)                  Library Functions Manual                  VACALL(3)
        [1mfloat[22m, depending on the class of [4mreturn_type[24m.
 
        The  [4mtype[24m  specifiers  in  [1mva_start_[4m[22mtype[24m and [1mva_return_[4m[22mtype[24m must be the
-       same.   The  [4mreturn_type[24m  specifiers  passed   to   [1mva_start_[4m[22mtype[24m   and
-       [1mva_return_[4m[22mtype[24m must be the same.
+       same.  The [4mreturn_type[24m specifiers passed to  [1mva_start_[4m[22mtype[24m  and  [1mva_re‐[0m
+       [1mturn_[4m[22mtype[24m must be the same.
 
        The  [4mtype[24m  in [1mva_arg_[4m[22mtype[24m shall be one of [1mint[22m, [1muint[22m, [1mlong[22m, [1mulong[22m, [1mlong‐[0m
        [1mlong[22m, [1mulonglong[22m, [1mdouble[22m, [1mstruct[22m, [1mptr [22mor (for ANSI C calling conventions
-       only)  [1mchar[22m, [1mschar[22m, [1muchar[22m, [1mshort[22m, [1mushort[22m, [1mfloat[22m, depending on the class
+       only) [1mchar[22m, [1mschar[22m, [1muchar[22m, [1mshort[22m, [1mushort[22m, [1mfloat[22m, depending on the  class
        of [4marg_type[24m.
 
        In [1mva_start_struct([4m[22malist[24m[1m, [4m[22mreturn_type[24m[1m, [4m[22msplittable[24m[1m); [22mthe [4msplittable[24m flag
@@ -71,7 +69,7 @@ VACALL(3)                  Library Functions Manual                  VACALL(3)
        such that every struct field fits entirely in a single  register.  This
        needs  to  be specified for structs of size 2*sizeof(long). For structs
        of size <= sizeof(long), [4msplittable[24m is ignored and assumed to be 1. For
-       structs  of size > 2*sizeof(long), [4msplittable[24m is ignored and assumed to
+       structs of size > 2*sizeof(long), [4msplittable[24m is ignored and assumed  to
        be 0. There are some handy macros for this:
        [1mva_word_splittable_1 ([4m[22mtype1[24m[1m)[0m
        [1mva_word_splittable_2 ([4m[22mtype1[24m[1m, [4m[22mtype2[24m[1m)[0m
@@ -79,19 +77,19 @@ VACALL(3)                  Library Functions Manual                  VACALL(3)
        [1mva_word_splittable_4 ([4m[22mtype1[24m[1m, [4m[22mtype2[24m[1m, [4m[22mtype3[24m[1m, [4m[22mtype4[24m[1m)[0m
        For a struct with three slots
        [1mstruct { [4m[22mtype1[24m [4mid1[24m[1m; [4m[22mtype2[24m [4mid2[24m[1m; [4m[22mtype3[24m [4mid3[24m[1m; }[0m
-       you can  specify  [4msplittable[24m  as  [1mva_word_splittable_3  ([4m[22mtype1[24m[1m,  [4m[22mtype2[24m[1m,[0m
+       you  can  specify  [4msplittable[24m  as  [1mva_word_splittable_3  ([4m[22mtype1[24m[1m, [4m[22mtype2[24m[1m,[0m
        [4mtype3[24m[1m) [22m.
 
 
 [1mNOTES[0m
-       Functions  which  want  to  emulate Kernighan & Ritchie style functions
-       (i.e., in ANSI C, functions without a typed argument list)  cannot  use
-       the  [4mtype[24m  values  [1mchar[22m,  [1mschar[22m,  [1muchar[22m, [1mshort[22m, [1mushort[22m, [1mfloat[22m.  As pre‐
-       scribed by the default K&R C expression promotions, they  have  to  use
-       [1mint  [22minstead of [1mchar[22m, [1mschar[22m, [1muchar[22m, [1mshort[22m, [1mushort [22mand [1mdouble [22minstead of
+       Functions which want to emulate Kernighan  &  Ritchie  style  functions
+       (i.e.,  in  ANSI C, functions without a typed argument list) cannot use
+       the [4mtype[24m values [1mchar[22m, [1mschar[22m, [1muchar[22m,  [1mshort[22m,  [1mushort[22m,  [1mfloat[22m.   As  pre‐
+       scribed  by  the  default K&R C expression promotions, they have to use
+       [1mint [22minstead of [1mchar[22m, [1mschar[22m, [1muchar[22m, [1mshort[22m, [1mushort [22mand [1mdouble [22minstead  of
        [1mfloat[22m.
 
-       The macros [1mva_start_longlong()[22m,  [1mva_start_ulonglong()[22m,  [1mva_return_long‐[0m
+       The  macros  [1mva_start_longlong()[22m, [1mva_start_ulonglong()[22m, [1mva_return_long‐[0m
        [1mlong()[22m, [1mva_return_ulonglong()[22m, [1mva_arg_longlong() [22mand [1mva_arg_ulonglong()[0m
        work only if the C compiler has a  working  [1mlong  long  [22m64-bit  integer
        type.
@@ -103,7 +101,7 @@ VACALL(3)                  Library Functions Manual                  VACALL(3)
 
 
 [1mEXAMPLE[0m
-       This example, a possible implementation of [1mexecl[22m(3) on top of  [1mexecv[22m(2)
+       This  example, a possible implementation of [1mexecl[22m(3) on top of [1mexecv[22m(2)
        using [1mstdarg[22m(3),
 
        [1m#include <stdarg.h>[0m
@@ -149,33 +147,33 @@ VACALL(3)                  Library Functions Manual                  VACALL(3)
 
 
 [1mBUGS[0m
-       The  current  implementations have been tested on a selection of common
+       The current implementations have been tested on a selection  of  common
        cases but there are probably still many bugs.
 
-       There are typically built-in limits on the size of  the  argument-list,
+       There  are  typically built-in limits on the size of the argument-list,
        which may also include the size of any structure arguments.
 
        The decision whether a struct is to be returned in registers or in mem‐
        ory considers only the struct's size and alignment. This is inaccurate:
-       for  example, gcc on m68k-next returns [1mstruct { char a,b,c; } [22min regis‐
-       ters and [1mstruct { char a[3]; } [22min memory, although both types have  the
+       for example, gcc on m68k-next returns [1mstruct { char a,b,c; } [22min  regis‐
+       ters  and [1mstruct { char a[3]; } [22min memory, although both types have the
        same size and the same alignment.
 
        The argument list can only be walked once.
 
-       The  use  of the global variable [1mvacall_function [22mis not reentrant. This
+       The use of the global variable [1mvacall_function [22mis not  reentrant.  This
        is fixed in the [1mcallback[22m(3) package.
 
 
 [1mPORTING[0m
-       Knowledge about argument passing conventions can be found  in  the  gcc
-       source,  file  gcc-2.6.3/config/[4mcpu[24m/[4mcpu[24m.h, section "Stack layout; func‐
+       Knowledge  about  argument  passing conventions can be found in the gcc
+       source, file gcc-2.6.3/config/[4mcpu[24m/[4mcpu[24m.h, section "Stack  layout;  func‐
        tion entry, exit and calling."
 
-       The implementation of varargs for gcc can be found in the  gcc  source,
+       The  implementation  of varargs for gcc can be found in the gcc source,
        files gcc-2.6.3/ginclude/va*.h.
 
-       gcc's  __builtin_saveregs() function is defined in the gcc source, file
+       gcc's __builtin_saveregs() function is defined in the gcc source,  file
        gcc-2.6.3/libgcc2.c.
 
 
@@ -187,6 +185,4 @@ VACALL(3)                  Library Functions Manual                  VACALL(3)
        Many ideas and a lot of code were cribbed from the gcc source.
 
 
-
-
-                                1 January 2017                       VACALL(3)
+                                1 January 2017                       [4mVACALL[24m(3)

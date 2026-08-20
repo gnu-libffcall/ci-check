@@ -1,5 +1,5 @@
 /* Spin locks for communication between threads and signal handlers.
-   Copyright (C) 2020-2025 Free Software Foundation, Inc.
+   Copyright (C) 2020-2026 Free Software Foundation, Inc.
 
    This file is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as
@@ -42,18 +42,19 @@ asyncsafe_spin_lock (asyncsafe_spinlock_t *lock,
      On platforms other than native Windows, it is useful to do the same
      thing also within a signal handler, since signals may remain enabled
      while a signal handler runs.  It is possible to do this because
-     sigprocmask() is safe to call from within a signal handler, see
+     pthread_sigmask() is safe to call from within a signal handler, see
      POSIX section "Signal Actions"
      <https://pubs.opengroup.org/onlinepubs/9799919799/functions/V2_chap02.html#tag_16_04_03>.
-     (In other words, sigprocmask() is atomic, because it is implemented as a
+     (In other words, pthread_sigmask() is atomic, because it is implemented as a
      system call.)
-     Whereas on native Windows, sigprocmask() is not atomic, because it
-     manipulates global variables.  Therefore in this case, we are *not*
-     allowed to call it from within a signal handler.  */
+     Whereas on native Windows, pthread_sigmask() = sigprocmask() is not atomic,
+     because it manipulates global variables.  Therefore in this case, we are
+     *not* allowed to call it from within a signal handler.  */
+
 #if defined _WIN32 && !defined __CYGWIN__
   if (!from_signal_handler)
 #endif
-    sigprocmask (SIG_BLOCK, mask, saved_mask); /* equivalent to pthread_sigmask */
+    pthread_sigmask (SIG_BLOCK, mask, saved_mask);
 
   glthread_spinlock_lock (lock);
 }
@@ -69,7 +70,7 @@ asyncsafe_spin_unlock (asyncsafe_spinlock_t *lock,
 #if defined _WIN32 && !defined __CYGWIN__
   if (!from_signal_handler)
 #endif
-    sigprocmask (SIG_SETMASK, saved_mask, NULL); /* equivalent to pthread_sigmask */
+    pthread_sigmask (SIG_SETMASK, saved_mask, NULL);
 }
 
 void

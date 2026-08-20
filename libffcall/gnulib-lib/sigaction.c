@@ -1,5 +1,5 @@
 /* POSIX compatible signal blocking.
-   Copyright (C) 2008-2025 Free Software Foundation, Inc.
+   Copyright (C) 2008-2026 Free Software Foundation, Inc.
    Written by Eric Blake <ebb9@byu.net>, 2008.
 
    This file is free software: you can redistribute it and/or modify
@@ -28,12 +28,14 @@
    signal() has SysV semantics (ie. the handler is uninstalled before
    it is invoked).  This is an inherent data race if an asynchronous
    signal is sent twice in a row before we can reinstall our handler,
-   but there's nothing we can do about it.  Meanwhile, sigprocmask()
+   but there's nothing we can do about it.  Meanwhile, pthread_sigmask()
    is not present, and while we can use the gnulib replacement to
    provide critical sections, it too suffers from potential data races
    in the face of an ill-timed asynchronous signal.  And we compound
    the situation by reading static storage in a signal handler, which
-   POSIX warns is not generically async-signal-safe.  Oh well.
+   POSIX warns is not generically async-signal-safe.  Furthermore, the
+   replacement pthread_sigmask can stomp on other threads' signal masks,
+   which can lead to other races.  Oh well.
 
    Additionally:
      - We don't implement SA_NOCLDSTOP or SA_NOCLDWAIT, because SIGCHLD
@@ -47,7 +49,7 @@
 
    POSIX states that an application should not mix signal() and
    sigaction().  We support the use of signal() within the gnulib
-   sigprocmask() substitute, but all other application code linked
+   pthread_sigmask() substitute, but all other application code linked
    with this module should stick with only sigaction().  */
 
 /* Check some of our assumptions.  */
@@ -83,9 +85,6 @@ static struct sigaction volatile action_array[NSIG] /* = 0 */;
 static void
 sigaction_handler (int sig)
 {
-  handler_t handler;
-  sigset_t mask;
-  sigset_t oldmask;
   int saved_errno = errno;
   if (sig < 0 || NSIG <= sig || !action_array[sig].sa_handler)
     {
@@ -103,23 +102,24 @@ sigaction_handler (int sig)
      asynchronous instance of the same signal occurring before we
      reinstall the handler will trigger the default handler; oh
      well.  */
-  handler = action_array[sig].sa_handler;
+  handler_t handler = action_array[sig].sa_handler;
   if ((action_array[sig].sa_flags & SA_RESETHAND) == 0)
     signal (sig, sigaction_handler);
   else
     action_array[sig].sa_handler = NULL;
 
   /* Block appropriate signals.  */
-  mask = action_array[sig].sa_mask;
+  sigset_t mask = action_array[sig].sa_mask;
   if ((action_array[sig].sa_flags & SA_NODEFER) == 0)
     sigaddset (&mask, sig);
-  sigprocmask (SIG_BLOCK, &mask, &oldmask);
+  sigset_t oldmask;
+  pthread_sigmask (SIG_BLOCK, &mask, &oldmask);
 
   /* Invoke the user's handler, then restore prior mask.  */
   errno = saved_errno;
   handler (sig);
   saved_errno = errno;
-  sigprocmask (SIG_SETMASK, &oldmask, NULL);
+  pthread_sigmask (SIG_SETMASK, &oldmask, NULL);
   errno = saved_errno;
 }
 
@@ -131,10 +131,6 @@ int
 sigaction (int sig, const struct sigaction *restrict act,
            struct sigaction *restrict oact)
 {
-  sigset_t mask;
-  sigset_t oldmask;
-  int saved_errno;
-
   if (sig < 0 || NSIG <= sig || sig == SIGKILL || sig == SIGSTOP
       || (act && act->sa_handler == SIG_ERR))
     {
@@ -151,14 +147,16 @@ sigaction (int sig, const struct sigaction *restrict act,
      words, if an asynchronous signal can occur while we are anywhere
      inside this function, the user's handler could then call
      sigaction() recursively and expect consistent results.  We meet
-     this rule by using sigprocmask to block all signals before
+     this rule by using pthread_sigmask to block all signals before
      modifying any data structure that could be read from a signal
-     handler; this works since we know that the gnulib sigprocmask
+     handler; this works since we know that the gnulib pthread_sigmask
      replacement does not try to use sigaction() from its handler.  */
   if (!act && !oact)
     return 0;
+  sigset_t mask;
   sigfillset (&mask);
-  sigprocmask (SIG_BLOCK, &mask, &oldmask);
+  sigset_t oldmask;
+  pthread_sigmask (SIG_BLOCK, &mask, &oldmask);
   if (oact)
     {
       if (action_array[sig].sa_handler)
@@ -173,6 +171,10 @@ sigaction (int sig, const struct sigaction *restrict act,
           signal (sig, oact->sa_handler);
           oact->sa_flags = SA_RESETHAND | SA_NODEFER;
           sigemptyset (&oact->sa_mask);
+          /* The sigaction_handler is an internal detail.  It must not be
+             visible to the caller.  */
+          if (oact->sa_handler == sigaction_handler)
+            *oact = action_array[sig];
         }
     }
 
@@ -193,12 +195,14 @@ sigaction (int sig, const struct sigaction *restrict act,
           action_array[sig] = *act;
         }
     }
-  sigprocmask (SIG_SETMASK, &oldmask, NULL);
+  pthread_sigmask (SIG_SETMASK, &oldmask, NULL);
   return 0;
 
  failure:
-  saved_errno = errno;
-  sigprocmask (SIG_SETMASK, &oldmask, NULL);
-  errno = saved_errno;
-  return -1;
+  {
+    int saved_errno = errno;
+    pthread_sigmask (SIG_SETMASK, &oldmask, NULL);
+    errno = saved_errno;
+    return -1;
+  }
 }

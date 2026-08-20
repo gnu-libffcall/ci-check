@@ -1,5 +1,5 @@
 /* Sequential list data type implemented by a linked list.
-   Copyright (C) 2006-2025 Free Software Foundation, Inc.
+   Copyright (C) 2006-2026 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This file is free software: you can redistribute it and/or modify
@@ -81,6 +81,7 @@ gl_linked_nx_create (gl_list_implementation_t implementation,
                      gl_listelement_dispose_fn dispose_fn,
                      bool allow_duplicates,
                      size_t count, const void **contents)
+  _GL_LIST_INVOKES_FN_PTR
 {
   struct gl_list_impl *list =
     (struct gl_list_impl *) malloc (sizeof (struct gl_list_impl));
@@ -123,7 +124,7 @@ gl_linked_nx_create (gl_list_implementation_t implementation,
       node->h.hashcode =
         (list->base.hashcode_fn != NULL
          ? list->base.hashcode_fn (node->value)
-         : (size_t)(uintptr_t) node->value);
+         : (size_t) {(uintptr_t) node->value});
 
       /* Add node to the hash table.  */
       if (add_to_bucket (list, node) < 0)
@@ -144,17 +145,13 @@ gl_linked_nx_create (gl_list_implementation_t implementation,
   return list;
 
  fail2:
-  {
-    gl_list_node_t node;
+  for (gl_list_node_t node = tail; node != &list->root; )
+    {
+      gl_list_node_t prev = node->prev;
 
-    for (node = tail; node != &list->root; )
-      {
-        gl_list_node_t prev = node->prev;
-
-        free (node);
-        node = prev;
-      }
-  }
+      free (node);
+      node = prev;
+    }
 #if WITH_HASHTABLE
   free (list->table);
  fail1:
@@ -170,8 +167,7 @@ gl_linked_size (gl_list_t list)
 }
 
 static const void * _GL_ATTRIBUTE_PURE
-gl_linked_node_value (_GL_ATTRIBUTE_MAYBE_UNUSED gl_list_t list,
-                      gl_list_node_t node)
+gl_linked_node_value (gl_list_t _GL_UNNAMED (list), gl_list_node_t node)
 {
   return node->value;
 }
@@ -180,6 +176,7 @@ static int
 gl_linked_node_nx_set_value (_GL_ATTRIBUTE_MAYBE_UNUSED gl_list_t list,
                              gl_list_node_t node,
                              const void *elt)
+  _GL_LIST_INVOKES_FN_PTR
 {
 #if WITH_HASHTABLE
   if (elt != node->value)
@@ -187,7 +184,7 @@ gl_linked_node_nx_set_value (_GL_ATTRIBUTE_MAYBE_UNUSED gl_list_t list,
       size_t new_hashcode =
         (list->base.hashcode_fn != NULL
          ? list->base.hashcode_fn (elt)
-         : (size_t)(uintptr_t) elt);
+         : (size_t) {(uintptr_t) elt});
 
       if (new_hashcode != node->h.hashcode)
         {
@@ -251,12 +248,12 @@ static const void * _GL_ATTRIBUTE_PURE
 gl_linked_get_at (gl_list_t list, size_t position)
 {
   size_t count = list->count;
-  gl_list_node_t node;
 
   if (!(position < count))
     /* Invalid argument.  */
     abort ();
   /* Here we know count > 0.  */
+  gl_list_node_t node;
   if (position <= ((count - 1) / 2))
     {
       node = list->root.next;
@@ -275,14 +272,15 @@ gl_linked_get_at (gl_list_t list, size_t position)
 
 static gl_list_node_t
 gl_linked_nx_set_at (gl_list_t list, size_t position, const void *elt)
+  _GL_LIST_INVOKES_FN_PTR
 {
   size_t count = list->count;
-  gl_list_node_t node;
 
   if (!(position < count))
     /* Invalid argument.  */
     abort ();
   /* Here we know count > 0.  */
+  gl_list_node_t node;
   if (position <= ((count - 1) / 2))
     {
       node = list->root.next;
@@ -302,7 +300,7 @@ gl_linked_nx_set_at (gl_list_t list, size_t position, const void *elt)
       size_t new_hashcode =
         (list->base.hashcode_fn != NULL
          ? list->base.hashcode_fn (elt)
-         : (size_t)(uintptr_t) elt);
+         : (size_t) {(uintptr_t) elt});
 
       if (new_hashcode != node->h.hashcode)
         {
@@ -335,6 +333,7 @@ gl_linked_nx_set_at (gl_list_t list, size_t position, const void *elt)
 static gl_list_node_t _GL_ATTRIBUTE_PURE
 gl_linked_search_from_to (gl_list_t list, size_t start_index, size_t end_index,
                           const void *elt)
+  _GL_LIST_INVOKES_FN_PTR
 {
   size_t count = list->count;
 
@@ -346,7 +345,7 @@ gl_linked_search_from_to (gl_list_t list, size_t start_index, size_t end_index,
     size_t hashcode =
       (list->base.hashcode_fn != NULL
        ? list->base.hashcode_fn (elt)
-       : (size_t)(uintptr_t) elt);
+       : (size_t) {(uintptr_t) elt});
     size_t bucket = hashcode % list->table_size;
     gl_listelement_equals_fn equals = list->base.equals_fn;
 
@@ -354,9 +353,8 @@ gl_linked_search_from_to (gl_list_t list, size_t start_index, size_t end_index,
       {
         /* Look for the first match in the hash bucket.  */
         gl_list_node_t found = NULL;
-        gl_list_node_t node;
 
-        for (node = (gl_list_node_t) list->table[bucket];
+        for (gl_list_node_t node = (gl_list_node_t) list->table[bucket];
              node != NULL;
              node = (gl_list_node_t) node->h.hash_next)
           if (node->h.hashcode == hashcode
@@ -369,7 +367,7 @@ gl_linked_search_from_to (gl_list_t list, size_t start_index, size_t end_index,
             }
         if (start_index > 0)
           /* Look whether found's index is < start_index.  */
-          for (node = list->root.next; ; node = node->next)
+          for (gl_list_node_t node = list->root.next; ; node = node->next)
             {
               if (node == found)
                 return NULL;
@@ -380,7 +378,7 @@ gl_linked_search_from_to (gl_list_t list, size_t start_index, size_t end_index,
           /* Look whether found's index is >= end_index.  */
           {
             end_index = count - end_index;
-            for (node = list->root.prev; ; node = node->prev)
+            for (gl_list_node_t node = list->root.prev; ; node = node->prev)
               {
                 if (node == found)
                   return NULL;
@@ -395,9 +393,8 @@ gl_linked_search_from_to (gl_list_t list, size_t start_index, size_t end_index,
         /* Look whether there is more than one match in the hash bucket.  */
         bool multiple_matches = false;
         gl_list_node_t first_match = NULL;
-        gl_list_node_t node;
 
-        for (node = (gl_list_node_t) list->table[bucket];
+        for (gl_list_node_t node = (gl_list_node_t) list->table[bucket];
              node != NULL;
              node = (gl_list_node_t) node->h.hash_next)
           if (node->h.hashcode == hashcode
@@ -418,7 +415,7 @@ gl_linked_search_from_to (gl_list_t list, size_t start_index, size_t end_index,
             /* We need the match with the smallest index.  But we don't have
                a fast mapping node -> index.  So we have to walk the list.  */
             end_index -= start_index;
-            node = list->root.next;
+            gl_list_node_t node = list->root.next;
             for (; start_index > 0; start_index--)
               node = node->next;
 
@@ -438,7 +435,7 @@ gl_linked_search_from_to (gl_list_t list, size_t start_index, size_t end_index,
           {
             if (start_index > 0)
               /* Look whether first_match's index is < start_index.  */
-              for (node = list->root.next; node != &list->root; node = node->next)
+              for (gl_list_node_t node = list->root.next; node != &list->root; node = node->next)
                 {
                   if (node == first_match)
                     return NULL;
@@ -449,7 +446,7 @@ gl_linked_search_from_to (gl_list_t list, size_t start_index, size_t end_index,
               /* Look whether first_match's index is >= end_index.  */
               {
                 end_index = list->count - end_index;
-                for (node = list->root.prev; ; node = node->prev)
+                for (gl_list_node_t node = list->root.prev; ; node = node->prev)
                   {
                     if (node == first_match)
                       return NULL;
@@ -461,13 +458,13 @@ gl_linked_search_from_to (gl_list_t list, size_t start_index, size_t end_index,
           }
       }
 #else
-    gl_listelement_equals_fn equals = list->base.equals_fn;
-    gl_list_node_t node = list->root.next;
-
     end_index -= start_index;
+
+    gl_list_node_t node = list->root.next;
     for (; start_index > 0; start_index--)
       node = node->next;
 
+    gl_listelement_equals_fn equals = list->base.equals_fn;
     if (equals != NULL)
       {
         for (; end_index > 0; node = node->next, end_index--)
@@ -488,6 +485,7 @@ gl_linked_search_from_to (gl_list_t list, size_t start_index, size_t end_index,
 static size_t _GL_ATTRIBUTE_PURE
 gl_linked_indexof_from_to (gl_list_t list, size_t start_index, size_t end_index,
                            const void *elt)
+  _GL_LIST_INVOKES_FN_PTR
 {
   size_t count = list->count;
 
@@ -502,12 +500,12 @@ gl_linked_indexof_from_to (gl_list_t list, size_t start_index, size_t end_index,
     size_t hashcode =
       (list->base.hashcode_fn != NULL
        ? list->base.hashcode_fn (elt)
-       : (size_t)(uintptr_t) elt);
+       : (size_t) {(uintptr_t) elt});
     size_t bucket = hashcode % list->table_size;
     gl_listelement_equals_fn equals = list->base.equals_fn;
-    gl_list_node_t node;
 
     /* First step: Look up the node.  */
+    gl_list_node_t node;
     if (!list->base.allow_duplicates)
       {
         /* Look for the first match in the hash bucket.  */
@@ -546,9 +544,7 @@ gl_linked_indexof_from_to (gl_list_t list, size_t start_index, size_t end_index,
           {
             /* We need the match with the smallest index.  But we don't have
                a fast mapping node -> index.  So we have to walk the list.  */
-            size_t index;
-
-            index = start_index;
+            size_t index = start_index;
             node = list->root.next;
             for (; start_index > 0; start_index--)
               node = node->next;
@@ -574,7 +570,6 @@ gl_linked_indexof_from_to (gl_list_t list, size_t start_index, size_t end_index,
     else
       {
         size_t index = 0;
-
         for (; node->prev != &list->root; node = node->prev)
           index++;
 
@@ -584,13 +579,13 @@ gl_linked_indexof_from_to (gl_list_t list, size_t start_index, size_t end_index,
           return (size_t)(-1);
       }
 #else
-    gl_listelement_equals_fn equals = list->base.equals_fn;
     size_t index = start_index;
-    gl_list_node_t node = list->root.next;
 
+    gl_list_node_t node = list->root.next;
     for (; start_index > 0; start_index--)
       node = node->next;
 
+    gl_listelement_equals_fn equals = list->base.equals_fn;
     if (equals != NULL)
       {
         for (;
@@ -614,6 +609,7 @@ gl_linked_indexof_from_to (gl_list_t list, size_t start_index, size_t end_index,
 
 static gl_list_node_t
 gl_linked_nx_add_first (gl_list_t list, const void *elt)
+  _GL_LIST_INVOKES_FN_PTR
 {
   gl_list_node_t node =
     (struct gl_list_node_impl *) malloc (sizeof (struct gl_list_node_impl));
@@ -626,7 +622,7 @@ gl_linked_nx_add_first (gl_list_t list, const void *elt)
   node->h.hashcode =
     (list->base.hashcode_fn != NULL
      ? list->base.hashcode_fn (node->value)
-     : (size_t)(uintptr_t) node->value);
+     : (size_t) {(uintptr_t) node->value});
 
   /* Add node to the hash table.  */
   if (add_to_bucket (list, node) < 0)
@@ -652,6 +648,7 @@ gl_linked_nx_add_first (gl_list_t list, const void *elt)
 
 static gl_list_node_t
 gl_linked_nx_add_last (gl_list_t list, const void *elt)
+  _GL_LIST_INVOKES_FN_PTR
 {
   gl_list_node_t node =
     (struct gl_list_node_impl *) malloc (sizeof (struct gl_list_node_impl));
@@ -664,7 +661,7 @@ gl_linked_nx_add_last (gl_list_t list, const void *elt)
   node->h.hashcode =
     (list->base.hashcode_fn != NULL
      ? list->base.hashcode_fn (node->value)
-     : (size_t)(uintptr_t) node->value);
+     : (size_t) {(uintptr_t) node->value});
 
   /* Add node to the hash table.  */
   if (add_to_bucket (list, node) < 0)
@@ -690,6 +687,7 @@ gl_linked_nx_add_last (gl_list_t list, const void *elt)
 
 static gl_list_node_t
 gl_linked_nx_add_before (gl_list_t list, gl_list_node_t node, const void *elt)
+  _GL_LIST_INVOKES_FN_PTR
 {
   gl_list_node_t new_node =
     (struct gl_list_node_impl *) malloc (sizeof (struct gl_list_node_impl));
@@ -702,7 +700,7 @@ gl_linked_nx_add_before (gl_list_t list, gl_list_node_t node, const void *elt)
   new_node->h.hashcode =
     (list->base.hashcode_fn != NULL
      ? list->base.hashcode_fn (new_node->value)
-     : (size_t)(uintptr_t) new_node->value);
+     : (size_t) {(uintptr_t) new_node->value});
 
   /* Add new_node to the hash table.  */
   if (add_to_bucket (list, new_node) < 0)
@@ -728,6 +726,7 @@ gl_linked_nx_add_before (gl_list_t list, gl_list_node_t node, const void *elt)
 
 static gl_list_node_t
 gl_linked_nx_add_after (gl_list_t list, gl_list_node_t node, const void *elt)
+  _GL_LIST_INVOKES_FN_PTR
 {
   gl_list_node_t new_node =
     (struct gl_list_node_impl *) malloc (sizeof (struct gl_list_node_impl));
@@ -740,7 +739,7 @@ gl_linked_nx_add_after (gl_list_t list, gl_list_node_t node, const void *elt)
   new_node->h.hashcode =
     (list->base.hashcode_fn != NULL
      ? list->base.hashcode_fn (new_node->value)
-     : (size_t)(uintptr_t) new_node->value);
+     : (size_t) {(uintptr_t) new_node->value});
 
   /* Add new_node to the hash table.  */
   if (add_to_bucket (list, new_node) < 0)
@@ -766,6 +765,7 @@ gl_linked_nx_add_after (gl_list_t list, gl_list_node_t node, const void *elt)
 
 static gl_list_node_t
 gl_linked_nx_add_at (gl_list_t list, size_t position, const void *elt)
+  _GL_LIST_INVOKES_FN_PTR
 {
   size_t count = list->count;
   gl_list_node_t new_node;
@@ -783,7 +783,7 @@ gl_linked_nx_add_at (gl_list_t list, size_t position, const void *elt)
   new_node->h.hashcode =
     (list->base.hashcode_fn != NULL
      ? list->base.hashcode_fn (new_node->value)
-     : (size_t)(uintptr_t) new_node->value);
+     : (size_t) {(uintptr_t) new_node->value});
 
   /* Add new_node to the hash table.  */
   if (add_to_bucket (list, new_node) < 0)
@@ -796,11 +796,10 @@ gl_linked_nx_add_at (gl_list_t list, size_t position, const void *elt)
   /* Add new_node to the list.  */
   if (position <= (count / 2))
     {
-      gl_list_node_t node;
-
-      node = &list->root;
+      gl_list_node_t node = &list->root;
       for (; position > 0; position--)
         node = node->next;
+
       new_node->prev = node;
       ASYNCSAFE(gl_list_node_t) new_node->next = node->next;
       new_node->next->prev = new_node;
@@ -808,12 +807,12 @@ gl_linked_nx_add_at (gl_list_t list, size_t position, const void *elt)
     }
   else
     {
-      gl_list_node_t node;
-
       position = count - position;
-      node = &list->root;
+
+      gl_list_node_t node = &list->root;
       for (; position > 0; position--)
         node = node->prev;
+
       ASYNCSAFE(gl_list_node_t) new_node->next = node;
       new_node->prev = node->prev;
       ASYNCSAFE(gl_list_node_t) new_node->prev->next = new_node;
@@ -830,18 +829,16 @@ gl_linked_nx_add_at (gl_list_t list, size_t position, const void *elt)
 
 static bool
 gl_linked_remove_node (gl_list_t list, gl_list_node_t node)
+  _GL_LIST_INVOKES_FN_PTR
 {
-  gl_list_node_t prev;
-  gl_list_node_t next;
-
 #if WITH_HASHTABLE
   /* Remove node from the hash table.  */
   remove_from_bucket (list, node);
 #endif
 
   /* Remove node from the list.  */
-  prev = node->prev;
-  next = node->next;
+  gl_list_node_t prev = node->prev;
+  gl_list_node_t next = node->next;
 
   ASYNCSAFE(gl_list_node_t) prev->next = next;
   next->prev = prev;
@@ -855,38 +852,36 @@ gl_linked_remove_node (gl_list_t list, gl_list_node_t node)
 
 static bool
 gl_linked_remove_at (gl_list_t list, size_t position)
+  _GL_LIST_INVOKES_FN_PTR
 {
   size_t count = list->count;
-  gl_list_node_t removed_node;
 
   if (!(position < count))
     /* Invalid argument.  */
     abort ();
   /* Here we know count > 0.  */
+  gl_list_node_t removed_node;
   if (position <= ((count - 1) / 2))
     {
-      gl_list_node_t node;
-      gl_list_node_t after_removed;
-
-      node = &list->root;
+      gl_list_node_t node = &list->root;
       for (; position > 0; position--)
         node = node->next;
+
       removed_node = node->next;
-      after_removed = node->next->next;
+      gl_list_node_t after_removed = node->next->next;
       ASYNCSAFE(gl_list_node_t) node->next = after_removed;
       after_removed->prev = node;
     }
   else
     {
-      gl_list_node_t node;
-      gl_list_node_t before_removed;
-
       position = count - 1 - position;
-      node = &list->root;
+
+      gl_list_node_t node = &list->root;
       for (; position > 0; position--)
         node = node->prev;
+
       removed_node = node->prev;
-      before_removed = node->prev->prev;
+      gl_list_node_t before_removed = node->prev->prev;
       node->prev = before_removed;
       ASYNCSAFE(gl_list_node_t) before_removed->next = node;
     }
@@ -914,11 +909,11 @@ gl_linked_remove (gl_list_t list, const void *elt)
 
 static void
 gl_linked_list_free (gl_list_t list)
+  _GL_LIST_INVOKES_FN_PTR
 {
   gl_listelement_dispose_fn dispose = list->base.dispose_fn;
-  gl_list_node_t node;
 
-  for (node = list->root.next; node != &list->root; )
+  for (gl_list_node_t node = list->root.next; node != &list->root; )
     {
       gl_list_node_t next = node->next;
       if (dispose != NULL)
@@ -972,44 +967,37 @@ gl_linked_iterator_from_to (gl_list_t list,
   if (n1 > n2 && n1 > n3)
     {
       /* n1 is the maximum, use n2 and n3.  */
-      gl_list_node_t node;
-      size_t i;
-
-      node = &list->root;
-      for (i = n3; i > 0; i--)
+      gl_list_node_t node = &list->root;
+      for (size_t i = n3; i > 0; i--)
         node = node->prev;
       result.q = node;
-      for (i = n2; i > 0; i--)
+
+      for (size_t i = n2; i > 0; i--)
         node = node->prev;
       result.p = node;
     }
   else if (n2 > n3)
     {
       /* n2 is the maximum, use n1 and n3.  */
-      gl_list_node_t node;
-      size_t i;
-
-      node = list->root.next;
-      for (i = n1; i > 0; i--)
+      gl_list_node_t node = list->root.next;
+      for (size_t i = n1; i > 0; i--)
         node = node->next;
       result.p = node;
 
       node = &list->root;
-      for (i = n3; i > 0; i--)
+      for (size_t i = n3; i > 0; i--)
         node = node->prev;
       result.q = node;
     }
   else
     {
       /* n3 is the maximum, use n1 and n2.  */
-      gl_list_node_t node;
-      size_t i;
-
-      node = list->root.next;
-      for (i = n1; i > 0; i--)
+      gl_list_node_t node = list->root.next;
+      for (size_t i = n1; i > 0; i--)
         node = node->next;
       result.p = node;
-      for (i = n2; i > 0; i--)
+
+      for (size_t i = n2; i > 0; i--)
         node = node->next;
       result.q = node;
     }
@@ -1041,7 +1029,7 @@ gl_linked_iterator_next (gl_list_iterator_t *iterator,
 }
 
 static void
-gl_linked_iterator_free (_GL_ATTRIBUTE_MAYBE_UNUSED gl_list_iterator_t *iterator)
+gl_linked_iterator_free (gl_list_iterator_t *_GL_UNNAMED (iterator))
 {
 }
 
@@ -1050,10 +1038,9 @@ gl_linked_iterator_free (_GL_ATTRIBUTE_MAYBE_UNUSED gl_list_iterator_t *iterator
 static gl_list_node_t _GL_ATTRIBUTE_PURE
 gl_linked_sortedlist_search (gl_list_t list, gl_listelement_compar_fn compar,
                              const void *elt)
+  _GL_LIST_INVOKES_FN_PTR
 {
-  gl_list_node_t node;
-
-  for (node = list->root.next; node != &list->root; node = node->next)
+  for (gl_list_node_t node = list->root.next; node != &list->root; node = node->next)
     {
       int cmp = compar (node->value, elt);
 
@@ -1070,6 +1057,7 @@ gl_linked_sortedlist_search_from_to (gl_list_t list,
                                      gl_listelement_compar_fn compar,
                                      size_t low, size_t high,
                                      const void *elt)
+  _GL_LIST_INVOKES_FN_PTR
 {
   size_t count = list->count;
 
@@ -1082,8 +1070,8 @@ gl_linked_sortedlist_search_from_to (gl_list_t list,
     {
       /* Here we know low < count.  */
       size_t position = low;
-      gl_list_node_t node;
 
+      gl_list_node_t node;
       if (position <= ((count - 1) / 2))
         {
           node = list->root.next;
@@ -1116,6 +1104,7 @@ gl_linked_sortedlist_search_from_to (gl_list_t list,
 static size_t _GL_ATTRIBUTE_PURE
 gl_linked_sortedlist_indexof (gl_list_t list, gl_listelement_compar_fn compar,
                               const void *elt)
+  _GL_LIST_INVOKES_FN_PTR
 {
   gl_list_node_t node;
   size_t index;
@@ -1139,6 +1128,7 @@ gl_linked_sortedlist_indexof_from_to (gl_list_t list,
                                       gl_listelement_compar_fn compar,
                                       size_t low, size_t high,
                                       const void *elt)
+  _GL_LIST_INVOKES_FN_PTR
 {
   size_t count = list->count;
 
@@ -1152,8 +1142,8 @@ gl_linked_sortedlist_indexof_from_to (gl_list_t list,
       /* Here we know low < count.  */
       size_t index = low;
       size_t position = low;
-      gl_list_node_t node;
 
+      gl_list_node_t node;
       if (position <= ((count - 1) / 2))
         {
           node = list->root.next;
@@ -1187,10 +1177,9 @@ gl_linked_sortedlist_indexof_from_to (gl_list_t list,
 static gl_list_node_t
 gl_linked_sortedlist_nx_add (gl_list_t list, gl_listelement_compar_fn compar,
                              const void *elt)
+  _GL_LIST_INVOKES_FN_PTR
 {
-  gl_list_node_t node;
-
-  for (node = list->root.next; node != &list->root; node = node->next)
+  for (gl_list_node_t node = list->root.next; node != &list->root; node = node->next)
     if (compar (node->value, elt) >= 0)
       return gl_linked_nx_add_before (list, node, elt);
   return gl_linked_nx_add_last (list, elt);
@@ -1199,10 +1188,9 @@ gl_linked_sortedlist_nx_add (gl_list_t list, gl_listelement_compar_fn compar,
 static bool
 gl_linked_sortedlist_remove (gl_list_t list, gl_listelement_compar_fn compar,
                              const void *elt)
+  _GL_LIST_INVOKES_FN_PTR
 {
-  gl_list_node_t node;
-
-  for (node = list->root.next; node != &list->root; node = node->next)
+  for (gl_list_node_t node = list->root.next; node != &list->root; node = node->next)
     {
       int cmp = compar (node->value, elt);
 

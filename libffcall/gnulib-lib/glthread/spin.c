@@ -1,5 +1,5 @@
 /* Spin locks in multithreaded situations.
-   Copyright (C) 2020-2025 Free Software Foundation, Inc.
+   Copyright (C) 2020-2026 Free Software Foundation, Inc.
 
    This file is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as
@@ -37,8 +37,8 @@
 #else
 
 /* We don't use semaphores (although sem_post() is allowed in signal handlers),
-   because it would require to link with -lrt on HP-UX 11, OSF/1, Solaris 10,
-   and also because on macOS only named semaphores work.
+   because it would require to link with -lrt on HP-UX 11, Solaris 10, and also
+   because on macOS only named semaphores work.
 
    We don't use the C11 <stdatomic.h> (available in GCC >= 4.9) because it would
    require to link with -latomic.  */

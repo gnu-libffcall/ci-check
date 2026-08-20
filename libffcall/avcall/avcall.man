@@ -1,6 +1,4 @@
-AVCALL(3)                  Library Functions Manual                  AVCALL(3)
-
-
+[4mAVCALL[24m(3)                  Library Functions Manual                  [4mAVCALL[24m(3)
 
 [1mNAME[0m
        avcall - build a C argument list incrementally and call a C function on
@@ -18,15 +16,15 @@ AVCALL(3)                  Library Functions Manual                  AVCALL(3)
        [1mav_call([4m[22malist[24m[1m);[0m
 
 [1mDESCRIPTION[0m
-       This set of macros builds an argument list for a C function  and  calls
-       the  function on it. It significantly reduces the amount of `glue' code
+       This  set  of macros builds an argument list for a C function and calls
+       the function on it. It significantly reduces the amount of `glue'  code
        required for parsers, debuggers, imbedded interpreters, C extensions to
        application  programs  and  other situations where collections of func‐
        tions need to be called on lists of externally-supplied arguments.
 
        Function calling conventions differ considerably on different  machines
-       and  [4mavcall[24m  attempts  to  provide  some  degree of isolation from such
-       architecture dependencies.
+       and  [4mavcall[24m  attempts to provide some degree of isolation from such ar‐
+       chitecture dependencies.
 
        The interface is like [1mstdarg[22m(3) in reverse. All of the macros return  0
        for success, < 0 for failure (e.g., argument list overflow or type-not-
@@ -36,17 +34,17 @@ AVCALL(3)                  Library Functions Manual                  AVCALL(3)
               and declare the argument list structure
               [1mav_alist [4m[22malist[24m[1m;[0m
 
-       (2)    Set any special flags. This is architecture and compiler  depen‐
+       (2)    Set  any special flags. This is architecture and compiler depen‐
               dent.  Compiler options that affect passing conventions may need
               to be flagged by [1m#define[22ms before the [1m#include <avcall.h>  [22mstate‐
               ment. However, the [4mconfigure[24m script should have determined which
               [1m#define[22ms are needed and put them at the top of [1mavcall.h[22m.
 
-       (3)    Initialize the alist with the function address and return  value
-              pointer  (if  any).  There  is  a separate macro for each simple
-              return type ([u]char, [u]short,  [u]int,  [u]long,  [u]longlong,
-              float,  double,  where `u' indicates `unsigned'). The macros for
-              functions returning structures or pointers require  an  explicit
+       (3)    Initialize  the alist with the function address and return value
+              pointer (if any). There is a separate macro for each simple  re‐
+              turn  type  ([u]char,  [u]short,  [u]int,  [u]long, [u]longlong,
+              float, double, where `u' indicates `unsigned'). The  macros  for
+              functions  returning  structures or pointers require an explicit
               type argument.
 
        E.g.,
@@ -63,13 +61,13 @@ AVCALL(3)                  Library Functions Manual                  AVCALL(3)
        [1mav_start_ptr ([4m[22malist[24m[1m, [4m[22m&func[24m[1m, [4m[22mpointer_type[24m[1m,[0m
                      [4m&pointer_return[24m[1m);[0m
 
-       The  [4msplittable[24m  flag specifies whether the [4mstruct_type[24m can be returned
-       in registers such that every struct field fits  entirely  in  a  single
-       register.   This   needs   to   be   specified   for  structs  of  size
-       2*sizeof(long). For structs of  size  <=  sizeof(long),  [4msplittable[24m  is
-       ignored  and  assumed  to  be  1. For structs of size > 2*sizeof(long),
-       [4msplittable[24m is ignored and assumed to be 0. There are some handy  macros
-       for this:
+       The [4msplittable[24m flag specifies whether the [4mstruct_type[24m can  be  returned
+       in  registers  such  that  every struct field fits entirely in a single
+       register.  This  needs  to   be   specified   for   structs   of   size
+       2*sizeof(long).  For structs of size <= sizeof(long), [4msplittable[24m is ig‐
+       nored and assumed to be 1. For structs of size > 2*sizeof(long), [4msplit‐[0m
+       [4mtable[24m is ignored and assumed to be 0. There are some handy  macros  for
+       this:
        [1mav_word_splittable_1 ([4m[22mtype1[24m[1m)[0m
        [1mav_word_splittable_2 ([4m[22mtype1[24m[1m, [4m[22mtype2[24m[1m)[0m
        [1mav_word_splittable_3 ([4m[22mtype1[24m[1m, [4m[22mtype2[24m[1m, [4m[22mtype3[24m[1m)[0m
@@ -99,20 +97,20 @@ AVCALL(3)                  Library Functions Manual                  AVCALL(3)
 [1mNOTES[0m
        (1) Functions whose first declaration is in Kernighan &  Ritchie  style
        (i.e., without a typed argument list) MUST use default K&R C expression
-       promotions (char and short to int, float to double)  whether  they  are
-       compiled  by a K&R or an ANSI compiler, because the true argument types
-       may not be known at the call point. Such functions typically  back-con‐
+       promotions  (char  and  short to int, float to double) whether they are
+       compiled by a K&R or an ANSI compiler, because the true argument  types
+       may  not be known at the call point. Such functions typically back-con‐
        vert their arguments to the declared types on function entry. (In fact,
-       the only way to pass a true char, short or float in  K&R  C  is  by  an
-       explicit cast: [1mfunc((char)c,(float)f) [22m).  Similarly, some K&R compilers
+       the only way to pass a true char, short or float in K&R C is by an  ex‐
+       plicit  cast:  [1mfunc((char)c,(float)f) [22m).  Similarly, some K&R compilers
        (such as Sun cc on the sparc) actually return a float as a double.
 
        Hence, for arguments of functions declared in K&R style you should  use
        [1mav_int()   [22mand   [1mav_double()   [22mrather  than  [1mav_char(),  av_short()  [22mor
        [1mav_float().  [22mIf you use a K&R compiler, the avcall header files may  be
        able to detect this and define [1mav_float(), [22metc, appropriately, but with
-       an ANSI compiler there is no way [4mavcall[24m can know  how  a  function  was
-       declared, so you have to correct the argument types yourself.
+       an ANSI compiler there is no way [4mavcall[24m can know how a function was de‐
+       clared, so you have to correct the argument types yourself.
 
        (2)  The explicit type arguments of the [1mav_struct() [22mand [1mav_ptr() [22mmacros
        are typically used to calculate size, alignment,  and  passing  conven‐
@@ -160,18 +158,18 @@ AVCALL(3)                  Library Functions Manual                  AVCALL(3)
        non-32-bit machines are especially welcome so we can sort the interface
        out before it's too late.
 
-       Knowledge  about  argument  passing conventions can be found in the gcc
-       source, file gcc-2.6.3/config/[4mcpu[24m/[4mcpu[24m.h, section "Stack  layout;  func‐
+       Knowledge about argument passing conventions can be found  in  the  gcc
+       source,  file  gcc-2.6.3/config/[4mcpu[24m/[4mcpu[24m.h, section "Stack layout; func‐
        tion entry, exit and calling."
 
-       Some  of  the  grunge  is usually handled by a C or assembly level glue
-       routine that actually pushes the  arguments,  calls  the  function  and
-       unpacks  any return value.  This is called avcall_call(). A precompiled
-       assembler version for people without gcc is also  made  available.  The
-       routine  should ideally have flags for the passing conventions of other
+       Some of the grunge is usually handled by a C  or  assembly  level  glue
+       routine  that actually pushes the arguments, calls the function and un‐
+       packs any return value.  This is called  avcall_call().  A  precompiled
+       assembler  version  for  people without gcc is also made available. The
+       routine should ideally have flags for the passing conventions of  other
        compilers.
 
-       Many of the current routines waste a lot of stack space  and  generally
+       Many  of  the current routines waste a lot of stack space and generally
        do hairy things to stack frames - a bit more assembly code would proba‐
        bly help things along quite a bit here.
 
@@ -186,13 +184,11 @@ AVCALL(3)                  Library Functions Manual                  AVCALL(3)
        Research, <zilla@ccrl.nj.nec.com> (for Sun4 & SGI),  and  Roy  Feather‐
        stone's  <roy@robots.oxford.ac.uk>  personal  C  interface  library for
        Sun[34] & SGI.  I also looked at the machine-dependent parts of the GCC
-       and  GDB  distributions,  and put the gcc asm() extensions to good use.
+       and GDB distributions, and put the gcc asm() extensions  to  good  use.
        Thanks guys!
 
-       This work was partly supported by EC-ESPRIT Basic Research Action  SEC‐
+       This  work was partly supported by EC-ESPRIT Basic Research Action SEC‐
        OND.
 
 
-
-
-                                 23 July 2017                        AVCALL(3)
+                                 23 July 2017                        [4mAVCALL[24m(3)

@@ -1,6 +1,4 @@
-TRAMPOLINE(3)              Library Functions Manual              TRAMPOLINE(3)
-
-
+[4mTRAMPOLINE[24m(3)              Library Functions Manual              [4mTRAMPOLINE[24m(3)
 
 [1mNAME[0m
        trampoline - closures as first-class C functions
@@ -23,8 +21,8 @@ TRAMPOLINE(3)              Library Functions Manual              TRAMPOLINE(3)
        passed to the C function when the closure is called.
 
        Closures as [4mfirst-class[24m [4mC[24m [4mfunctions[24m means that they fit into a function
-       pointer and can be called exactly like any other C function.   [4mfunction[0m
-       [1m=  alloc_trampoline_r([4m[22maddress[24m[1m,  [4m[22mdata0[24m[1m, [4m[22mdata1[24m[1m) [22mallocates a closure. When
+       pointer  and can be called exactly like any other C function.  [4mfunction[0m
+       [1m= alloc_trampoline_r([4m[22maddress[24m[1m, [4m[22mdata0[24m[1m, [4m[22mdata1[24m[1m) [22mallocates a  closure.  When
        [4mfunction[24m gets called, it stores in a special "lexical chain register" a
        pointer  to a storage area containing [4mdata0[24m in its first word and [4mdata1[0m
        in its second word and calls the C function at [4maddress[24m.   The  function
@@ -66,6 +64,4 @@ TRAMPOLINE(3)              Library Functions Manual              TRAMPOLINE(3)
        Many ideas were cribbed from the gcc source.
 
 
-
-
-                                1 January 2017                   TRAMPOLINE(3)
+                                1 January 2017                   [4mTRAMPOLINE[24m(3)

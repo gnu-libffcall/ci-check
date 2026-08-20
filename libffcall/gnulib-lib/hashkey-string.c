@@ -1,5 +1,5 @@
 /* Support for using a string as a hash key.
-   Copyright (C) 2006-2025 Free Software Foundation, Inc.
+   Copyright (C) 2006-2026 Free Software Foundation, Inc.
 
    This file is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as
@@ -19,7 +19,7 @@
 /* Specification.  */
 #include "hashkey-string.h"
 
-#include <limits.h>
+#include <stdbit.h>
 #include <string.h>
 
 bool
@@ -27,10 +27,8 @@ hashkey_string_equals (const void *x1, const void *x2)
 {
   const char *s1 = (const char *) x1;
   const char *s2 = (const char *) x2;
-  return strcmp (s1, s2) == 0;
+  return streq (s1, s2);
 }
-
-#define SIZE_BITS (sizeof (size_t) * CHAR_BIT)
 
 /* A hash function for NUL-terminated 'const char *' strings using
    the method described by Bruno Haible.
@@ -42,7 +40,7 @@ hashkey_string_hash (const void *x)
   size_t h = 0;
 
   for (; *s; s++)
-    h = *s + ((h << 9) | (h >> (SIZE_BITS - 9)));
+    h = *s + stdc_rotate_left (h, 9);
 
   return h;
 }

@@ -124,7 +124,10 @@
 #define _GL_CONFIG_H_INCLUDED 1
 
 
-/* Define if no multithread safety and no multithreading is desired. */
+/* Define if building universal (internal helper macro) */
+#undef AC_APPLE_UNIVERSAL_BUILD
+
+/* Define if neither thread safety nor multithreading is desired. */
 #undef AVOID_ANY_THREADS
 
 /* Define to the number of bits in type 'ptrdiff_t'. */
@@ -258,6 +261,9 @@
 /* Define to 1 when the gnulib module lstat should be tested. */
 #undef GNULIB_TEST_LSTAT
 
+/* Define to 1 when the gnulib module memeq should be tested. */
+#undef GNULIB_TEST_MEMEQ
+
 /* Define to 1 when the gnulib module open should be tested. */
 #undef GNULIB_TEST_OPEN
 
@@ -266,6 +272,9 @@
 
 /* Define to 1 when the gnulib module pthread-once should be tested. */
 #undef GNULIB_TEST_PTHREAD_ONCE
+
+/* Define to 1 when the gnulib module pthread_sigmask should be tested. */
+#undef GNULIB_TEST_PTHREAD_SIGMASK
 
 /* Define to 1 when the gnulib module putc should be tested. */
 #undef GNULIB_TEST_PUTC
@@ -293,6 +302,12 @@
 
 /* Define to 1 when the gnulib module stat should be tested. */
 #undef GNULIB_TEST_STAT
+
+/* Define to 1 when the gnulib module stdc_rotate_left should be tested. */
+#undef GNULIB_TEST_STDC_ROTATE_LEFT
+
+/* Define to 1 when the gnulib module streq should be tested. */
+#undef GNULIB_TEST_STREQ
 
 /* Define to 1 when the gnulib module strerror should be tested. */
 #undef GNULIB_TEST_STRERROR
@@ -351,6 +366,10 @@
    */
 #undef HAVE_DECL_GETW
 
+/* Define to 1 if you have the declaration of 'memeq', and to 0 if you don't.
+   */
+#undef HAVE_DECL_MEMEQ
+
 /* Define to 1 if you have the declaration of 'program_invocation_name', and
    to 0 if you don't. */
 #undef HAVE_DECL_PROGRAM_INVOCATION_NAME
@@ -363,6 +382,14 @@
    */
 #undef HAVE_DECL_PUTW
 
+/* Define to 1 if you have the declaration of 'stdc_rotate_left_uc', and to 0
+   if you don't. */
+#undef HAVE_DECL_STDC_ROTATE_LEFT_UC
+
+/* Define to 1 if you have the declaration of 'streq', and to 0 if you don't.
+   */
+#undef HAVE_DECL_STREQ
+
 /* Define to 1 if you have the declaration of 'strerror_r', and to 0 if you
    don't. */
 #undef HAVE_DECL_STRERROR_R
@@ -373,6 +400,9 @@
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #undef HAVE_DLFCN_H
+
+/* Define to 1 if you have the 'dl_iterate_phdr' function. */
+#undef HAVE_DL_ITERATE_PHDR
 
 /* Define to 1 if you have the `error' function. */
 #undef HAVE_ERROR
@@ -404,6 +434,9 @@
 /* Define to 1 if you have the <limits.h> header file. */
 #undef HAVE_LIMITS_H
 
+/* Define to 1 if you have the <link.h> header file. */
+#undef HAVE_LINK_H
+
 /* Define to 1 if the system has the type 'long long int'. */
 #undef HAVE_LONG_LONG_INT
 
@@ -413,16 +446,12 @@
 /* Define to 1 if malloc (0) returns nonnull. */
 #undef HAVE_MALLOC_0_NONNULL
 
-/* Define if malloc, realloc, and calloc set errno on allocation failure. */
+/* Define if malloc and calloc set errno on allocation failure. */
 #undef HAVE_MALLOC_POSIX
 
 /* Define to 1 if malloc-like functions do not allocate objects larger than
    PTRDIFF_MAX bytes. */
 #undef HAVE_MALLOC_PTRDIFF
-
-/* Define to 1 if mmap()'s MAP_ANONYMOUS flag is available after including
-   config.h and <sys/mman.h>. */
-#undef HAVE_MAP_ANONYMOUS
 
 /* Define to 1 if you have the `memfd_create' function. */
 #undef HAVE_MEMFD_CREATE
@@ -495,6 +524,9 @@
    reader. */
 #undef HAVE_PTHREAD_RWLOCK_RDLOCK_PREFER_WRITER
 
+/* Define to 1 if the pthread_sigmask function can be used (despite bugs). */
+#undef HAVE_PTHREAD_SIGMASK
+
 /* Define to 1 if the system has the type 'pthread_spinlock_t'. */
 #undef HAVE_PTHREAD_SPINLOCK_T
 
@@ -537,17 +569,26 @@
 /* Define to 1 if 'wint_t' is a signed integer type. */
 #undef HAVE_SIGNED_WINT_T
 
+/* Define to 1 if you have the 'sigprocmask' function. */
+#undef HAVE_SIGPROCMASK
+
 /* Define to 1 if the system has the type 'sigset_t'. */
 #undef HAVE_SIGSET_T
 
 /* Define to 1 if the system has the type 'sig_atomic_t'. */
 #undef HAVE_SIG_ATOMIC_T
 
+/* Define to 1 if you have the <stdbit.h> header file. */
+#undef HAVE_STDBIT_H
+
 /* Define to 1 if you have the <stdbool.h> header file. */
 #undef HAVE_STDBOOL_H
 
 /* Define to 1 if you have the <stdckdint.h> header file. */
 #undef HAVE_STDCKDINT_H
+
+/* Define to 1 if you have the <stdcountof.h> header file. */
+#undef HAVE_STDCOUNTOF_H
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #undef HAVE_STDINT_H
@@ -603,8 +644,14 @@
 /* Define to 1 if you have the <sys/inttypes.h> header file. */
 #undef HAVE_SYS_INTTYPES_H
 
+/* Define to 1 if you have the <sys/mman.h> header file. */
+#undef HAVE_SYS_MMAN_H
+
 /* Define to 1 if you have the <sys/param.h> header file. */
 #undef HAVE_SYS_PARAM_H
+
+/* Define to 1 if you have the <sys/process.h> header file. */
+#undef HAVE_SYS_PROCESS_H
 
 /* Define to 1 if you have the <sys/single_threaded.h> header file. */
 #undef HAVE_SYS_SINGLE_THREADED_H
@@ -636,15 +683,15 @@
 /* Define if you have a global __progname variable */
 #undef HAVE_VAR___PROGNAME
 
+/* Define to 1 if you have the 'vasprintf' function. */
+#undef HAVE_VASPRINTF
+
 /* Define to 1 if you have the <wchar.h> header file. */
 #undef HAVE_WCHAR_H
 
 /* Define to 1 if the compiler and linker support weak declarations of
    symbols. */
 #undef HAVE_WEAK_SYMBOLS
-
-/* Define to 1 if <locale.h> defines the _locale_t type. */
-#undef HAVE_WINDOWS_LOCALE_T
 
 /* Define to 1 if you have the <winsock2.h> header file. */
 #undef HAVE_WINSOCK2_H
@@ -664,11 +711,11 @@
 /* Define to 1 if O_NOFOLLOW works, 0 otherwise. */
 #undef HAVE_WORKING_O_NOFOLLOW
 
-/* Define to 1 if you have the <xlocale.h> header file. */
-#undef HAVE_XLOCALE_H
-
 /* Define to 1 if you have the '_set_invalid_parameter_handler' function. */
 #undef HAVE__SET_INVALID_PARAMETER_HANDLER
+
+/* Define to 1 if you have the `__fseterr' function. */
+#undef HAVE___FSETERR
 
 /* Define to 1 if ctype.h defines __header_inline. */
 #undef HAVE___HEADER_INLINE
@@ -690,9 +737,11 @@
    functions or macros in standard C headers like <ctype.h>.  For example,
    if isdigit is mistakenly implemented via a static inline function,
    a program containing an extern inline function that calls isdigit
-   may not work since the C standard prohibits extern inline functions
-   from calling static functions (ISO C 99 section 6.7.4.(3).
-   This bug is known to occur on:
+   may not work since C99 through C23 prohibit extern inline functions
+   from calling static functions (ISO C 23 § 6.7.5 ¶ 3)).
+   Although a future C standard will likely relax this restriction
+   <https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3622.txt>,
+   respect it for now.  This bug is known to occur on:
 
      OS X 10.8 and earlier; see:
      https://lists.gnu.org/r/bug-gnulib/2012-12/msg00023.html
@@ -759,8 +808,8 @@
    suppress bogus "no previous prototype for 'FOO'"
    and "no previous declaration for 'FOO'" diagnostics,
    when FOO is an inline function in the header; see
-   <https://gcc.gnu.org/bugzilla/show_bug.cgi?id=54113> and
-   <https://gcc.gnu.org/bugzilla/show_bug.cgi?id=63877>.  */
+   <https://gcc.gnu.org/PR54113> and
+   <https://gcc.gnu.org/PR63877>.  */
 #if __GNUC__ == 4 && 6 <= __GNUC_MINOR__
 # if defined __GNUC_STDC_INLINE__ && __GNUC_STDC_INLINE__
 #  define _GL_INLINE_HEADER_CONST_PRAGMA
@@ -832,6 +881,16 @@
 
 /* Define if the pthread_in_use() detection is hard. */
 #undef PTHREAD_IN_USE_DETECTION_HARD
+
+/* Define to 1 if pthread_sigmask(), when it fails, returns -1 and sets errno.
+   */
+#undef PTHREAD_SIGMASK_FAILS_WITH_ERRNO
+
+/* Define to 1 if pthread_sigmask may return 0 and have no effect. */
+#undef PTHREAD_SIGMASK_INEFFECTIVE
+
+/* Define to 1 if pthread_sigmask requires linking with some library. */
+#undef PTHREAD_SIGMASK_NOT_IN_LIBC
 
 /* Define to l, ll, u, ul, ull, etc., as suitable for constants of type
    'ptrdiff_t'. */
@@ -1023,6 +1082,18 @@
    'wint_t'. */
 #undef WINT_T_SUFFIX
 
+/* Define WORDS_BIGENDIAN to 1 if your processor stores words with the most
+   significant byte first (like Motorola and SPARC, unlike Intel). */
+#if defined AC_APPLE_UNIVERSAL_BUILD
+# if defined __BIG_ENDIAN__
+#  define WORDS_BIGENDIAN 1
+# endif
+#else
+# ifndef WORDS_BIGENDIAN
+#  undef WORDS_BIGENDIAN
+# endif
+#endif
+
 /* Number of bits in a file offset, on hosts where this is settable. */
 #undef _FILE_OFFSET_BITS
 
@@ -1052,9 +1123,6 @@
 
 /* Define to 1 on platforms where this makes off_t a 64-bit type. */
 #undef _LARGE_FILES
-
-/* Define to 1 on Solaris. */
-#undef _LCONV_C99
 
 /* Define so that AIX headers are more compatible with GNU/Linux. */
 #undef _LINUX_SOURCE_COMPAT
@@ -1206,7 +1274,7 @@
       ======================================================================
       This gives a syntax error
         - in C mode with gcc
-          <https://gcc.gnu.org/bugzilla/show_bug.cgi?id=108796>, and
+          <https://gcc.gnu.org/PR108796>, and
         - in C++ mode with clang++ version < 16, and
         - in C++ mode, inside extern "C" {}, still in newer clang++ versions
           <https://github.com/llvm/llvm-project/issues/101990>.
@@ -1334,11 +1402,9 @@
    we cannot omit the storage-class specifier.  Therefore, the following rule
    applies:
      * The macros
-         _GL_ATTRIBUTE_CONST
          _GL_ATTRIBUTE_DEPRECATED
          _GL_ATTRIBUTE_MAYBE_UNUSED
          _GL_ATTRIBUTE_NODISCARD
-         _GL_ATTRIBUTE_PURE
          _GL_ATTRIBUTE_REPRODUCIBLE
          _GL_ATTRIBUTE_UNSEQUENCED
        which may expand to bracket syntax [[...]], must come first, before the
@@ -1451,22 +1517,42 @@
 #endif
 
 /* _GL_ATTRIBUTE_CONST declares:
-   It is OK for a compiler to move calls to the function and to omit
-   calls to the function if another call has the same arguments or the
-   result is not used.
-   This attribute is safe for a function that neither depends on
-   nor affects state, and always returns exactly once -
+   It is OK for a compiler to move a call, or omit a duplicate call
+   and reuse a cached return value, even if the state changes between calls.
+   It is also OK to omit a call if the result is not used.
+   This attribute is safe if the function does not change observable state,
+   returns a value determined solely by its arguments' values
+   without examining state, and always returns exactly once -
    e.g., does not raise an exception, call longjmp, or loop forever.
    (This attribute is stricter than _GL_ATTRIBUTE_PURE because the
-   function cannot observe state.  It is stricter than
-   _GL_ATTRIBUTE_UNSEQUENCED because the function must return exactly
-   once and cannot depend on state addressed by its arguments.)  */
+   function cannot observe state.  Unlike _GL_ATTRIBUTE_UNSEQUENCED
+   the function must return exactly once and cannot access state
+   addressed by its pointer arguments or that happens to have the same
+   value for all calls to the function, but the function is allowed to
+   return a pointer to storage that can be modified later.  */
 /* Applies to: functions.  */
 #ifndef _GL_ATTRIBUTE_CONST
 # if _GL_HAS_ATTRIBUTE (const)
 #  define _GL_ATTRIBUTE_CONST __attribute__ ((__const__))
 # else
-#  define _GL_ATTRIBUTE_CONST _GL_ATTRIBUTE_UNSEQUENCED
+#  define _GL_ATTRIBUTE_CONST
+# endif
+#endif
+
+/* _GL_ATTRIBUTE_COUNTED_BY (C) declares that the number of elements of
+   the field is given by C, which must be another field in the same struct.
+   The programmer is responsible for guaranteeing some invariants; see
+   <https://gcc.gnu.org/onlinedocs/gcc/Common-Attributes.html> for details.  */
+/* Applies to struct fields of type array or pointer (to data).  */
+#ifndef _GL_ATTRIBUTE_COUNTED_BY
+/* This attributes is supported
+     - for fields of array type: by gcc >= 16, clang >= 18,
+     - for fields of pointer type: by gcc when <https://gcc.gnu.org/PR125072>
+       will be fixed, clang >= 19.  */
+# if defined __clang__ && __clang_major__ >= 19
+#  define _GL_ATTRIBUTE_COUNTED_BY(c) __attribute__ ((__counted_by__ (c)))
+# else
+#  define _GL_ATTRIBUTE_COUNTED_BY(c)
 # endif
 #endif
 
@@ -1488,7 +1574,7 @@
    yet.  */
 #ifndef _GL_ATTRIBUTE_DEALLOC_FREE
 # if defined __cplusplus && defined __GNUC__ && !defined __clang__
-/* Work around GCC bug <https://gcc.gnu.org/bugzilla/show_bug.cgi?id=108231> */
+/* Work around GCC bug <https://gcc.gnu.org/PR108231> */
 #  define _GL_ATTRIBUTE_DEALLOC_FREE \
      _GL_ATTRIBUTE_DEALLOC ((void (*) (void *)) free, 1)
 # else
@@ -1627,7 +1713,9 @@
 
 /* _GL_ATTRIBUTE_MAYBE_UNUSED declares that it is not a programming mistake if
    the entity is not used.  The compiler should not warn if the entity is not
-   used.  */
+   used.  However, 'int _GL_UNNAMED (i)' is preferable to
+   '_GL_ATTRIBUTE_MAYBE_UNUSED int i' when parameter I is unused
+   regardless of preprocessor macro settings.  */
 /* Applies to:
      - function, variable,
      - struct, union, struct/union member,
@@ -1781,39 +1869,40 @@
 #endif
 
 /* _GL_ATTRIBUTE_PURE declares:
-   It is OK for a compiler to move calls to the function and to omit
-   calls to the function if another call has the same arguments or the
-   result is not used, and if observable state is the same.
-   This attribute is safe for a function that does not affect observable state
-   and always returns exactly once.
+   It is OK for a compiler to move a call, or omit a duplicate call
+   and reuse a cached return value, if observable state is the same.
+   It is also OK to omit a call if the return value is not used.
+   This attribute is safe if the function does not change observable state,
+   returns a value determined solely by its arguments's values
+   together with observable state, and always returns exactly once.
    (This attribute is looser than _GL_ATTRIBUTE_CONST because the function
-   can depend on observable state.  It is stricter than
-   _GL_ATTRIBUTE_REPRODUCIBLE because the function must return exactly
-   once and cannot affect state addressed by its arguments.)  */
+   can depend on observable state.
+   Unlike _GL_ATTRIBUTE_REPRODUCIBLE the function must return exactly
+   once and cannot change state addressed by its arguments, but the
+   function can return a pointer to storage whose contents change later.)  */
 /* Applies to: functions.  */
 #ifndef _GL_ATTRIBUTE_PURE
 # if _GL_HAS_ATTRIBUTE (pure)
 #  define _GL_ATTRIBUTE_PURE __attribute__ ((__pure__))
 # else
-#  define _GL_ATTRIBUTE_PURE _GL_ATTRIBUTE_REPRODUCIBLE
+#  define _GL_ATTRIBUTE_PURE
 # endif
 #endif
 
 /* _GL_ATTRIBUTE_REPRODUCIBLE declares:
-   It is OK for a compiler to move calls to the function and to omit duplicate
-   calls to the function with the same arguments, so long as the state
-   addressed by its arguments is the same and is updated in time for
-   the rest of the program.
-   This attribute is safe for a function that is effectless and idempotent; see
-   ISO C 23 § 6.7.12.7 for a definition of these terms.
+   It is OK for a compiler to move a call, or omit a duplicate call
+   and reuse a cached value returned either directly or indirectly via
+   a pointer, if other observable state is the same;
+   however, pointer arguments cannot alias.
+   This attribute is safe for a function that is effectless and idempotent;
+   see ISO C 23 § 6.7.13.8 for a definition of these terms.
    (This attribute is looser than _GL_ATTRIBUTE_UNSEQUENCED because
-   the function need not be stateless and idempotent.  It is looser
-   than _GL_ATTRIBUTE_PURE because the function need not return
-   exactly once and can affect state addressed by its arguments.)
+   the function need not be stateless or independent.
+   Unlike _GL_ATTRIBUTE_PURE the function need not return exactly once
+   and can change state addressed by its pointer arguments, but the
+   function cannot return a pointer to storage whose contents change later.)
    See also <https://www.open-std.org/jtc1/sc22/wg14/www/docs/n2956.htm> and
-   <https://stackoverflow.com/questions/76847905/>.
-   ATTENTION! Efforts are underway to change the meaning of this attribute.
-   See <https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3424.htm>.  */
+   <https://stackoverflow.com/questions/76847905/>.  */
 /* Applies to: functions, pointer to functions, function types.  */
 #ifndef _GL_ATTRIBUTE_REPRODUCIBLE
 /* This may be revisited when gcc and clang support [[reproducible]] or possibly
@@ -1853,20 +1942,22 @@
 #endif
 
 /* _GL_ATTRIBUTE_UNSEQUENCED declares:
-   It is OK for a compiler to move calls to the function and to omit duplicate
-   calls to the function with the same arguments, so long as the state
-   addressed by its arguments is the same.
+   It is OK for a compiler to move a call, or omit a duplicate call
+   and reuse a cached value returned either directly or indirectly via
+   a pointer, if the state addressed by its pointer arguments is the same;
+   however, pointer arguments cannot alias.
    This attribute is safe for a function that is effectless, idempotent,
-   stateless, and independent; see ISO C 23 § 6.7.12.7 for a definition of
+   stateless, and independent; see ISO C 23 § 6.7.13.8 for a definition of
    these terms.
    (This attribute is stricter than _GL_ATTRIBUTE_REPRODUCIBLE because
-   the function must be stateless and independent.  It is looser than
-   _GL_ATTRIBUTE_CONST because the function need not return exactly
-   once and can depend on state addressed by its arguments.)
+   the function must be stateless and independent.  Unlike
+   _GL_ATTRIBUTE_CONST the function need not return exactly once, and
+   can depend on state accessed via its pointer arguments or that
+   happens to have the same value for all calls to the function, but
+   the function cannot return a pointer to storage whose contents
+   change later.)
    See also <https://www.open-std.org/jtc1/sc22/wg14/www/docs/n2956.htm> and
-   <https://stackoverflow.com/questions/76847905/>.
-   ATTENTION! Efforts are underway to change the meaning of this attribute.
-   See <https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3424.htm>.  */
+   <https://stackoverflow.com/questions/76847905/>.  */
 /* Applies to: functions, pointer to functions, function types.  */
 #ifndef _GL_ATTRIBUTE_UNSEQUENCED
 /* This may be revisited when gcc and clang support [[unsequenced]] or possibly
@@ -1905,7 +1996,22 @@
 # endif
 #endif
 
-/* The following attributes enable detection of multithread-safety problems
+/* _GL_UNNAMED (ID) is the "name" of an unnamed function parameter.
+   Each of the function's unnamed parameters should have a unique "name".
+   The "name" cannot be used.  This ports both to C17 and earlier, which
+   lack unnamed parameters, and to C++ and later C, which have them.  */
+/* Applies to:
+     - function parameters.  */
+#ifndef _GL_UNNAMED
+# if ((defined __STDC_VERSION__ ? __STDC_VERSION__ : 0) < 202311 \
+      && !defined __cplusplus)
+#  define _GL_UNNAMED(id) unnamed_##id _GL_ATTRIBUTE_UNUSED
+# else
+#  define _GL_UNNAMED(id)
+# endif
+#endif
+
+/* The following attributes enable detection of thread safety problems
    and resource leaks at compile-time, by clang ≥ 15, when the warning option
    -Wthread-safety is enabled.  For usage, see
    <https://clang.llvm.org/docs/ThreadSafetyAnalysis.html>.  */
@@ -1992,9 +2098,14 @@
 #undef pid_t
 
 /* Define to the equivalent of the C99 'restrict' keyword, or to
-   nothing if this is not supported.  Do not define if restrict is
-   supported only directly.  */
+   nothing if this is not supported.  In particular it is not supported
+   in MSVC 14.44 and in g++ 7 on Solaris 11, although these compilers
+   define __STDC_VERSION__ to 199901L.
+   Do not define if restrict is supported directly.  */
+#if ! (defined __STDC_VERSION__ && 199901L <= __STDC_VERSION__ \
+       && !defined _MSC_VER && !defined __cplusplus)
 #undef restrict
+#endif
 /* Work around a bug in older versions of Sun C++, which did not
    #define __restrict__ or support _Restrict or __restrict__
    even though the corresponding Sun C compiler ended up with
@@ -2059,9 +2170,6 @@
              && __GNUG__ < 6 && __clang_major__ < 6)))
  #include <assert.h>
  #undef/**/assert
- #ifdef __sgi
-  #undef/**/__ASSERT_H__
- #endif
  /* Solaris 11.4 <assert.h> defines static_assert as a macro with 2 arguments.
     We need it also to be invocable with a single argument.
     Haiku 2022 <assert.h> does not define static_assert at all.  */
@@ -2073,5 +2181,14 @@
 
 #if defined __GNUC__ && __GNUC__ >= 15 && !defined __clang__
 # pragma GCC diagnostic pop
+#endif
+
+
+
+/* The text domainname for Gnulib messages.  Ordinarily this is "gnulib",
+   but packages that do their own translations of Gnulib can use something
+   different by defining GNULIB_TEXT_DOMAIN in their config.h file.  */
+#ifndef GNULIB_TEXT_DOMAIN
+# define GNULIB_TEXT_DOMAIN/**/"gnulib"
 #endif
 

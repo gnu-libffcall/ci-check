@@ -1,6 +1,6 @@
 /* Provide a more complete mntent.h.
 
-   Copyright (C) 2024-2025 Free Software Foundation, Inc.
+   Copyright (C) 2024-2026 Free Software Foundation, Inc.
 
    This file is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as
@@ -70,7 +70,6 @@ _GL_CXXALIAS_SYS (hasmntopt, char *,
 _GL_CXXALIASWARN (hasmntopt);
 # endif
 #elif defined GNULIB_POSIXCHECK
-# undef hasmntopt
 # if HAVE_RAW_DECL_HASMNTOPT
 _GL_WARN_ON_USE (hasmntopt, "hasmntopt is unportable - "
                  "use gnulib module hasmntopt for portability");

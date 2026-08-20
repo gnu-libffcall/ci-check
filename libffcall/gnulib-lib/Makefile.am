@@ -1,6 +1,6 @@
 ## DO NOT EDIT! GENERATED AUTOMATICALLY!
 ## Process this file with automake to produce Makefile.in.
-# Copyright (C) 2002-2025 Free Software Foundation, Inc.
+# Copyright (C) 2002-2026 Free Software Foundation, Inc.
 #
 # This file is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -44,6 +44,7 @@
 AUTOMAKE_OPTIONS = 1.14 gnits subdir-objects
 
 SUBDIRS =
+TESTS_ENVIRONMENT =
 noinst_HEADERS =
 noinst_LIBRARIES =
 noinst_LTLIBRARIES =
@@ -70,10 +71,11 @@ libgnu_la_DEPENDENCIES = $(gl_libgnu_LTLIBOBJS)
 EXTRA_libgnu_la_SOURCES =
 libgnu_la_LDFLAGS = $(AM_LDFLAGS)
 libgnu_la_LDFLAGS += -no-undefined
-libgnu_la_LDFLAGS += $(LIBPMULTITHREAD)
 libgnu_la_LDFLAGS += $(LIBPTHREAD)
 libgnu_la_LDFLAGS += $(LIBTHREAD)
 libgnu_la_LDFLAGS += $(LTLIBINTL)
+libgnu_la_LDFLAGS += $(PTHREAD_ONCE_LIB)
+libgnu_la_LDFLAGS += $(PTHREAD_SIGMASK_LIB)
 
 ## begin gnulib module absolute-header
 
@@ -225,12 +227,6 @@ errno.h: errno.in.h $(top_builddir)/config.status
 	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
 	      -e 's|@''PRAGMA_COLUMNS''@|@PRAGMA_COLUMNS@|g' \
 	      -e 's|@''NEXT_ERRNO_H''@|$(NEXT_ERRNO_H)|g' \
-	      -e 's|@''EMULTIHOP_HIDDEN''@|$(EMULTIHOP_HIDDEN)|g' \
-	      -e 's|@''EMULTIHOP_VALUE''@|$(EMULTIHOP_VALUE)|g' \
-	      -e 's|@''ENOLINK_HIDDEN''@|$(ENOLINK_HIDDEN)|g' \
-	      -e 's|@''ENOLINK_VALUE''@|$(ENOLINK_VALUE)|g' \
-	      -e 's|@''EOVERFLOW_HIDDEN''@|$(EOVERFLOW_HIDDEN)|g' \
-	      -e 's|@''EOVERFLOW_VALUE''@|$(EOVERFLOW_VALUE)|g' \
 	      $(srcdir)/errno.in.h > $@-t
 	$(AM_V_at)mv $@-t $@
 else
@@ -317,10 +313,12 @@ fcntl.h: fcntl.in.h $(top_builddir)/config.status $(CXXDEFS_H) $(ARG_NONNULL_H) 
 	      -e 's/@''GNULIB_NONBLOCKING''@/$(GL_GNULIB_NONBLOCKING)/g' \
 	      -e 's/@''GNULIB_OPEN''@/$(GL_GNULIB_OPEN)/g' \
 	      -e 's/@''GNULIB_OPENAT''@/$(GL_GNULIB_OPENAT)/g' \
+	      -e 's/@''GNULIB_OPENAT2''@/$(GL_GNULIB_OPENAT2)/g' \
 	      -e 's/@''GNULIB_MDA_CREAT''@/$(GL_GNULIB_MDA_CREAT)/g' \
 	      -e 's/@''GNULIB_MDA_OPEN''@/$(GL_GNULIB_MDA_OPEN)/g' \
 	      -e 's|@''HAVE_FCNTL''@|$(HAVE_FCNTL)|g' \
 	      -e 's|@''HAVE_OPENAT''@|$(HAVE_OPENAT)|g' \
+	      -e 's|@''HAVE_OPENAT2''@|$(HAVE_OPENAT2)|g' \
 	      -e 's|@''REPLACE_CREAT''@|$(REPLACE_CREAT)|g' \
 	      -e 's|@''REPLACE_FCNTL''@|$(REPLACE_FCNTL)|g' \
 	      -e 's|@''REPLACE_OPEN''@|$(REPLACE_OPEN)|g' \
@@ -355,6 +353,18 @@ endif
 EXTRA_DIST += filename.h
 
 ## end   gnulib module filename
+
+## begin gnulib module fseterr
+
+if gl_GNULIB_ENABLED_fseterr
+if GL_COND_OBJ_FSETERR
+libgnu_la_SOURCES += fseterr.c
+endif
+
+endif
+EXTRA_DIST += fseterr.h stdio-impl.h
+
+## end   gnulib module fseterr
 
 ## begin gnulib module fstat
 
@@ -429,6 +439,17 @@ libgnu_la_SOURCES += gettext.h
 
 endif
 ## end   gnulib module gettext-h
+
+## begin gnulib module gperf
+
+if gl_GNULIB_ENABLED_gperf
+GPERF = gperf
+V_GPERF = $(V_GPERF_@AM_V@)
+V_GPERF_ = $(V_GPERF_@AM_DEFAULT_V@)
+V_GPERF_0 = @echo "  GPERF   " $@;
+
+endif
+## end   gnulib module gperf
 
 ## begin gnulib module hashkey-string
 
@@ -507,56 +528,6 @@ libgnu_la_SOURCES += gl_list.h gl_list.c
 endif
 ## end   gnulib module list
 
-## begin gnulib module locale-h
-
-if gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e
-BUILT_SOURCES += locale.h
-
-# We need the following in order to create <locale.h> when the system
-# doesn't have one that provides all definitions.
-locale.h: locale.in.h $(top_builddir)/config.status $(CXXDEFS_H) $(ARG_NONNULL_H) $(WARN_ON_USE_H)
-	$(gl_V_at)$(SED_HEADER_STDOUT) \
-	      -e 's|@''GUARD_PREFIX''@|GL|g' \
-	      -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
-	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
-	      -e 's|@''PRAGMA_COLUMNS''@|@PRAGMA_COLUMNS@|g' \
-	      -e 's|@''NEXT_LOCALE_H''@|$(NEXT_LOCALE_H)|g' \
-	      -e 's|@''HAVE_LOCALE_T''@|$(HAVE_LOCALE_T)|g' \
-	      -e 's|@''HAVE_WINDOWS_LOCALE_T''@|$(HAVE_WINDOWS_LOCALE_T)|g' \
-	      -e 's/@''GNULIB_LOCALECONV''@/$(GL_GNULIB_LOCALECONV)/g' \
-	      -e 's/@''GNULIB_SETLOCALE''@/$(GL_GNULIB_SETLOCALE)/g' \
-	      -e 's/@''GNULIB_SETLOCALE_NULL''@/$(GL_GNULIB_SETLOCALE_NULL)/g' \
-	      -e 's/@''GNULIB_NEWLOCALE''@/$(GL_GNULIB_NEWLOCALE)/g' \
-	      -e 's/@''GNULIB_DUPLOCALE''@/$(GL_GNULIB_DUPLOCALE)/g' \
-	      -e 's/@''GNULIB_FREELOCALE''@/$(GL_GNULIB_FREELOCALE)/g' \
-	      -e 's/@''GNULIB_GETLOCALENAME_L''@/$(GL_GNULIB_GETLOCALENAME_L)/g' \
-	      -e 's/@''GNULIB_GETLOCALENAME_L_UNSAFE''@/$(GL_GNULIB_GETLOCALENAME_L_UNSAFE)/g' \
-	      -e 's/@''GNULIB_LOCALENAME_UNSAFE''@/$(GL_GNULIB_LOCALENAME_UNSAFE)/g' \
-	      -e 's|@''HAVE_NEWLOCALE''@|$(HAVE_NEWLOCALE)|g' \
-	      -e 's|@''HAVE_DUPLOCALE''@|$(HAVE_DUPLOCALE)|g' \
-	      -e 's|@''HAVE_FREELOCALE''@|$(HAVE_FREELOCALE)|g' \
-	      -e 's|@''HAVE_GETLOCALENAME_L''@|$(HAVE_GETLOCALENAME_L)|g' \
-	      -e 's|@''HAVE_XLOCALE_H''@|$(HAVE_XLOCALE_H)|g' \
-	      -e 's|@''REPLACE_LOCALECONV''@|$(REPLACE_LOCALECONV)|g' \
-	      -e 's|@''REPLACE_SETLOCALE''@|$(REPLACE_SETLOCALE)|g' \
-	      -e 's|@''REPLACE_NEWLOCALE''@|$(REPLACE_NEWLOCALE)|g' \
-	      -e 's|@''REPLACE_DUPLOCALE''@|$(REPLACE_DUPLOCALE)|g' \
-	      -e 's|@''REPLACE_FREELOCALE''@|$(REPLACE_FREELOCALE)|g' \
-	      -e 's|@''REPLACE_GETLOCALENAME_L''@|$(REPLACE_GETLOCALENAME_L)|g' \
-	      -e 's|@''REPLACE_STRUCT_LCONV''@|$(REPLACE_STRUCT_LCONV)|g' \
-	      -e 's|@''LOCALENAME_ENHANCE_LOCALE_FUNCS''@|$(LOCALENAME_ENHANCE_LOCALE_FUNCS)|g' \
-	      -e '/definitions of _GL_FUNCDECL_RPL/r $(CXXDEFS_H)' \
-	      -e '/definition of _GL_ARG_NONNULL/r $(ARG_NONNULL_H)' \
-	      -e '/definition of _GL_WARN_ON_USE/r $(WARN_ON_USE_H)' \
-	      $(srcdir)/locale.in.h > $@-t
-	$(AM_V_at)mv $@-t $@
-MOSTLYCLEANFILES += locale.h locale.h-t
-
-endif
-EXTRA_DIST += locale.in.h
-
-## end   gnulib module locale-h
-
 ## begin gnulib module lock
 
 libgnu_la_SOURCES += glthread/lock.h glthread/lock.c
@@ -582,6 +553,14 @@ endif
 EXTRA_DIST += malloca.h
 
 ## end   gnulib module malloca
+
+## begin gnulib module memeq
+
+if gl_GNULIB_ENABLED_memeq
+libgnu_la_SOURCES += memeq.c
+
+endif
+## end   gnulib module memeq
 
 ## begin gnulib module mntent-h
 
@@ -828,6 +807,16 @@ endif
 endif
 ## end   gnulib module pthread-once
 
+## begin gnulib module pthread_sigmask
+
+if gl_GNULIB_ENABLED_pthread_sigmask
+if GL_COND_OBJ_PTHREAD_SIGMASK
+libgnu_la_SOURCES += pthread_sigmask.c
+endif
+
+endif
+## end   gnulib module pthread_sigmask
+
 ## begin gnulib module raise
 
 if gl_GNULIB_ENABLED_raise
@@ -891,6 +880,16 @@ endif
 EXTRA_DIST += sig-handler.h
 
 ## end   gnulib module sigaction
+
+## begin gnulib module sigdelay
+
+if gl_GNULIB_ENABLED_sigdelay
+libgnu_la_SOURCES += sigdelay.c
+
+endif
+EXTRA_DIST += sigdelay.h
+
+## end   gnulib module sigdelay
 
 ## begin gnulib module signal-h
 
@@ -1045,6 +1044,67 @@ EXTRA_DIST += stat-time.h
 
 ## end   gnulib module stat-time
 
+## begin gnulib module stdbit-h
+
+if gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604
+BUILT_SOURCES += $(STDBIT_H)
+
+# We need the following in order to create <stdbit.h> when the system
+# doesn't have one that works with the given compiler.
+if GL_GENERATE_STDBIT_H
+stdbit.h: stdbit.in.h $(top_builddir)/config.status
+	$(gl_V_at)$(SED_HEADER_STDOUT) \
+	  -e 's/@''HAVE_STDBIT_H''@/$(HAVE_STDBIT_H)/g' \
+	  -e 's/@''GUARD_PREFIX''@/$(GUARD_PREFIX)/g' \
+	  -e 's/@''PRAGMA_SYSTEM_HEADER''@/$(PRAGMA_SYSTEM_HEADER)/g' \
+	  -e 's/@''PRAGMA_COLUMNS''@/$(PRAGMA_COLUMNS)/g' \
+	  -e 's/@''INCLUDE_NEXT''@/$(INCLUDE_NEXT)/g' \
+	  -e 's/@''NEXT_STDBIT_H''@/$(NEXT_STDBIT_H)/g' \
+	  -e 's/@''GNULIB_STDC_LEADING_ZEROS''@/$(GL_GNULIB_STDC_LEADING_ZEROS)/g' \
+	  -e 's/@''GNULIB_STDC_LEADING_ONES''@/$(GL_GNULIB_STDC_LEADING_ONES)/g' \
+	  -e 's/@''GNULIB_STDC_TRAILING_ZEROS''@/$(GL_GNULIB_STDC_TRAILING_ZEROS)/g' \
+	  -e 's/@''GNULIB_STDC_TRAILING_ONES''@/$(GL_GNULIB_STDC_TRAILING_ONES)/g' \
+	  -e 's/@''GNULIB_STDC_FIRST_LEADING_ZERO''@/$(GL_GNULIB_STDC_FIRST_LEADING_ZERO)/g' \
+	  -e 's/@''GNULIB_STDC_FIRST_LEADING_ONE''@/$(GL_GNULIB_STDC_FIRST_LEADING_ONE)/g' \
+	  -e 's/@''GNULIB_STDC_FIRST_TRAILING_ZERO''@/$(GL_GNULIB_STDC_FIRST_TRAILING_ZERO)/g' \
+	  -e 's/@''GNULIB_STDC_FIRST_TRAILING_ONE''@/$(GL_GNULIB_STDC_FIRST_TRAILING_ONE)/g' \
+	  -e 's/@''GNULIB_STDC_COUNT_ZEROS''@/$(GL_GNULIB_STDC_COUNT_ZEROS)/g' \
+	  -e 's/@''GNULIB_STDC_COUNT_ONES''@/$(GL_GNULIB_STDC_COUNT_ONES)/g' \
+	  -e 's/@''GNULIB_STDC_HAS_SINGLE_BIT''@/$(GL_GNULIB_STDC_HAS_SINGLE_BIT)/g' \
+	  -e 's/@''GNULIB_STDC_BIT_WIDTH''@/$(GL_GNULIB_STDC_BIT_WIDTH)/g' \
+	  -e 's/@''GNULIB_STDC_BIT_FLOOR''@/$(GL_GNULIB_STDC_BIT_FLOOR)/g' \
+	  -e 's/@''GNULIB_STDC_BIT_CEIL''@/$(GL_GNULIB_STDC_BIT_CEIL)/g' \
+	  -e 's/@''GNULIB_STDC_ROTATE_LEFT''@/$(GL_GNULIB_STDC_ROTATE_LEFT)/g' \
+	  -e 's/@''GNULIB_STDC_ROTATE_RIGHT''@/$(GL_GNULIB_STDC_ROTATE_RIGHT)/g' \
+	  -e 's/@''GNULIB_STDC_MEMREVERSE8''@/$(GL_GNULIB_STDC_MEMREVERSE8)/g' \
+	  -e 's/@''GNULIB_STDC_MEMREVERSE8U''@/$(GL_GNULIB_STDC_MEMREVERSE8U)/g' \
+	  -e 's/@''GNULIB_STDC_LOAD8_ALIGNED''@/$(GL_GNULIB_STDC_LOAD8_ALIGNED)/g' \
+	  -e 's/@''GNULIB_STDC_LOAD8''@/$(GL_GNULIB_STDC_LOAD8)/g' \
+	  -e 's/@''GNULIB_STDC_STORE8_ALIGNED''@/$(GL_GNULIB_STDC_STORE8_ALIGNED)/g' \
+	  -e 's/@''GNULIB_STDC_STORE8''@/$(GL_GNULIB_STDC_STORE8)/g' \
+	  $(srcdir)/stdbit.in.h > $@-t
+	$(AM_V_at)mv $@-t $@
+else
+stdbit.h: $(top_builddir)/config.status
+	rm -f $@
+endif
+MOSTLYCLEANFILES += stdbit.h stdbit.h-t
+
+endif
+EXTRA_DIST += stdbit.in.h
+
+## end   gnulib module stdbit-h
+
+## begin gnulib module stdc_rotate_left
+
+if gl_GNULIB_ENABLED_stdc_rotate_left
+if GL_GENERATE_STDBIT_H
+libgnu_la_SOURCES += stdc_rotate_left.c
+endif
+
+endif
+## end   gnulib module stdc_rotate_left
+
 ## begin gnulib module stdckdint-h
 
 if gl_GNULIB_ENABLED_6897f839bc8beda050d8c73ec20bb548
@@ -1076,6 +1136,36 @@ endif
 EXTRA_DIST += intprops-internal.h stdckdint.in.h
 
 ## end   gnulib module stdckdint-h
+
+## begin gnulib module stdcountof-h
+
+if gl_GNULIB_ENABLED_c61a086c918a57eae8f997993dbe4b6f
+BUILT_SOURCES += $(STDCOUNTOF_H)
+
+# We need the following in order to create <stdcountof.h> when the system
+# doesn't have one that works with the given compiler.
+if GL_GENERATE_STDCOUNTOF_H
+stdcountof.h: stdcountof.in.h $(top_builddir)/config.status
+	$(gl_V_at)$(SED_HEADER_STDOUT) \
+	      -e 's|@''GUARD_PREFIX''@|GL|g' \
+	      -e 's/@''HAVE_STDCOUNTOF_H''@/$(HAVE_STDCOUNTOF_H)/g' \
+	      -e 's/@''CXX_HAVE_STDCOUNTOF_H''@/$(CXX_HAVE_STDCOUNTOF_H)/g' \
+	      -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
+	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
+	      -e 's|@''PRAGMA_COLUMNS''@|@PRAGMA_COLUMNS@|g' \
+	      -e 's|@''NEXT_STDCOUNTOF_H''@|$(NEXT_STDCOUNTOF_H)|g' \
+	      $(srcdir)/stdcountof.in.h > $@-t
+	$(AM_V_at)mv $@-t $@
+else
+stdcountof.h: $(top_builddir)/config.status
+	rm -f $@
+endif
+MOSTLYCLEANFILES += stdcountof.h stdcountof.h-t
+
+endif
+EXTRA_DIST += stdcountof.in.h
+
+## end   gnulib module stdcountof-h
 
 ## begin gnulib module stddef-h
 
@@ -1221,6 +1311,7 @@ stdio.h: stdio.in.h $(top_builddir)/config.status $(CXXDEFS_H) $(ARG_NONNULL_H) 
 	      -e 's/@''GNULIB_STDIO_H_SIGPIPE''@/$(GL_GNULIB_STDIO_H_SIGPIPE)/g' \
 	      -e 's/@''GNULIB_SZPRINTF''@/$(GL_GNULIB_SZPRINTF)/g' \
 	      -e 's/@''GNULIB_TMPFILE''@/$(GL_GNULIB_TMPFILE)/g' \
+	      -e 's/@''GNULIB_VAPRINTF''@/$(GL_GNULIB_VAPRINTF)/g' \
 	      -e 's/@''GNULIB_VASPRINTF''@/$(GL_GNULIB_VASPRINTF)/g' \
 	      -e 's/@''GNULIB_VASZPRINTF''@/$(GL_GNULIB_VASZPRINTF)/g' \
 	      -e 's/@''GNULIB_VDPRINTF''@/$(GL_GNULIB_VDPRINTF)/g' \
@@ -1244,6 +1335,7 @@ stdio.h: stdio.in.h $(top_builddir)/config.status $(CXXDEFS_H) $(ARG_NONNULL_H) 
 	      -e 's/@''GNULIB_MDA_GETW''@/$(GL_GNULIB_MDA_GETW)/g' \
 	      -e 's/@''GNULIB_MDA_PUTW''@/$(GL_GNULIB_MDA_PUTW)/g' \
 	      -e 's/@''GNULIB_MDA_TEMPNAM''@/$(GL_GNULIB_MDA_TEMPNAM)/g' \
+	      -e 's/@''GNULIB_FREE_POSIX''@/$(GL_GNULIB_FREE_POSIX)/g' \
 	      < $(srcdir)/stdio.in.h > $@-t1
 	$(AM_V_at)sed \
 	      -e 's|@''HAVE_DECL_FCLOSEALL''@|$(HAVE_DECL_FCLOSEALL)|g' \
@@ -1275,6 +1367,7 @@ stdio.h: stdio.in.h $(top_builddir)/config.status $(CXXDEFS_H) $(ARG_NONNULL_H) 
 	      -e 's|@''REPLACE_FOPEN_FOR_FOPEN_GNU''@|$(REPLACE_FOPEN_FOR_FOPEN_GNU)|g' \
 	      -e 's|@''REPLACE_FPRINTF''@|$(REPLACE_FPRINTF)|g' \
 	      -e 's|@''REPLACE_FPURGE''@|$(REPLACE_FPURGE)|g' \
+	      -e 's|@''REPLACE_FREE''@|$(REPLACE_FREE)|g' \
 	      -e 's|@''REPLACE_FREOPEN''@|$(REPLACE_FREOPEN)|g' \
 	      -e 's|@''REPLACE_FSEEK''@|$(REPLACE_FSEEK)|g' \
 	      -e 's|@''REPLACE_FSEEKO''@|$(REPLACE_FSEEKO)|g' \
@@ -1320,6 +1413,16 @@ endif
 EXTRA_DIST += stdio.in.h
 
 ## end   gnulib module stdio-h
+
+## begin gnulib module stdio-windows
+
+if gl_GNULIB_ENABLED_7ae7884496633b3c8044e3a67d7da548
+if GL_COND_OBJ_STDIO_CONSOLESAFE
+libgnu_la_SOURCES += stdio-consolesafe.c
+endif
+
+endif
+## end   gnulib module stdio-windows
 
 ## begin gnulib module stdlib-h
 
@@ -1416,7 +1519,6 @@ stdlib.h: stdlib.in.h $(top_builddir)/config.status $(CXXDEFS_H) \
 	      -e 's|@''HAVE_PTSNAME_R''@|$(HAVE_PTSNAME_R)|g' \
 	      -e 's|@''HAVE_QSORT_R''@|$(HAVE_QSORT_R)|g' \
 	      -e 's|@''HAVE_RANDOM''@|$(HAVE_RANDOM)|g' \
-	      -e 's|@''HAVE_RANDOM_H''@|$(HAVE_RANDOM_H)|g' \
 	      -e 's|@''HAVE_RANDOM_R''@|$(HAVE_RANDOM_R)|g' \
 	      -e 's|@''HAVE_REALLOCARRAY''@|$(HAVE_REALLOCARRAY)|g' \
 	      -e 's|@''HAVE_REALPATH''@|$(HAVE_REALPATH)|g' \
@@ -1434,6 +1536,7 @@ stdlib.h: stdlib.in.h $(top_builddir)/config.status $(CXXDEFS_H) \
 	      -e 's|@''HAVE_STRTOULL''@|$(HAVE_STRTOULL)|g' \
 	      -e 's|@''HAVE_STRUCT_RANDOM_DATA''@|$(HAVE_STRUCT_RANDOM_DATA)|g' \
 	      -e 's|@''HAVE_SYS_LOADAVG_H''@|$(HAVE_SYS_LOADAVG_H)|g' \
+	      -e 's|@''HAVE_SYS_PROCESS_H''@|$(HAVE_SYS_PROCESS_H)|g' \
 	      -e 's|@''HAVE_UNLOCKPT''@|$(HAVE_UNLOCKPT)|g' \
 	      -e 's|@''HAVE_DECL_UNSETENV''@|$(HAVE_DECL_UNSETENV)|g' \
 	      < $@-t1 > $@-t2
@@ -1517,6 +1620,14 @@ EXTRA_DIST += stdnoreturn.in.h
 
 ## end   gnulib module stdnoreturn-h
 
+## begin gnulib module streq
+
+if gl_GNULIB_ENABLED_streq
+libgnu_la_SOURCES += streq.c
+
+endif
+## end   gnulib module streq
+
 ## begin gnulib module strerror
 
 if gl_GNULIB_ENABLED_strerror
@@ -1573,6 +1684,7 @@ string.h: string.in.h $(top_builddir)/config.status $(CXXDEFS_H) $(ARG_NONNULL_H
 	      -e 's/@''GNULIB_MBS_ENDSWITH''@/$(GL_GNULIB_MBS_ENDSWITH)/g' \
 	      -e 's/@''GNULIB_MBS_STARTSWITH''@/$(GL_GNULIB_MBS_STARTSWITH)/g' \
 	      -e 's/@''GNULIB_MEMCHR''@/$(GL_GNULIB_MEMCHR)/g' \
+	      -e 's/@''GNULIB_MEMEQ''@/$(GL_GNULIB_MEMEQ)/g' \
 	      -e 's/@''GNULIB_MEMMEM''@/$(GL_GNULIB_MEMMEM)/g' \
 	      -e 's/@''GNULIB_MEMPCPY''@/$(GL_GNULIB_MEMPCPY)/g' \
 	      -e 's/@''GNULIB_MEMRCHR''@/$(GL_GNULIB_MEMRCHR)/g' \
@@ -1582,9 +1694,12 @@ string.h: string.in.h $(top_builddir)/config.status $(CXXDEFS_H) $(ARG_NONNULL_H
 	      -e 's/@''GNULIB_STPNCPY''@/$(GL_GNULIB_STPNCPY)/g' \
 	      -e 's/@''GNULIB_STRCHRNUL''@/$(GL_GNULIB_STRCHRNUL)/g' \
 	      -e 's/@''GNULIB_STRDUP''@/$(GL_GNULIB_STRDUP)/g' \
+	      -e 's/@''GNULIB_STREQ''@/$(GL_GNULIB_STREQ)/g' \
 	      -e 's/@''GNULIB_STRNCAT''@/$(GL_GNULIB_STRNCAT)/g' \
+	      -e 's/@''GNULIB_STRNCPY''@/$(GL_GNULIB_STRNCPY)/g' \
 	      -e 's/@''GNULIB_STRNDUP''@/$(GL_GNULIB_STRNDUP)/g' \
 	      -e 's/@''GNULIB_STRNLEN''@/$(GL_GNULIB_STRNLEN)/g' \
+	      -e 's/@''GNULIB_STRNUL''@/$(GL_GNULIB_STRNUL)/g' \
 	      -e 's/@''GNULIB_STRPBRK''@/$(GL_GNULIB_STRPBRK)/g' \
 	      -e 's/@''GNULIB_STRSEP''@/$(GL_GNULIB_STRSEP)/g' \
 	      -e 's/@''GNULIB_STRSTR''@/$(GL_GNULIB_STRSTR)/g' \
@@ -1609,6 +1724,7 @@ string.h: string.in.h $(top_builddir)/config.status $(CXXDEFS_H) $(ARG_NONNULL_H
 	      -e 's|@''HAVE_FFSL''@|$(HAVE_FFSL)|g' \
 	      -e 's|@''HAVE_FFSLL''@|$(HAVE_FFSLL)|g' \
 	      -e 's|@''HAVE_MBSLEN''@|$(HAVE_MBSLEN)|g' \
+	      -e 's|@''HAVE_DECL_MEMEQ''@|$(HAVE_DECL_MEMEQ)|g' \
 	      -e 's|@''HAVE_DECL_MEMMEM''@|$(HAVE_DECL_MEMMEM)|g' \
 	      -e 's|@''HAVE_MEMPCPY''@|$(HAVE_MEMPCPY)|g' \
 	      -e 's|@''HAVE_DECL_MEMRCHR''@|$(HAVE_DECL_MEMRCHR)|g' \
@@ -1618,6 +1734,7 @@ string.h: string.in.h $(top_builddir)/config.status $(CXXDEFS_H) $(ARG_NONNULL_H
 	      -e 's|@''HAVE_STPNCPY''@|$(HAVE_STPNCPY)|g' \
 	      -e 's|@''HAVE_STRCHRNUL''@|$(HAVE_STRCHRNUL)|g' \
 	      -e 's|@''HAVE_DECL_STRDUP''@|$(HAVE_DECL_STRDUP)|g' \
+	      -e 's|@''HAVE_DECL_STREQ''@|$(HAVE_DECL_STREQ)|g' \
 	      -e 's|@''HAVE_DECL_STRNDUP''@|$(HAVE_DECL_STRNDUP)|g' \
 	      -e 's|@''HAVE_DECL_STRNLEN''@|$(HAVE_DECL_STRNLEN)|g' \
 	      -e 's|@''HAVE_STRPBRK''@|$(HAVE_STRPBRK)|g' \
@@ -1642,6 +1759,7 @@ string.h: string.in.h $(top_builddir)/config.status $(CXXDEFS_H) $(ARG_NONNULL_H
 	      -e 's|@''REPLACE_STRCHRNUL''@|$(REPLACE_STRCHRNUL)|g' \
 	      -e 's|@''REPLACE_STRDUP''@|$(REPLACE_STRDUP)|g' \
 	      -e 's|@''REPLACE_STRNCAT''@|$(REPLACE_STRNCAT)|g' \
+	      -e 's|@''REPLACE_STRNCPY''@|$(REPLACE_STRNCPY)|g' \
 	      -e 's|@''REPLACE_STRNDUP''@|$(REPLACE_STRNDUP)|g' \
 	      -e 's|@''REPLACE_STRNLEN''@|$(REPLACE_STRNLEN)|g' \
 	      -e 's|@''REPLACE_STRSTR''@|$(REPLACE_STRSTR)|g' \
@@ -1773,9 +1891,24 @@ EXTRA_DIST += sys_types.in.h
 ## begin gnulib module thread-optim
 
 if gl_GNULIB_ENABLED_ff372e41059705989544356242e580a9
+libgnu_la_SOURCES += thread-optim.c
+
+$(srcdir)/thread-creators.h: $(srcdir)/thread-creators.gperf
+	$(V_GPERF)$(GPERF) -m 10 $(srcdir)/thread-creators.gperf > $(srcdir)/thread-creators.h-t1 \
+	&& sed -e 's/^const/static const/' \
+	       -e 's|\([ "]\)[^ "]*/thread-creators\.gperf\([ "]\)|\1thread-creators.gperf\2|' \
+	       < $(srcdir)/thread-creators.h-t1 > $(srcdir)/thread-creators.h-t2 \
+	&& rm -f $(srcdir)/thread-creators.h-t1 \
+	&& mv $(srcdir)/thread-creators.h-t2 $(srcdir)/thread-creators.h
+BUILT_SOURCES        += thread-creators.h
+MOSTLYCLEANFILES     += thread-creators.h-t1 thread-creators.h-t2
+MAINTAINERCLEANFILES += thread-creators.h
+EXTRA_DIST           += thread-creators.h
 
 endif
-EXTRA_DIST += thread-optim.h
+EXTRA_DIST += thread-creators.gperf thread-optim-proto.c thread-optim.h
+
+EXTRA_libgnu_la_SOURCES += thread-optim-proto.c
 
 ## end   gnulib module thread-optim
 
@@ -2154,6 +2287,18 @@ endif
 EXTRA_DIST += windows-spin.h
 
 ## end   gnulib module windows-spin
+
+## begin gnulib module windows-tls
+
+if gl_GNULIB_ENABLED_48b2271240803e4879464b755748a89d
+if GL_COND_OBJ_WINDOWS_TLS
+libgnu_la_SOURCES += windows-tls.c
+endif
+
+endif
+EXTRA_DIST += windows-tls.h
+
+## end   gnulib module windows-tls
 
 ## begin gnulib module xalloc-oversized
 

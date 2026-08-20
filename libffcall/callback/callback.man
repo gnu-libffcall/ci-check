@@ -1,6 +1,4 @@
-CALLBACK(3)                Library Functions Manual                CALLBACK(3)
-
-
+[4mCALLBACK[24m(3)                Library Functions Manual                [4mCALLBACK[24m(3)
 
 [1mNAME[0m
        callback - closures with variable arguments as first-class C functions
@@ -28,13 +26,13 @@ CALLBACK(3)                Library Functions Manual                CALLBACK(3)
        class C functions.
 
        Closures as [4mfirst-class[24m [4mC[24m [4mfunctions[24m means that they fit into a function
-       pointer  and can be called exactly like any other C function. Moreover,
-       they can be called with variable  arguments  and  can  return  variable
-       return values.
+       pointer and can be called exactly like any other C function.  Moreover,
+       they  can be called with variable arguments and can return variable re‐
+       turn values.
 
-       [4mcallback[24m  [1m=  alloc_callback([4m[22m&function[24m[1m, [4m[22mdata[24m[1m) [22mallocates a callback. When
-       [4mcallback[24m gets called, it arranges to call  [4mfunction[24m,  passing  [4mdata[24m  as
-       first  argument  and,  as second argument, the entire sequence of argu‐
+       [4mcallback[24m [1m= alloc_callback([4m[22m&function[24m[1m, [4m[22mdata[24m[1m) [22mallocates a  callback.  When
+       [4mcallback[24m  gets  called,  it  arranges to call [4mfunction[24m, passing [4mdata[24m as
+       first argument and, as second argument, the entire  sequence  of  argu‐
        ments passed to [4mcallback[24m.
 
        Function calling conventions differ considerably on different machines,
@@ -54,12 +52,12 @@ CALLBACK(3)                Library Functions Manual                CALLBACK(3)
 
 
 [1mVACALL MACROS[0m
-       Within  [4mfunction[24m,  the following macros can be used to walk through the
+       Within [4mfunction[24m, the following macros can be used to walk  through  the
        argument list and specify a return value:
 
        [1mva_start_[4m[22mtype[24m[1m([4m[22malist[24m[1m[, [4m[22mreturn_type[24m[1m]);[0m
-              starts the walk through the  argument  list  and  specifies  the
-              return type.
+              starts  the walk through the argument list and specifies the re‐
+              turn type.
 
        [4marg[24m [1m= va_arg_[4m[22mtype[24m[1m([4m[22malist[24m[1m[, [4m[22marg_type[24m[1m]);[0m
               fetches the next argument from the argument list.
@@ -69,23 +67,23 @@ CALLBACK(3)                Library Functions Manual                CALLBACK(3)
               value.
 
        The [4mtype[24m in [1mva_start_[4m[22mtype[24m and [1mva_return_[4m[22mtype[24m shall be one of [1mvoid[22m, [1mint[22m,
-       [1muint[22m,  [1mlong[22m,  [1mulong[22m,  [1mlonglong[22m,  [1mulonglong[22m, [1mdouble[22m, [1mstruct[22m, [1mptr [22mor (for
-       ANSI C calling conventions only) [1mchar[22m,  [1mschar[22m,  [1muchar[22m,  [1mshort[22m,  [1mushort[22m,
+       [1muint[22m, [1mlong[22m, [1mulong[22m, [1mlonglong[22m, [1mulonglong[22m, [1mdouble[22m,  [1mstruct[22m,  [1mptr  [22mor  (for
+       ANSI  C  calling  conventions  only) [1mchar[22m, [1mschar[22m, [1muchar[22m, [1mshort[22m, [1mushort[22m,
        [1mfloat[22m, depending on the class of [4mreturn_type[24m.
 
-       The  [4mtype[24m  specifiers  in  [1mva_start_[4m[22mtype[24m and [1mva_return_[4m[22mtype[24m must be the
-       same.   The  [4mreturn_type[24m  specifiers  passed   to   [1mva_start_[4m[22mtype[24m   and
-       [1mva_return_[4m[22mtype[24m must be the same.
+       The [4mtype[24m specifiers in [1mva_start_[4m[22mtype[24m and  [1mva_return_[4m[22mtype[24m  must  be  the
+       same.   The  [4mreturn_type[24m  specifiers passed to [1mva_start_[4m[22mtype[24m and [1mva_re‐[0m
+       [1mturn_[4m[22mtype[24m must be the same.
 
-       The  [4mtype[24m  in [1mva_arg_[4m[22mtype[24m shall be one of [1mint[22m, [1muint[22m, [1mlong[22m, [1mulong[22m, [1mlong‐[0m
+       The [4mtype[24m in [1mva_arg_[4m[22mtype[24m shall be one of [1mint[22m, [1muint[22m, [1mlong[22m,  [1mulong[22m,  [1mlong‐[0m
        [1mlong[22m, [1mulonglong[22m, [1mdouble[22m, [1mstruct[22m, [1mptr [22mor (for ANSI C calling conventions
        only)  [1mchar[22m, [1mschar[22m, [1muchar[22m, [1mshort[22m, [1mushort[22m, [1mfloat[22m, depending on the class
        of [4marg_type[24m.
 
        In [1mva_start_struct([4m[22malist[24m[1m, [4m[22mreturn_type[24m[1m, [4m[22msplittable[24m[1m); [22mthe [4msplittable[24m flag
-       specifies  whether  the struct [4mreturn_type[24m can be returned in registers
-       such that every struct field fits entirely in a single  register.  This
-       needs  to  be specified for structs of size 2*sizeof(long). For structs
+       specifies whether the struct [4mreturn_type[24m can be returned  in  registers
+       such  that  every struct field fits entirely in a single register. This
+       needs to be specified for structs of size 2*sizeof(long).  For  structs
        of size <= sizeof(long), [4msplittable[24m is ignored and assumed to be 1. For
        structs  of size > 2*sizeof(long), [4msplittable[24m is ignored and assumed to
        be 0. There are some handy macros for this:
@@ -109,11 +107,11 @@ CALLBACK(3)                Library Functions Manual                CALLBACK(3)
 
        The macros [1mva_start_longlong()[22m,  [1mva_start_ulonglong()[22m,  [1mva_return_long‐[0m
        [1mlong()[22m, [1mva_return_ulonglong()[22m, [1mva_arg_longlong() [22mand [1mva_arg_ulonglong()[0m
-       work only if the C compiler has a  working  [1mlong  long  [22m64-bit  integer
+       work  only  if  the  C  compiler has a working [1mlong long [22m64-bit integer
        type.
 
-       The  struct  types  used in [1mva_start_struct() [22mand [1mva_struct() [22mmust only
-       contain (signed or unsigned) int, long, long long  or  pointer  fields.
+       The struct types used in [1mva_start_struct() [22mand  [1mva_struct()  [22mmust  only
+       contain  (signed  or  unsigned) int, long, long long or pointer fields.
        Struct types containing (signed or unsigned) char, short, float, double
        or other structs are not supported.
 
@@ -159,6 +157,4 @@ CALLBACK(3)                Library Functions Manual                CALLBACK(3)
        Many ideas were cribbed from the gcc source.
 
 
-
-
-                                1 January 2017                     CALLBACK(3)
+                                1 January 2017                     [4mCALLBACK[24m(3)

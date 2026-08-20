@@ -14,7 +14,7 @@
 
 @SET_MAKE@
 
-# Copyright (C) 2002-2025 Free Software Foundation, Inc.
+# Copyright (C) 2002-2026 Free Software Foundation, Inc.
 #
 # This file is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -154,20 +154,20 @@ host_triplet = @host@
 @gl_GNULIB_ENABLED_deb6c5f14b16306a85c59bccf4d416d8_TRUE@am__append_18 = fcntl.h
 @gl_GNULIB_ENABLED_deb6c5f14b16306a85c59bccf4d416d8_TRUE@am__append_19 = fcntl.h fcntl.h-t
 @gl_GNULIB_ENABLED_43fe87a341d9b4b93c47c3ad819a5239_TRUE@am__append_20 = fd-hook.c
-@GL_COND_OBJ_FSTAT_TRUE@@gl_GNULIB_ENABLED_fstat_TRUE@am__append_21 = fstat.c
-@GL_COND_OBJ_GETDTABLESIZE_TRUE@@gl_GNULIB_ENABLED_getdtablesize_TRUE@am__append_22 = getdtablesize.c
-@GL_COND_OBJ_GETPAGESIZE_TRUE@@gl_GNULIB_ENABLED_getpagesize_TRUE@am__append_23 = getpagesize.c
-@GL_COND_OBJ_GETPROGNAME_TRUE@@gl_GNULIB_ENABLED_getprogname_TRUE@am__append_24 = getprogname.c
-@gl_GNULIB_ENABLED_be453cec5eecf5731a274f2de7f2db36_TRUE@am__append_25 = gettext.h
-@gl_GNULIB_ENABLED_2096e05902597f4254055f5a07612ed2_TRUE@am__append_26 = hashkey-string.h hashkey-string.c
-@GL_COND_OBJ_HASMNTOPT_TRUE@@gl_GNULIB_ENABLED_hasmntopt_TRUE@am__append_27 = hasmntopt.c
-@gl_GNULIB_ENABLED_idx_TRUE@am__append_28 = idx.h
-@gl_GNULIB_ENABLED_5b88be6afdf85eedb41cc8063ca35aa2_TRUE@am__append_29 = gl_linkedhash_list.h gl_linkedhash_list.c gl_anyhash1.h gl_anyhash2.h gl_anyhash_primes.h gl_anylinked_list1.h gl_anylinked_list2.h
-@gl_GNULIB_ENABLED_list_TRUE@am__append_30 = gl_list.h gl_list.c
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@am__append_31 = locale.h
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@am__append_32 = locale.h locale.h-t
-@GL_COND_OBJ_LSTAT_TRUE@@gl_GNULIB_ENABLED_lstat_TRUE@am__append_33 = lstat.c
-@gl_GNULIB_ENABLED_malloca_TRUE@am__append_34 = malloca.c
+@GL_COND_OBJ_FSETERR_TRUE@@gl_GNULIB_ENABLED_fseterr_TRUE@am__append_21 = fseterr.c
+@GL_COND_OBJ_FSTAT_TRUE@@gl_GNULIB_ENABLED_fstat_TRUE@am__append_22 = fstat.c
+@GL_COND_OBJ_GETDTABLESIZE_TRUE@@gl_GNULIB_ENABLED_getdtablesize_TRUE@am__append_23 = getdtablesize.c
+@GL_COND_OBJ_GETPAGESIZE_TRUE@@gl_GNULIB_ENABLED_getpagesize_TRUE@am__append_24 = getpagesize.c
+@GL_COND_OBJ_GETPROGNAME_TRUE@@gl_GNULIB_ENABLED_getprogname_TRUE@am__append_25 = getprogname.c
+@gl_GNULIB_ENABLED_be453cec5eecf5731a274f2de7f2db36_TRUE@am__append_26 = gettext.h
+@gl_GNULIB_ENABLED_2096e05902597f4254055f5a07612ed2_TRUE@am__append_27 = hashkey-string.h hashkey-string.c
+@GL_COND_OBJ_HASMNTOPT_TRUE@@gl_GNULIB_ENABLED_hasmntopt_TRUE@am__append_28 = hasmntopt.c
+@gl_GNULIB_ENABLED_idx_TRUE@am__append_29 = idx.h
+@gl_GNULIB_ENABLED_5b88be6afdf85eedb41cc8063ca35aa2_TRUE@am__append_30 = gl_linkedhash_list.h gl_linkedhash_list.c gl_anyhash1.h gl_anyhash2.h gl_anyhash_primes.h gl_anylinked_list1.h gl_anylinked_list2.h
+@gl_GNULIB_ENABLED_list_TRUE@am__append_31 = gl_list.h gl_list.c
+@GL_COND_OBJ_LSTAT_TRUE@@gl_GNULIB_ENABLED_lstat_TRUE@am__append_32 = lstat.c
+@gl_GNULIB_ENABLED_malloca_TRUE@am__append_33 = malloca.c
+@gl_GNULIB_ENABLED_memeq_TRUE@am__append_34 = memeq.c
 @gl_GNULIB_ENABLED_b2d6fa0553693c3c9c78b24f3d6556c1_TRUE@am__append_35 = $(MNTENT_H)
 @gl_GNULIB_ENABLED_b2d6fa0553693c3c9c78b24f3d6556c1_TRUE@am__append_36 = mntent.h mntent.h-t
 @GL_COND_OBJ_MSVC_INVAL_TRUE@@gl_GNULIB_ENABLED_f691f076f650964c9f5598c3ee487616_TRUE@am__append_37 = msvc-inval.c
@@ -176,50 +176,65 @@ host_triplet = @host@
 @gl_GNULIB_ENABLED_94ea50e7ff7c2508f8a5894b17b1211c_TRUE@am__append_40 = pthread.h
 @gl_GNULIB_ENABLED_94ea50e7ff7c2508f8a5894b17b1211c_TRUE@am__append_41 = pthread.h pthread.h-t1 pthread.h-t2 pthread.h-t3 pthread.h-t4
 @GL_COND_OBJ_PTHREAD_ONCE_TRUE@@gl_GNULIB_ENABLED_e0dc424e76447be3f4b8566d84038f5a_TRUE@am__append_42 = pthread-once.c
-@GL_COND_OBJ_RAISE_TRUE@@gl_GNULIB_ENABLED_raise_TRUE@am__append_43 = raise.c
-@GL_COND_OBJ_RMDIR_TRUE@@gl_GNULIB_ENABLED_rmdir_TRUE@am__append_44 = rmdir.c
-@gl_GNULIB_ENABLED_338d7c29761e34ccaa9a69c658124cd8_TRUE@am__append_45 = sched.h
-@gl_GNULIB_ENABLED_338d7c29761e34ccaa9a69c658124cd8_TRUE@am__append_46 = sched.h sched.h-t
-@GL_COND_OBJ_SIGACTION_TRUE@@gl_GNULIB_ENABLED_sigaction_TRUE@am__append_47 = sigaction.c
-@gl_GNULIB_ENABLED_sigaction_TRUE@am__append_48 = sig-handler.c
-@gl_GNULIB_ENABLED_af7e3f0204832604ea56703236d065c9_TRUE@am__append_49 = signal.h
-@gl_GNULIB_ENABLED_af7e3f0204832604ea56703236d065c9_TRUE@am__append_50 = signal.h signal.h-t
-@GL_COND_OBJ_SIGPROCMASK_TRUE@@gl_GNULIB_ENABLED_sigprocmask_TRUE@am__append_51 = sigprocmask.c
-@gl_GNULIB_ENABLED_size_max_TRUE@am__append_52 = size_max.h
-@GL_COND_OBJ_SPIN_TRUE@@gl_GNULIB_ENABLED_spin_TRUE@am__append_53 = glthread/spin.c
-@GL_COND_OBJ_STAT_TRUE@@gl_GNULIB_ENABLED_stat_TRUE@am__append_54 = stat.c
-@gl_GNULIB_ENABLED_0137e3d3638b33e5819d132d0b23165c_TRUE@am__append_55 = stat-time.c
-@gl_GNULIB_ENABLED_6897f839bc8beda050d8c73ec20bb548_TRUE@am__append_56 = $(STDCKDINT_H)
-@gl_GNULIB_ENABLED_6897f839bc8beda050d8c73ec20bb548_TRUE@am__append_57 = stdckdint.h stdckdint.h-t
-@gl_GNULIB_ENABLED_b055bea85418c1970b2dc38762c58e11_TRUE@am__append_58 = $(STDDEF_H)
-@gl_GNULIB_ENABLED_b055bea85418c1970b2dc38762c58e11_TRUE@am__append_59 = stddef.h stddef.h-t
-@gl_GNULIB_ENABLED_dd057631bb50a7239da8161fd88bc500_TRUE@am__append_60 = stdio.h
-@gl_GNULIB_ENABLED_dd057631bb50a7239da8161fd88bc500_TRUE@am__append_61 = stdio.h stdio.h-t1 stdio.h-t2 stdio.h-t3
-@GL_COND_OBJ_STDIO_READ_TRUE@@gl_GNULIB_ENABLED_dd057631bb50a7239da8161fd88bc500_TRUE@am__append_62 = stdio-read.c
-@GL_COND_OBJ_STDIO_WRITE_TRUE@@gl_GNULIB_ENABLED_dd057631bb50a7239da8161fd88bc500_TRUE@am__append_63 = stdio-write.c
-@gl_GNULIB_ENABLED_d35c18bd66af1352be89e09b51bcb62b_TRUE@am__append_64 = stdlib.h
-@gl_GNULIB_ENABLED_d35c18bd66af1352be89e09b51bcb62b_TRUE@am__append_65 = stdlib.c
-@gl_GNULIB_ENABLED_d35c18bd66af1352be89e09b51bcb62b_TRUE@am__append_66 = stdlib.h stdlib.h-t1 stdlib.h-t2 stdlib.h-t3
-@GL_COND_OBJ_STRERROR_TRUE@@gl_GNULIB_ENABLED_strerror_TRUE@am__append_67 = strerror.c
-@GL_COND_OBJ_STRERROR_OVERRIDE_TRUE@@gl_GNULIB_ENABLED_dbb57f49352be8fb86869629a254fb72_TRUE@am__append_68 = strerror-override.c
-@gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@am__append_69 = string.h
-@gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@am__append_70 = string.h string.h-t1 string.h-t2
-@gl_GNULIB_ENABLED_c4b6873e6f7f250d44cc0a1621906403_TRUE@am__append_71 = sys/stat.h
-@gl_GNULIB_ENABLED_c4b6873e6f7f250d44cc0a1621906403_TRUE@am__append_72 = sys/stat.h sys/stat.h-t
-@gl_GNULIB_ENABLED_c4b6873e6f7f250d44cc0a1621906403_TRUE@am__append_73 = sys
-@gl_GNULIB_ENABLED_cb7562e84d8cf7185af782fe497b53dd_TRUE@am__append_74 = time.h
-@gl_GNULIB_ENABLED_cb7562e84d8cf7185af782fe497b53dd_TRUE@am__append_75 = time.h time.h-t
-@gl_GNULIB_ENABLED_caf0e8262329a3d0c033d2467fdc987f_TRUE@am__append_76 = unistd.h
-@gl_GNULIB_ENABLED_caf0e8262329a3d0c033d2467fdc987f_TRUE@am__append_77 = unistd.c
-@gl_GNULIB_ENABLED_caf0e8262329a3d0c033d2467fdc987f_TRUE@am__append_78 = unistd.h unistd.h-t1 unistd.h-t2 unistd.h-t3 unistd.h-t4
-@gl_GNULIB_ENABLED_c07c4a2fda832e3f2717a77545d62556_TRUE@am__append_79 = vma-iter.c
-@gl_GNULIB_ENABLED_cc1f80dc8888cfce5fb6c3f6d4a3d97d_TRUE@am__append_80 = vma-prot.c
-@GL_COND_OBJ_WINDOWS_MUTEX_TRUE@@gl_GNULIB_ENABLED_503a4cb75d69c787103d0aa2ab7d8440_TRUE@am__append_81 = windows-mutex.c
-@GL_COND_OBJ_WINDOWS_ONCE_TRUE@@gl_GNULIB_ENABLED_68a4501daeca58988392c7e60b4917ab_TRUE@am__append_82 = windows-once.c
-@GL_COND_OBJ_WINDOWS_RECMUTEX_TRUE@@gl_GNULIB_ENABLED_f0efff84a70f4afba30902bb8ffe9354_TRUE@am__append_83 = windows-recmutex.c
-@GL_COND_OBJ_WINDOWS_RWLOCK_TRUE@@gl_GNULIB_ENABLED_8bb827fe37eaccf1b97feb0c87bc92ef_TRUE@am__append_84 = windows-rwlock.c
-@GL_COND_OBJ_WINDOWS_SPIN_TRUE@@gl_GNULIB_ENABLED_b26fd0a0c34f92c929116e0e7f1d232f_TRUE@am__append_85 = windows-spin.c
-@gl_GNULIB_ENABLED_xsize_TRUE@am__append_86 = xsize.h xsize.c
+@GL_COND_OBJ_PTHREAD_SIGMASK_TRUE@@gl_GNULIB_ENABLED_pthread_sigmask_TRUE@am__append_43 = pthread_sigmask.c
+@GL_COND_OBJ_RAISE_TRUE@@gl_GNULIB_ENABLED_raise_TRUE@am__append_44 = raise.c
+@GL_COND_OBJ_RMDIR_TRUE@@gl_GNULIB_ENABLED_rmdir_TRUE@am__append_45 = rmdir.c
+@gl_GNULIB_ENABLED_338d7c29761e34ccaa9a69c658124cd8_TRUE@am__append_46 = sched.h
+@gl_GNULIB_ENABLED_338d7c29761e34ccaa9a69c658124cd8_TRUE@am__append_47 = sched.h sched.h-t
+@GL_COND_OBJ_SIGACTION_TRUE@@gl_GNULIB_ENABLED_sigaction_TRUE@am__append_48 = sigaction.c
+@gl_GNULIB_ENABLED_sigaction_TRUE@am__append_49 = sig-handler.c
+@gl_GNULIB_ENABLED_sigdelay_TRUE@am__append_50 = sigdelay.c
+@gl_GNULIB_ENABLED_af7e3f0204832604ea56703236d065c9_TRUE@am__append_51 = signal.h
+@gl_GNULIB_ENABLED_af7e3f0204832604ea56703236d065c9_TRUE@am__append_52 = signal.h signal.h-t
+@GL_COND_OBJ_SIGPROCMASK_TRUE@@gl_GNULIB_ENABLED_sigprocmask_TRUE@am__append_53 = sigprocmask.c
+@gl_GNULIB_ENABLED_size_max_TRUE@am__append_54 = size_max.h
+@GL_COND_OBJ_SPIN_TRUE@@gl_GNULIB_ENABLED_spin_TRUE@am__append_55 = glthread/spin.c
+@GL_COND_OBJ_STAT_TRUE@@gl_GNULIB_ENABLED_stat_TRUE@am__append_56 = stat.c
+@gl_GNULIB_ENABLED_0137e3d3638b33e5819d132d0b23165c_TRUE@am__append_57 = stat-time.c
+@gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604_TRUE@am__append_58 = $(STDBIT_H)
+@gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604_TRUE@am__append_59 = stdbit.h stdbit.h-t
+@GL_GENERATE_STDBIT_H_TRUE@@gl_GNULIB_ENABLED_stdc_rotate_left_TRUE@am__append_60 = stdc_rotate_left.c
+@gl_GNULIB_ENABLED_6897f839bc8beda050d8c73ec20bb548_TRUE@am__append_61 = $(STDCKDINT_H)
+@gl_GNULIB_ENABLED_6897f839bc8beda050d8c73ec20bb548_TRUE@am__append_62 = stdckdint.h stdckdint.h-t
+@gl_GNULIB_ENABLED_c61a086c918a57eae8f997993dbe4b6f_TRUE@am__append_63 = $(STDCOUNTOF_H)
+@gl_GNULIB_ENABLED_c61a086c918a57eae8f997993dbe4b6f_TRUE@am__append_64 = stdcountof.h stdcountof.h-t
+@gl_GNULIB_ENABLED_b055bea85418c1970b2dc38762c58e11_TRUE@am__append_65 = $(STDDEF_H)
+@gl_GNULIB_ENABLED_b055bea85418c1970b2dc38762c58e11_TRUE@am__append_66 = stddef.h stddef.h-t
+@gl_GNULIB_ENABLED_dd057631bb50a7239da8161fd88bc500_TRUE@am__append_67 = stdio.h
+@gl_GNULIB_ENABLED_dd057631bb50a7239da8161fd88bc500_TRUE@am__append_68 = stdio.h stdio.h-t1 stdio.h-t2 stdio.h-t3
+@GL_COND_OBJ_STDIO_READ_TRUE@@gl_GNULIB_ENABLED_dd057631bb50a7239da8161fd88bc500_TRUE@am__append_69 = stdio-read.c
+@GL_COND_OBJ_STDIO_WRITE_TRUE@@gl_GNULIB_ENABLED_dd057631bb50a7239da8161fd88bc500_TRUE@am__append_70 = stdio-write.c
+@GL_COND_OBJ_STDIO_CONSOLESAFE_TRUE@@gl_GNULIB_ENABLED_7ae7884496633b3c8044e3a67d7da548_TRUE@am__append_71 = stdio-consolesafe.c
+@gl_GNULIB_ENABLED_d35c18bd66af1352be89e09b51bcb62b_TRUE@am__append_72 = stdlib.h
+@gl_GNULIB_ENABLED_d35c18bd66af1352be89e09b51bcb62b_TRUE@am__append_73 = stdlib.c
+@gl_GNULIB_ENABLED_d35c18bd66af1352be89e09b51bcb62b_TRUE@am__append_74 = stdlib.h stdlib.h-t1 stdlib.h-t2 stdlib.h-t3
+@gl_GNULIB_ENABLED_streq_TRUE@am__append_75 = streq.c
+@GL_COND_OBJ_STRERROR_TRUE@@gl_GNULIB_ENABLED_strerror_TRUE@am__append_76 = strerror.c
+@GL_COND_OBJ_STRERROR_OVERRIDE_TRUE@@gl_GNULIB_ENABLED_dbb57f49352be8fb86869629a254fb72_TRUE@am__append_77 = strerror-override.c
+@gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@am__append_78 = string.h
+@gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@am__append_79 = string.h string.h-t1 string.h-t2
+@gl_GNULIB_ENABLED_c4b6873e6f7f250d44cc0a1621906403_TRUE@am__append_80 = sys/stat.h
+@gl_GNULIB_ENABLED_c4b6873e6f7f250d44cc0a1621906403_TRUE@am__append_81 = sys/stat.h sys/stat.h-t
+@gl_GNULIB_ENABLED_c4b6873e6f7f250d44cc0a1621906403_TRUE@am__append_82 = sys
+@gl_GNULIB_ENABLED_ff372e41059705989544356242e580a9_TRUE@am__append_83 = thread-optim.c
+@gl_GNULIB_ENABLED_ff372e41059705989544356242e580a9_TRUE@am__append_84 = thread-creators.h
+@gl_GNULIB_ENABLED_ff372e41059705989544356242e580a9_TRUE@am__append_85 = thread-creators.h-t1 thread-creators.h-t2
+@gl_GNULIB_ENABLED_ff372e41059705989544356242e580a9_TRUE@am__append_86 = thread-creators.h
+@gl_GNULIB_ENABLED_ff372e41059705989544356242e580a9_TRUE@am__append_87 = thread-creators.h
+@gl_GNULIB_ENABLED_cb7562e84d8cf7185af782fe497b53dd_TRUE@am__append_88 = time.h
+@gl_GNULIB_ENABLED_cb7562e84d8cf7185af782fe497b53dd_TRUE@am__append_89 = time.h time.h-t
+@gl_GNULIB_ENABLED_caf0e8262329a3d0c033d2467fdc987f_TRUE@am__append_90 = unistd.h
+@gl_GNULIB_ENABLED_caf0e8262329a3d0c033d2467fdc987f_TRUE@am__append_91 = unistd.c
+@gl_GNULIB_ENABLED_caf0e8262329a3d0c033d2467fdc987f_TRUE@am__append_92 = unistd.h unistd.h-t1 unistd.h-t2 unistd.h-t3 unistd.h-t4
+@gl_GNULIB_ENABLED_c07c4a2fda832e3f2717a77545d62556_TRUE@am__append_93 = vma-iter.c
+@gl_GNULIB_ENABLED_cc1f80dc8888cfce5fb6c3f6d4a3d97d_TRUE@am__append_94 = vma-prot.c
+@GL_COND_OBJ_WINDOWS_MUTEX_TRUE@@gl_GNULIB_ENABLED_503a4cb75d69c787103d0aa2ab7d8440_TRUE@am__append_95 = windows-mutex.c
+@GL_COND_OBJ_WINDOWS_ONCE_TRUE@@gl_GNULIB_ENABLED_68a4501daeca58988392c7e60b4917ab_TRUE@am__append_96 = windows-once.c
+@GL_COND_OBJ_WINDOWS_RECMUTEX_TRUE@@gl_GNULIB_ENABLED_f0efff84a70f4afba30902bb8ffe9354_TRUE@am__append_97 = windows-recmutex.c
+@GL_COND_OBJ_WINDOWS_RWLOCK_TRUE@@gl_GNULIB_ENABLED_8bb827fe37eaccf1b97feb0c87bc92ef_TRUE@am__append_98 = windows-rwlock.c
+@GL_COND_OBJ_WINDOWS_SPIN_TRUE@@gl_GNULIB_ENABLED_b26fd0a0c34f92c929116e0e7f1d232f_TRUE@am__append_99 = windows-spin.c
+@GL_COND_OBJ_WINDOWS_TLS_TRUE@@gl_GNULIB_ENABLED_48b2271240803e4879464b755748a89d_TRUE@am__append_100 = windows-tls.c
+@gl_GNULIB_ENABLED_xsize_TRUE@am__append_101 = xsize.h xsize.c
 subdir = gnulib-lib
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/gnulib-m4/00gnulib.m4 \
@@ -245,10 +260,12 @@ am__aclocal_m4_deps = $(top_srcdir)/gnulib-m4/00gnulib.m4 \
 	$(top_srcdir)/gnulib-m4/fcntl-o.m4 \
 	$(top_srcdir)/gnulib-m4/fcntl.m4 \
 	$(top_srcdir)/gnulib-m4/fcntl_h.m4 \
+	$(top_srcdir)/gnulib-m4/fseterr.m4 \
 	$(top_srcdir)/gnulib-m4/fstat.m4 \
 	$(top_srcdir)/gnulib-m4/getdtablesize.m4 \
 	$(top_srcdir)/gnulib-m4/getpagesize.m4 \
 	$(top_srcdir)/gnulib-m4/getprogname.m4 \
+	$(top_srcdir)/gnulib-m4/gettext_h.m4 \
 	$(top_srcdir)/gnulib-m4/gnulib-common.m4 \
 	$(top_srcdir)/gnulib-m4/gnulib-comp.m4 \
 	$(top_srcdir)/gnulib-m4/gnulib-i18n.m4 \
@@ -258,7 +275,6 @@ am__aclocal_m4_deps = $(top_srcdir)/gnulib-m4/00gnulib.m4 \
 	$(top_srcdir)/gnulib-m4/largefile.m4 \
 	$(top_srcdir)/gnulib-m4/limits-h.m4 \
 	$(top_srcdir)/gnulib-m4/locale-en.m4 \
-	$(top_srcdir)/gnulib-m4/locale_h.m4 \
 	$(top_srcdir)/gnulib-m4/lock.m4 \
 	$(top_srcdir)/gnulib-m4/lstat.m4 \
 	$(top_srcdir)/gnulib-m4/malloc.m4 \
@@ -281,6 +297,7 @@ am__aclocal_m4_deps = $(top_srcdir)/gnulib-m4/00gnulib.m4 \
 	$(top_srcdir)/gnulib-m4/pthread-spin.m4 \
 	$(top_srcdir)/gnulib-m4/pthread_h.m4 \
 	$(top_srcdir)/gnulib-m4/pthread_rwlock_rdlock.m4 \
+	$(top_srcdir)/gnulib-m4/pthread_sigmask.m4 \
 	$(top_srcdir)/gnulib-m4/raise.m4 \
 	$(top_srcdir)/gnulib-m4/rmdir.m4 \
 	$(top_srcdir)/gnulib-m4/sched_h.m4 \
@@ -293,7 +310,9 @@ am__aclocal_m4_deps = $(top_srcdir)/gnulib-m4/00gnulib.m4 \
 	$(top_srcdir)/gnulib-m4/ssize_t.m4 \
 	$(top_srcdir)/gnulib-m4/stat-time.m4 \
 	$(top_srcdir)/gnulib-m4/stat.m4 \
+	$(top_srcdir)/gnulib-m4/stdbit_h.m4 \
 	$(top_srcdir)/gnulib-m4/stdckdint_h.m4 \
+	$(top_srcdir)/gnulib-m4/stdcountof_h.m4 \
 	$(top_srcdir)/gnulib-m4/stddef_h.m4 \
 	$(top_srcdir)/gnulib-m4/stdint.m4 \
 	$(top_srcdir)/gnulib-m4/stdio_h.m4 \
@@ -301,6 +320,7 @@ am__aclocal_m4_deps = $(top_srcdir)/gnulib-m4/00gnulib.m4 \
 	$(top_srcdir)/gnulib-m4/stdnoreturn.m4 \
 	$(top_srcdir)/gnulib-m4/strerror.m4 \
 	$(top_srcdir)/gnulib-m4/string_h.m4 \
+	$(top_srcdir)/gnulib-m4/stringeq.m4 \
 	$(top_srcdir)/gnulib-m4/sys_cdefs_h.m4 \
 	$(top_srcdir)/gnulib-m4/sys_socket_h.m4 \
 	$(top_srcdir)/gnulib-m4/sys_stat_h.m4 \
@@ -333,19 +353,21 @@ am__DEPENDENCIES_1 =
 am__libgnu_la_SOURCES_DIST = asyncsafe-spin.c basename-lgpl.c \
 	clean-temp-simple.h clean-temp-simple.c cloexec.c close.c \
 	dup2.c error.c fatal-signal.h fatal-signal.c fcntl.c fd-hook.c \
-	fstat.c getdtablesize.c getpagesize.c getprogname.c gettext.h \
-	hashkey-string.h hashkey-string.c hasmntopt.c idx.h \
+	fseterr.c fstat.c getdtablesize.c getpagesize.c getprogname.c \
+	gettext.h hashkey-string.h hashkey-string.c hasmntopt.c idx.h \
 	gl_linkedhash_list.h gl_linkedhash_list.c gl_anyhash1.h \
 	gl_anyhash2.h gl_anyhash_primes.h gl_anylinked_list1.h \
 	gl_anylinked_list2.h gl_list.h gl_list.c glthread/lock.h \
-	glthread/lock.c lstat.c malloca.c msvc-inval.c msvc-nothrow.c \
-	glthread/once.h glthread/once.c open.c pthread-once.c raise.c \
-	rmdir.c sigaction.c sig-handler.c sigprocmask.c size_max.h \
-	glthread/spin.c stat.c stat-time.c stdio-read.c stdio-write.c \
-	stdlib.c strerror.c strerror-override.c glthread/threadlib.c \
-	unistd.c vma-iter.c vma-prot.c windows-mutex.c windows-once.c \
-	windows-recmutex.c windows-rwlock.c windows-spin.c xsize.h \
-	xsize.c
+	glthread/lock.c lstat.c malloca.c memeq.c msvc-inval.c \
+	msvc-nothrow.c glthread/once.h glthread/once.c open.c \
+	pthread-once.c pthread_sigmask.c raise.c rmdir.c sigaction.c \
+	sig-handler.c sigdelay.c sigprocmask.c size_max.h \
+	glthread/spin.c stat.c stat-time.c stdc_rotate_left.c \
+	stdio-read.c stdio-write.c stdio-consolesafe.c stdlib.c \
+	streq.c strerror.c strerror-override.c thread-optim.c \
+	glthread/threadlib.c unistd.c vma-iter.c vma-prot.c \
+	windows-mutex.c windows-once.c windows-recmutex.c \
+	windows-rwlock.c windows-spin.c windows-tls.c xsize.h xsize.c
 @gl_GNULIB_ENABLED_3146726593c1fd888d32adc5a62973ce_TRUE@am__objects_1 = libgnu_la-asyncsafe-spin.lo
 @gl_GNULIB_ENABLED_ae0d979e17e723693567f9efd1d2294f_TRUE@am__objects_2 = libgnu_la-basename-lgpl.lo
 @gl_GNULIB_ENABLED_55e6e810e702cce3e72865884958a831_TRUE@am__objects_3 = libgnu_la-clean-temp-simple.lo
@@ -356,63 +378,76 @@ am__libgnu_la_SOURCES_DIST = asyncsafe-spin.c basename-lgpl.c \
 @gl_GNULIB_ENABLED_83e4d5f60933eb2f07d525a5bfabe057_TRUE@am__objects_8 = libgnu_la-fatal-signal.lo
 @GL_COND_OBJ_FCNTL_TRUE@@gl_GNULIB_ENABLED_fcntl_TRUE@am__objects_9 = libgnu_la-fcntl.lo
 @gl_GNULIB_ENABLED_43fe87a341d9b4b93c47c3ad819a5239_TRUE@am__objects_10 = libgnu_la-fd-hook.lo
-@GL_COND_OBJ_FSTAT_TRUE@@gl_GNULIB_ENABLED_fstat_TRUE@am__objects_11 = libgnu_la-fstat.lo
-@GL_COND_OBJ_GETDTABLESIZE_TRUE@@gl_GNULIB_ENABLED_getdtablesize_TRUE@am__objects_12 = libgnu_la-getdtablesize.lo
-@GL_COND_OBJ_GETPAGESIZE_TRUE@@gl_GNULIB_ENABLED_getpagesize_TRUE@am__objects_13 = libgnu_la-getpagesize.lo
-@GL_COND_OBJ_GETPROGNAME_TRUE@@gl_GNULIB_ENABLED_getprogname_TRUE@am__objects_14 = libgnu_la-getprogname.lo
-am__objects_15 =
-@gl_GNULIB_ENABLED_2096e05902597f4254055f5a07612ed2_TRUE@am__objects_16 = libgnu_la-hashkey-string.lo
-@GL_COND_OBJ_HASMNTOPT_TRUE@@gl_GNULIB_ENABLED_hasmntopt_TRUE@am__objects_17 = libgnu_la-hasmntopt.lo
-@gl_GNULIB_ENABLED_5b88be6afdf85eedb41cc8063ca35aa2_TRUE@am__objects_18 = libgnu_la-gl_linkedhash_list.lo
-@gl_GNULIB_ENABLED_list_TRUE@am__objects_19 = libgnu_la-gl_list.lo
+@GL_COND_OBJ_FSETERR_TRUE@@gl_GNULIB_ENABLED_fseterr_TRUE@am__objects_11 = libgnu_la-fseterr.lo
+@GL_COND_OBJ_FSTAT_TRUE@@gl_GNULIB_ENABLED_fstat_TRUE@am__objects_12 = libgnu_la-fstat.lo
+@GL_COND_OBJ_GETDTABLESIZE_TRUE@@gl_GNULIB_ENABLED_getdtablesize_TRUE@am__objects_13 = libgnu_la-getdtablesize.lo
+@GL_COND_OBJ_GETPAGESIZE_TRUE@@gl_GNULIB_ENABLED_getpagesize_TRUE@am__objects_14 = libgnu_la-getpagesize.lo
+@GL_COND_OBJ_GETPROGNAME_TRUE@@gl_GNULIB_ENABLED_getprogname_TRUE@am__objects_15 = libgnu_la-getprogname.lo
+am__objects_16 =
+@gl_GNULIB_ENABLED_2096e05902597f4254055f5a07612ed2_TRUE@am__objects_17 = libgnu_la-hashkey-string.lo
+@GL_COND_OBJ_HASMNTOPT_TRUE@@gl_GNULIB_ENABLED_hasmntopt_TRUE@am__objects_18 = libgnu_la-hasmntopt.lo
+@gl_GNULIB_ENABLED_5b88be6afdf85eedb41cc8063ca35aa2_TRUE@am__objects_19 = libgnu_la-gl_linkedhash_list.lo
+@gl_GNULIB_ENABLED_list_TRUE@am__objects_20 = libgnu_la-gl_list.lo
 am__dirstamp = $(am__leading_dot)dirstamp
-@GL_COND_OBJ_LSTAT_TRUE@@gl_GNULIB_ENABLED_lstat_TRUE@am__objects_20 = libgnu_la-lstat.lo
-@gl_GNULIB_ENABLED_malloca_TRUE@am__objects_21 = libgnu_la-malloca.lo
-@GL_COND_OBJ_MSVC_INVAL_TRUE@@gl_GNULIB_ENABLED_f691f076f650964c9f5598c3ee487616_TRUE@am__objects_22 = libgnu_la-msvc-inval.lo
-@GL_COND_OBJ_MSVC_NOTHROW_TRUE@@gl_GNULIB_ENABLED_676220fa4366efa9bdbfccf11a857c07_TRUE@am__objects_23 = libgnu_la-msvc-nothrow.lo
-@GL_COND_OBJ_OPEN_TRUE@@gl_GNULIB_ENABLED_open_TRUE@am__objects_24 = libgnu_la-open.lo
-@GL_COND_OBJ_PTHREAD_ONCE_TRUE@@gl_GNULIB_ENABLED_e0dc424e76447be3f4b8566d84038f5a_TRUE@am__objects_25 = libgnu_la-pthread-once.lo
-@GL_COND_OBJ_RAISE_TRUE@@gl_GNULIB_ENABLED_raise_TRUE@am__objects_26 = libgnu_la-raise.lo
-@GL_COND_OBJ_RMDIR_TRUE@@gl_GNULIB_ENABLED_rmdir_TRUE@am__objects_27 = libgnu_la-rmdir.lo
-@GL_COND_OBJ_SIGACTION_TRUE@@gl_GNULIB_ENABLED_sigaction_TRUE@am__objects_28 = libgnu_la-sigaction.lo
-@gl_GNULIB_ENABLED_sigaction_TRUE@am__objects_29 =  \
+@GL_COND_OBJ_LSTAT_TRUE@@gl_GNULIB_ENABLED_lstat_TRUE@am__objects_21 = libgnu_la-lstat.lo
+@gl_GNULIB_ENABLED_malloca_TRUE@am__objects_22 = libgnu_la-malloca.lo
+@gl_GNULIB_ENABLED_memeq_TRUE@am__objects_23 = libgnu_la-memeq.lo
+@GL_COND_OBJ_MSVC_INVAL_TRUE@@gl_GNULIB_ENABLED_f691f076f650964c9f5598c3ee487616_TRUE@am__objects_24 = libgnu_la-msvc-inval.lo
+@GL_COND_OBJ_MSVC_NOTHROW_TRUE@@gl_GNULIB_ENABLED_676220fa4366efa9bdbfccf11a857c07_TRUE@am__objects_25 = libgnu_la-msvc-nothrow.lo
+@GL_COND_OBJ_OPEN_TRUE@@gl_GNULIB_ENABLED_open_TRUE@am__objects_26 = libgnu_la-open.lo
+@GL_COND_OBJ_PTHREAD_ONCE_TRUE@@gl_GNULIB_ENABLED_e0dc424e76447be3f4b8566d84038f5a_TRUE@am__objects_27 = libgnu_la-pthread-once.lo
+@GL_COND_OBJ_PTHREAD_SIGMASK_TRUE@@gl_GNULIB_ENABLED_pthread_sigmask_TRUE@am__objects_28 = libgnu_la-pthread_sigmask.lo
+@GL_COND_OBJ_RAISE_TRUE@@gl_GNULIB_ENABLED_raise_TRUE@am__objects_29 = libgnu_la-raise.lo
+@GL_COND_OBJ_RMDIR_TRUE@@gl_GNULIB_ENABLED_rmdir_TRUE@am__objects_30 = libgnu_la-rmdir.lo
+@GL_COND_OBJ_SIGACTION_TRUE@@gl_GNULIB_ENABLED_sigaction_TRUE@am__objects_31 = libgnu_la-sigaction.lo
+@gl_GNULIB_ENABLED_sigaction_TRUE@am__objects_32 =  \
 @gl_GNULIB_ENABLED_sigaction_TRUE@	libgnu_la-sig-handler.lo
-@GL_COND_OBJ_SIGPROCMASK_TRUE@@gl_GNULIB_ENABLED_sigprocmask_TRUE@am__objects_30 = libgnu_la-sigprocmask.lo
-@GL_COND_OBJ_SPIN_TRUE@@gl_GNULIB_ENABLED_spin_TRUE@am__objects_31 = glthread/libgnu_la-spin.lo
-@GL_COND_OBJ_STAT_TRUE@@gl_GNULIB_ENABLED_stat_TRUE@am__objects_32 = libgnu_la-stat.lo
-@gl_GNULIB_ENABLED_0137e3d3638b33e5819d132d0b23165c_TRUE@am__objects_33 = libgnu_la-stat-time.lo
-@GL_COND_OBJ_STDIO_READ_TRUE@@gl_GNULIB_ENABLED_dd057631bb50a7239da8161fd88bc500_TRUE@am__objects_34 = libgnu_la-stdio-read.lo
-@GL_COND_OBJ_STDIO_WRITE_TRUE@@gl_GNULIB_ENABLED_dd057631bb50a7239da8161fd88bc500_TRUE@am__objects_35 = libgnu_la-stdio-write.lo
-@gl_GNULIB_ENABLED_d35c18bd66af1352be89e09b51bcb62b_TRUE@am__objects_36 = libgnu_la-stdlib.lo
-@GL_COND_OBJ_STRERROR_TRUE@@gl_GNULIB_ENABLED_strerror_TRUE@am__objects_37 = libgnu_la-strerror.lo
-@GL_COND_OBJ_STRERROR_OVERRIDE_TRUE@@gl_GNULIB_ENABLED_dbb57f49352be8fb86869629a254fb72_TRUE@am__objects_38 = libgnu_la-strerror-override.lo
-@gl_GNULIB_ENABLED_caf0e8262329a3d0c033d2467fdc987f_TRUE@am__objects_39 = libgnu_la-unistd.lo
-@gl_GNULIB_ENABLED_c07c4a2fda832e3f2717a77545d62556_TRUE@am__objects_40 = libgnu_la-vma-iter.lo
-@gl_GNULIB_ENABLED_cc1f80dc8888cfce5fb6c3f6d4a3d97d_TRUE@am__objects_41 = libgnu_la-vma-prot.lo
-@GL_COND_OBJ_WINDOWS_MUTEX_TRUE@@gl_GNULIB_ENABLED_503a4cb75d69c787103d0aa2ab7d8440_TRUE@am__objects_42 = libgnu_la-windows-mutex.lo
-@GL_COND_OBJ_WINDOWS_ONCE_TRUE@@gl_GNULIB_ENABLED_68a4501daeca58988392c7e60b4917ab_TRUE@am__objects_43 = libgnu_la-windows-once.lo
-@GL_COND_OBJ_WINDOWS_RECMUTEX_TRUE@@gl_GNULIB_ENABLED_f0efff84a70f4afba30902bb8ffe9354_TRUE@am__objects_44 = libgnu_la-windows-recmutex.lo
-@GL_COND_OBJ_WINDOWS_RWLOCK_TRUE@@gl_GNULIB_ENABLED_8bb827fe37eaccf1b97feb0c87bc92ef_TRUE@am__objects_45 = libgnu_la-windows-rwlock.lo
-@GL_COND_OBJ_WINDOWS_SPIN_TRUE@@gl_GNULIB_ENABLED_b26fd0a0c34f92c929116e0e7f1d232f_TRUE@am__objects_46 = libgnu_la-windows-spin.lo
-@gl_GNULIB_ENABLED_xsize_TRUE@am__objects_47 = libgnu_la-xsize.lo
+@gl_GNULIB_ENABLED_sigdelay_TRUE@am__objects_33 =  \
+@gl_GNULIB_ENABLED_sigdelay_TRUE@	libgnu_la-sigdelay.lo
+@GL_COND_OBJ_SIGPROCMASK_TRUE@@gl_GNULIB_ENABLED_sigprocmask_TRUE@am__objects_34 = libgnu_la-sigprocmask.lo
+@GL_COND_OBJ_SPIN_TRUE@@gl_GNULIB_ENABLED_spin_TRUE@am__objects_35 = glthread/libgnu_la-spin.lo
+@GL_COND_OBJ_STAT_TRUE@@gl_GNULIB_ENABLED_stat_TRUE@am__objects_36 = libgnu_la-stat.lo
+@gl_GNULIB_ENABLED_0137e3d3638b33e5819d132d0b23165c_TRUE@am__objects_37 = libgnu_la-stat-time.lo
+@GL_GENERATE_STDBIT_H_TRUE@@gl_GNULIB_ENABLED_stdc_rotate_left_TRUE@am__objects_38 = libgnu_la-stdc_rotate_left.lo
+@GL_COND_OBJ_STDIO_READ_TRUE@@gl_GNULIB_ENABLED_dd057631bb50a7239da8161fd88bc500_TRUE@am__objects_39 = libgnu_la-stdio-read.lo
+@GL_COND_OBJ_STDIO_WRITE_TRUE@@gl_GNULIB_ENABLED_dd057631bb50a7239da8161fd88bc500_TRUE@am__objects_40 = libgnu_la-stdio-write.lo
+@GL_COND_OBJ_STDIO_CONSOLESAFE_TRUE@@gl_GNULIB_ENABLED_7ae7884496633b3c8044e3a67d7da548_TRUE@am__objects_41 = libgnu_la-stdio-consolesafe.lo
+@gl_GNULIB_ENABLED_d35c18bd66af1352be89e09b51bcb62b_TRUE@am__objects_42 = libgnu_la-stdlib.lo
+@gl_GNULIB_ENABLED_streq_TRUE@am__objects_43 = libgnu_la-streq.lo
+@GL_COND_OBJ_STRERROR_TRUE@@gl_GNULIB_ENABLED_strerror_TRUE@am__objects_44 = libgnu_la-strerror.lo
+@GL_COND_OBJ_STRERROR_OVERRIDE_TRUE@@gl_GNULIB_ENABLED_dbb57f49352be8fb86869629a254fb72_TRUE@am__objects_45 = libgnu_la-strerror-override.lo
+@gl_GNULIB_ENABLED_ff372e41059705989544356242e580a9_TRUE@am__objects_46 = libgnu_la-thread-optim.lo
+@gl_GNULIB_ENABLED_caf0e8262329a3d0c033d2467fdc987f_TRUE@am__objects_47 = libgnu_la-unistd.lo
+@gl_GNULIB_ENABLED_c07c4a2fda832e3f2717a77545d62556_TRUE@am__objects_48 = libgnu_la-vma-iter.lo
+@gl_GNULIB_ENABLED_cc1f80dc8888cfce5fb6c3f6d4a3d97d_TRUE@am__objects_49 = libgnu_la-vma-prot.lo
+@GL_COND_OBJ_WINDOWS_MUTEX_TRUE@@gl_GNULIB_ENABLED_503a4cb75d69c787103d0aa2ab7d8440_TRUE@am__objects_50 = libgnu_la-windows-mutex.lo
+@GL_COND_OBJ_WINDOWS_ONCE_TRUE@@gl_GNULIB_ENABLED_68a4501daeca58988392c7e60b4917ab_TRUE@am__objects_51 = libgnu_la-windows-once.lo
+@GL_COND_OBJ_WINDOWS_RECMUTEX_TRUE@@gl_GNULIB_ENABLED_f0efff84a70f4afba30902bb8ffe9354_TRUE@am__objects_52 = libgnu_la-windows-recmutex.lo
+@GL_COND_OBJ_WINDOWS_RWLOCK_TRUE@@gl_GNULIB_ENABLED_8bb827fe37eaccf1b97feb0c87bc92ef_TRUE@am__objects_53 = libgnu_la-windows-rwlock.lo
+@GL_COND_OBJ_WINDOWS_SPIN_TRUE@@gl_GNULIB_ENABLED_b26fd0a0c34f92c929116e0e7f1d232f_TRUE@am__objects_54 = libgnu_la-windows-spin.lo
+@GL_COND_OBJ_WINDOWS_TLS_TRUE@@gl_GNULIB_ENABLED_48b2271240803e4879464b755748a89d_TRUE@am__objects_55 = libgnu_la-windows-tls.lo
+@gl_GNULIB_ENABLED_xsize_TRUE@am__objects_56 = libgnu_la-xsize.lo
 am_libgnu_la_OBJECTS = $(am__objects_1) $(am__objects_2) \
 	$(am__objects_3) $(am__objects_4) $(am__objects_5) \
 	$(am__objects_6) $(am__objects_7) $(am__objects_8) \
 	$(am__objects_9) $(am__objects_10) $(am__objects_11) \
 	$(am__objects_12) $(am__objects_13) $(am__objects_14) \
 	$(am__objects_15) $(am__objects_16) $(am__objects_17) \
-	$(am__objects_15) $(am__objects_18) $(am__objects_19) \
-	glthread/libgnu_la-lock.lo $(am__objects_20) $(am__objects_21) \
-	$(am__objects_22) $(am__objects_23) glthread/libgnu_la-once.lo \
-	$(am__objects_24) $(am__objects_25) $(am__objects_26) \
+	$(am__objects_18) $(am__objects_16) $(am__objects_19) \
+	$(am__objects_20) glthread/libgnu_la-lock.lo $(am__objects_21) \
+	$(am__objects_22) $(am__objects_23) $(am__objects_24) \
+	$(am__objects_25) glthread/libgnu_la-once.lo $(am__objects_26) \
 	$(am__objects_27) $(am__objects_28) $(am__objects_29) \
-	$(am__objects_30) $(am__objects_15) $(am__objects_31) \
-	$(am__objects_32) $(am__objects_33) $(am__objects_34) \
+	$(am__objects_30) $(am__objects_31) $(am__objects_32) \
+	$(am__objects_33) $(am__objects_34) $(am__objects_16) \
 	$(am__objects_35) $(am__objects_36) $(am__objects_37) \
-	$(am__objects_38) glthread/libgnu_la-threadlib.lo \
-	$(am__objects_39) $(am__objects_40) $(am__objects_41) \
-	$(am__objects_42) $(am__objects_43) $(am__objects_44) \
-	$(am__objects_45) $(am__objects_46) $(am__objects_47)
+	$(am__objects_38) $(am__objects_39) $(am__objects_40) \
+	$(am__objects_41) $(am__objects_42) $(am__objects_43) \
+	$(am__objects_44) $(am__objects_45) $(am__objects_46) \
+	glthread/libgnu_la-threadlib.lo $(am__objects_47) \
+	$(am__objects_48) $(am__objects_49) $(am__objects_50) \
+	$(am__objects_51) $(am__objects_52) $(am__objects_53) \
+	$(am__objects_54) $(am__objects_55) $(am__objects_56)
 libgnu_la_OBJECTS = $(am_libgnu_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -445,6 +480,7 @@ am__depfiles_remade = ./$(DEPDIR)/libgnu_la-asyncsafe-spin.Plo \
 	./$(DEPDIR)/libgnu_la-fatal-signal.Plo \
 	./$(DEPDIR)/libgnu_la-fcntl.Plo \
 	./$(DEPDIR)/libgnu_la-fd-hook.Plo \
+	./$(DEPDIR)/libgnu_la-fseterr.Plo \
 	./$(DEPDIR)/libgnu_la-fstat.Plo \
 	./$(DEPDIR)/libgnu_la-getdtablesize.Plo \
 	./$(DEPDIR)/libgnu_la-getpagesize.Plo \
@@ -455,23 +491,31 @@ am__depfiles_remade = ./$(DEPDIR)/libgnu_la-asyncsafe-spin.Plo \
 	./$(DEPDIR)/libgnu_la-hasmntopt.Plo \
 	./$(DEPDIR)/libgnu_la-lstat.Plo \
 	./$(DEPDIR)/libgnu_la-malloca.Plo \
+	./$(DEPDIR)/libgnu_la-memeq.Plo \
 	./$(DEPDIR)/libgnu_la-msvc-inval.Plo \
 	./$(DEPDIR)/libgnu_la-msvc-nothrow.Plo \
 	./$(DEPDIR)/libgnu_la-open.Plo \
 	./$(DEPDIR)/libgnu_la-pthread-once.Plo \
+	./$(DEPDIR)/libgnu_la-pthread_sigmask.Plo \
 	./$(DEPDIR)/libgnu_la-raise.Plo \
 	./$(DEPDIR)/libgnu_la-rmdir.Plo \
 	./$(DEPDIR)/libgnu_la-sig-handler.Plo \
 	./$(DEPDIR)/libgnu_la-sigaction.Plo \
+	./$(DEPDIR)/libgnu_la-sigdelay.Plo \
 	./$(DEPDIR)/libgnu_la-sigprocmask.Plo \
 	./$(DEPDIR)/libgnu_la-stat-time.Plo \
 	./$(DEPDIR)/libgnu_la-stat-w32.Plo \
 	./$(DEPDIR)/libgnu_la-stat.Plo \
+	./$(DEPDIR)/libgnu_la-stdc_rotate_left.Plo \
+	./$(DEPDIR)/libgnu_la-stdio-consolesafe.Plo \
 	./$(DEPDIR)/libgnu_la-stdio-read.Plo \
 	./$(DEPDIR)/libgnu_la-stdio-write.Plo \
 	./$(DEPDIR)/libgnu_la-stdlib.Plo \
+	./$(DEPDIR)/libgnu_la-streq.Plo \
 	./$(DEPDIR)/libgnu_la-strerror-override.Plo \
 	./$(DEPDIR)/libgnu_la-strerror.Plo \
+	./$(DEPDIR)/libgnu_la-thread-optim-proto.Plo \
+	./$(DEPDIR)/libgnu_la-thread-optim.Plo \
 	./$(DEPDIR)/libgnu_la-unistd.Plo \
 	./$(DEPDIR)/libgnu_la-vma-iter.Plo \
 	./$(DEPDIR)/libgnu_la-vma-prot.Plo \
@@ -480,6 +524,7 @@ am__depfiles_remade = ./$(DEPDIR)/libgnu_la-asyncsafe-spin.Plo \
 	./$(DEPDIR)/libgnu_la-windows-recmutex.Plo \
 	./$(DEPDIR)/libgnu_la-windows-rwlock.Plo \
 	./$(DEPDIR)/libgnu_la-windows-spin.Plo \
+	./$(DEPDIR)/libgnu_la-windows-tls.Plo \
 	./$(DEPDIR)/libgnu_la-xsize.Plo \
 	glthread/$(DEPDIR)/libgnu_la-lock.Plo \
 	glthread/$(DEPDIR)/libgnu_la-once.Plo \
@@ -639,6 +684,7 @@ CXXCPP = @CXXCPP@
 CXXDEPMODE = @CXXDEPMODE@
 CXXFLAGS = @CXXFLAGS@
 CXX_CHOICE = @CXX_CHOICE@
+CXX_HAVE_STDCOUNTOF_H = @CXX_HAVE_STDCOUNTOF_H@
 CYGPATH_W = @CYGPATH_W@
 DEFS = @DEFS@
 DEPDIR = @DEPDIR@
@@ -650,13 +696,7 @@ ECHO_C = @ECHO_C@
 ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
 EGREP = @EGREP@
-EMULTIHOP_HIDDEN = @EMULTIHOP_HIDDEN@
-EMULTIHOP_VALUE = @EMULTIHOP_VALUE@
 ENDIANNESS = @ENDIANNESS@
-ENOLINK_HIDDEN = @ENOLINK_HIDDEN@
-ENOLINK_VALUE = @ENOLINK_VALUE@
-EOVERFLOW_HIDDEN = @EOVERFLOW_HIDDEN@
-EOVERFLOW_VALUE = @EOVERFLOW_VALUE@
 ERRNO_H = @ERRNO_H@
 ETAGS = @ETAGS@
 EXEEXT = @EXEEXT@
@@ -683,7 +723,6 @@ GL_GNULIB_DPRINTF = @GL_GNULIB_DPRINTF@
 GL_GNULIB_DUP = @GL_GNULIB_DUP@
 GL_GNULIB_DUP2 = @GL_GNULIB_DUP2@
 GL_GNULIB_DUP3 = @GL_GNULIB_DUP3@
-GL_GNULIB_DUPLOCALE = @GL_GNULIB_DUPLOCALE@
 GL_GNULIB_DZPRINTF = @GL_GNULIB_DZPRINTF@
 GL_GNULIB_ENVIRON = @GL_GNULIB_ENVIRON@
 GL_GNULIB_EUIDACCESS = @GL_GNULIB_EUIDACCESS@
@@ -716,7 +755,6 @@ GL_GNULIB_FPURGE = @GL_GNULIB_FPURGE@
 GL_GNULIB_FPUTC = @GL_GNULIB_FPUTC@
 GL_GNULIB_FPUTS = @GL_GNULIB_FPUTS@
 GL_GNULIB_FREAD = @GL_GNULIB_FREAD@
-GL_GNULIB_FREELOCALE = @GL_GNULIB_FREELOCALE@
 GL_GNULIB_FREE_POSIX = @GL_GNULIB_FREE_POSIX@
 GL_GNULIB_FREOPEN = @GL_GNULIB_FREOPEN@
 GL_GNULIB_FSCANF = @GL_GNULIB_FSCANF@
@@ -742,8 +780,6 @@ GL_GNULIB_GETGROUPS = @GL_GNULIB_GETGROUPS@
 GL_GNULIB_GETHOSTNAME = @GL_GNULIB_GETHOSTNAME@
 GL_GNULIB_GETLINE = @GL_GNULIB_GETLINE@
 GL_GNULIB_GETLOADAVG = @GL_GNULIB_GETLOADAVG@
-GL_GNULIB_GETLOCALENAME_L = @GL_GNULIB_GETLOCALENAME_L@
-GL_GNULIB_GETLOCALENAME_L_UNSAFE = @GL_GNULIB_GETLOCALENAME_L_UNSAFE@
 GL_GNULIB_GETLOGIN = @GL_GNULIB_GETLOGIN@
 GL_GNULIB_GETLOGIN_R = @GL_GNULIB_GETLOGIN_R@
 GL_GNULIB_GETOPT_POSIX = @GL_GNULIB_GETOPT_POSIX@
@@ -762,8 +798,6 @@ GL_GNULIB_LCHMOD = @GL_GNULIB_LCHMOD@
 GL_GNULIB_LCHOWN = @GL_GNULIB_LCHOWN@
 GL_GNULIB_LINK = @GL_GNULIB_LINK@
 GL_GNULIB_LINKAT = @GL_GNULIB_LINKAT@
-GL_GNULIB_LOCALECONV = @GL_GNULIB_LOCALECONV@
-GL_GNULIB_LOCALENAME_UNSAFE = @GL_GNULIB_LOCALENAME_UNSAFE@
 GL_GNULIB_LOCALTIME = @GL_GNULIB_LOCALTIME@
 GL_GNULIB_LSEEK = @GL_GNULIB_LSEEK@
 GL_GNULIB_LSTAT = @GL_GNULIB_LSTAT@
@@ -828,6 +862,7 @@ GL_GNULIB_MDA_UMASK = @GL_GNULIB_MDA_UMASK@
 GL_GNULIB_MDA_UNLINK = @GL_GNULIB_MDA_UNLINK@
 GL_GNULIB_MDA_WRITE = @GL_GNULIB_MDA_WRITE@
 GL_GNULIB_MEMCHR = @GL_GNULIB_MEMCHR@
+GL_GNULIB_MEMEQ = @GL_GNULIB_MEMEQ@
 GL_GNULIB_MEMMEM = @GL_GNULIB_MEMMEM@
 GL_GNULIB_MEMPCPY = @GL_GNULIB_MEMPCPY@
 GL_GNULIB_MEMRCHR = @GL_GNULIB_MEMRCHR@
@@ -845,13 +880,13 @@ GL_GNULIB_MKSTEMP = @GL_GNULIB_MKSTEMP@
 GL_GNULIB_MKSTEMPS = @GL_GNULIB_MKSTEMPS@
 GL_GNULIB_MKTIME = @GL_GNULIB_MKTIME@
 GL_GNULIB_NANOSLEEP = @GL_GNULIB_NANOSLEEP@
-GL_GNULIB_NEWLOCALE = @GL_GNULIB_NEWLOCALE@
 GL_GNULIB_NONBLOCKING = @GL_GNULIB_NONBLOCKING@
 GL_GNULIB_OBSTACK_PRINTF = @GL_GNULIB_OBSTACK_PRINTF@
 GL_GNULIB_OBSTACK_PRINTF_POSIX = @GL_GNULIB_OBSTACK_PRINTF_POSIX@
 GL_GNULIB_OBSTACK_ZPRINTF = @GL_GNULIB_OBSTACK_ZPRINTF@
 GL_GNULIB_OPEN = @GL_GNULIB_OPEN@
 GL_GNULIB_OPENAT = @GL_GNULIB_OPENAT@
+GL_GNULIB_OPENAT2 = @GL_GNULIB_OPENAT2@
 GL_GNULIB_OVERRIDES_STRUCT_STAT = @GL_GNULIB_OVERRIDES_STRUCT_STAT@
 GL_GNULIB_PCLOSE = @GL_GNULIB_PCLOSE@
 GL_GNULIB_PERROR = @GL_GNULIB_PERROR@
@@ -901,8 +936,6 @@ GL_GNULIB_SCHED_YIELD = @GL_GNULIB_SCHED_YIELD@
 GL_GNULIB_SECURE_GETENV = @GL_GNULIB_SECURE_GETENV@
 GL_GNULIB_SETENV = @GL_GNULIB_SETENV@
 GL_GNULIB_SETHOSTNAME = @GL_GNULIB_SETHOSTNAME@
-GL_GNULIB_SETLOCALE = @GL_GNULIB_SETLOCALE@
-GL_GNULIB_SETLOCALE_NULL = @GL_GNULIB_SETLOCALE_NULL@
 GL_GNULIB_SIG2STR = @GL_GNULIB_SIG2STR@
 GL_GNULIB_SIGABBREV_NP = @GL_GNULIB_SIGABBREV_NP@
 GL_GNULIB_SIGACTION = @GL_GNULIB_SIGACTION@
@@ -915,6 +948,28 @@ GL_GNULIB_SNZPRINTF = @GL_GNULIB_SNZPRINTF@
 GL_GNULIB_SPRINTF_POSIX = @GL_GNULIB_SPRINTF_POSIX@
 GL_GNULIB_STACK_TRACE = @GL_GNULIB_STACK_TRACE@
 GL_GNULIB_STAT = @GL_GNULIB_STAT@
+GL_GNULIB_STDC_BIT_CEIL = @GL_GNULIB_STDC_BIT_CEIL@
+GL_GNULIB_STDC_BIT_FLOOR = @GL_GNULIB_STDC_BIT_FLOOR@
+GL_GNULIB_STDC_BIT_WIDTH = @GL_GNULIB_STDC_BIT_WIDTH@
+GL_GNULIB_STDC_COUNT_ONES = @GL_GNULIB_STDC_COUNT_ONES@
+GL_GNULIB_STDC_COUNT_ZEROS = @GL_GNULIB_STDC_COUNT_ZEROS@
+GL_GNULIB_STDC_FIRST_LEADING_ONE = @GL_GNULIB_STDC_FIRST_LEADING_ONE@
+GL_GNULIB_STDC_FIRST_LEADING_ZERO = @GL_GNULIB_STDC_FIRST_LEADING_ZERO@
+GL_GNULIB_STDC_FIRST_TRAILING_ONE = @GL_GNULIB_STDC_FIRST_TRAILING_ONE@
+GL_GNULIB_STDC_FIRST_TRAILING_ZERO = @GL_GNULIB_STDC_FIRST_TRAILING_ZERO@
+GL_GNULIB_STDC_HAS_SINGLE_BIT = @GL_GNULIB_STDC_HAS_SINGLE_BIT@
+GL_GNULIB_STDC_LEADING_ONES = @GL_GNULIB_STDC_LEADING_ONES@
+GL_GNULIB_STDC_LEADING_ZEROS = @GL_GNULIB_STDC_LEADING_ZEROS@
+GL_GNULIB_STDC_LOAD8 = @GL_GNULIB_STDC_LOAD8@
+GL_GNULIB_STDC_LOAD8_ALIGNED = @GL_GNULIB_STDC_LOAD8_ALIGNED@
+GL_GNULIB_STDC_MEMREVERSE8 = @GL_GNULIB_STDC_MEMREVERSE8@
+GL_GNULIB_STDC_MEMREVERSE8U = @GL_GNULIB_STDC_MEMREVERSE8U@
+GL_GNULIB_STDC_ROTATE_LEFT = @GL_GNULIB_STDC_ROTATE_LEFT@
+GL_GNULIB_STDC_ROTATE_RIGHT = @GL_GNULIB_STDC_ROTATE_RIGHT@
+GL_GNULIB_STDC_STORE8 = @GL_GNULIB_STDC_STORE8@
+GL_GNULIB_STDC_STORE8_ALIGNED = @GL_GNULIB_STDC_STORE8_ALIGNED@
+GL_GNULIB_STDC_TRAILING_ONES = @GL_GNULIB_STDC_TRAILING_ONES@
+GL_GNULIB_STDC_TRAILING_ZEROS = @GL_GNULIB_STDC_TRAILING_ZEROS@
 GL_GNULIB_STDIO_H_NONBLOCKING = @GL_GNULIB_STDIO_H_NONBLOCKING@
 GL_GNULIB_STDIO_H_SIGPIPE = @GL_GNULIB_STDIO_H_SIGPIPE@
 GL_GNULIB_STPCPY = @GL_GNULIB_STPCPY@
@@ -922,14 +977,17 @@ GL_GNULIB_STPNCPY = @GL_GNULIB_STPNCPY@
 GL_GNULIB_STRCASESTR = @GL_GNULIB_STRCASESTR@
 GL_GNULIB_STRCHRNUL = @GL_GNULIB_STRCHRNUL@
 GL_GNULIB_STRDUP = @GL_GNULIB_STRDUP@
+GL_GNULIB_STREQ = @GL_GNULIB_STREQ@
 GL_GNULIB_STRERROR = @GL_GNULIB_STRERROR@
 GL_GNULIB_STRERRORNAME_NP = @GL_GNULIB_STRERRORNAME_NP@
 GL_GNULIB_STRERROR_L = @GL_GNULIB_STRERROR_L@
 GL_GNULIB_STRERROR_R = @GL_GNULIB_STRERROR_R@
 GL_GNULIB_STRFTIME = @GL_GNULIB_STRFTIME@
 GL_GNULIB_STRNCAT = @GL_GNULIB_STRNCAT@
+GL_GNULIB_STRNCPY = @GL_GNULIB_STRNCPY@
 GL_GNULIB_STRNDUP = @GL_GNULIB_STRNDUP@
 GL_GNULIB_STRNLEN = @GL_GNULIB_STRNLEN@
+GL_GNULIB_STRNUL = @GL_GNULIB_STRNUL@
 GL_GNULIB_STRPBRK = @GL_GNULIB_STRPBRK@
 GL_GNULIB_STRPTIME = @GL_GNULIB_STRPTIME@
 GL_GNULIB_STRSEP = @GL_GNULIB_STRSEP@
@@ -970,6 +1028,7 @@ GL_GNULIB_UNLOCKPT = @GL_GNULIB_UNLOCKPT@
 GL_GNULIB_UNSETENV = @GL_GNULIB_UNSETENV@
 GL_GNULIB_USLEEP = @GL_GNULIB_USLEEP@
 GL_GNULIB_UTIMENSAT = @GL_GNULIB_UTIMENSAT@
+GL_GNULIB_VAPRINTF = @GL_GNULIB_VAPRINTF@
 GL_GNULIB_VASPRINTF = @GL_GNULIB_VASPRINTF@
 GL_GNULIB_VASZPRINTF = @GL_GNULIB_VASZPRINTF@
 GL_GNULIB_VDPRINTF = @GL_GNULIB_VDPRINTF@
@@ -1029,6 +1088,7 @@ HAVE_DECL_GETUSERSHELL = @HAVE_DECL_GETUSERSHELL@
 HAVE_DECL_GETW = @HAVE_DECL_GETW@
 HAVE_DECL_INITSTATE = @HAVE_DECL_INITSTATE@
 HAVE_DECL_LOCALTIME_R = @HAVE_DECL_LOCALTIME_R@
+HAVE_DECL_MEMEQ = @HAVE_DECL_MEMEQ@
 HAVE_DECL_MEMMEM = @HAVE_DECL_MEMMEM@
 HAVE_DECL_MEMRCHR = @HAVE_DECL_MEMRCHR@
 HAVE_DECL_OBSTACK_PRINTF = @HAVE_DECL_OBSTACK_PRINTF@
@@ -1039,6 +1099,7 @@ HAVE_DECL_SETHOSTNAME = @HAVE_DECL_SETHOSTNAME@
 HAVE_DECL_SETSTATE = @HAVE_DECL_SETSTATE@
 HAVE_DECL_SNPRINTF = @HAVE_DECL_SNPRINTF@
 HAVE_DECL_STRDUP = @HAVE_DECL_STRDUP@
+HAVE_DECL_STREQ = @HAVE_DECL_STREQ@
 HAVE_DECL_STRERROR_R = @HAVE_DECL_STRERROR_R@
 HAVE_DECL_STRNDUP = @HAVE_DECL_STRNDUP@
 HAVE_DECL_STRNLEN = @HAVE_DECL_STRNLEN@
@@ -1050,7 +1111,6 @@ HAVE_DECL_UNSETENV = @HAVE_DECL_UNSETENV@
 HAVE_DECL_VSNPRINTF = @HAVE_DECL_VSNPRINTF@
 HAVE_DPRINTF = @HAVE_DPRINTF@
 HAVE_DUP3 = @HAVE_DUP3@
-HAVE_DUPLOCALE = @HAVE_DUPLOCALE@
 HAVE_ERROR = @HAVE_ERROR@
 HAVE_ERROR_AT_LINE = @HAVE_ERROR_AT_LINE@
 HAVE_ERROR_H = @HAVE_ERROR_H@
@@ -1065,7 +1125,6 @@ HAVE_FCNTL = @HAVE_FCNTL@
 HAVE_FDATASYNC = @HAVE_FDATASYNC@
 HAVE_FFSL = @HAVE_FFSL@
 HAVE_FFSLL = @HAVE_FFSLL@
-HAVE_FREELOCALE = @HAVE_FREELOCALE@
 HAVE_FSEEKO = @HAVE_FSEEKO@
 HAVE_FSTATAT = @HAVE_FSTATAT@
 HAVE_FSYNC = @HAVE_FSYNC@
@@ -1076,7 +1135,6 @@ HAVE_GETDTABLESIZE = @HAVE_GETDTABLESIZE@
 HAVE_GETENTROPY = @HAVE_GETENTROPY@
 HAVE_GETGROUPS = @HAVE_GETGROUPS@
 HAVE_GETHOSTNAME = @HAVE_GETHOSTNAME@
-HAVE_GETLOCALENAME_L = @HAVE_GETLOCALENAME_L@
 HAVE_GETLOGIN = @HAVE_GETLOGIN@
 HAVE_GETPAGESIZE = @HAVE_GETPAGESIZE@
 HAVE_GETPASS = @HAVE_GETPASS@
@@ -1092,7 +1150,6 @@ HAVE_LCHMOD = @HAVE_LCHMOD@
 HAVE_LCHOWN = @HAVE_LCHOWN@
 HAVE_LINK = @HAVE_LINK@
 HAVE_LINKAT = @HAVE_LINKAT@
-HAVE_LOCALE_T = @HAVE_LOCALE_T@
 HAVE_LSTAT = @HAVE_LSTAT@
 HAVE_MAX_ALIGN_T = @HAVE_MAX_ALIGN_T@
 HAVE_MBSLEN = @HAVE_MBSLEN@
@@ -1111,9 +1168,9 @@ HAVE_MKSTEMP = @HAVE_MKSTEMP@
 HAVE_MKSTEMPS = @HAVE_MKSTEMPS@
 HAVE_MSVC_INVALID_PARAMETER_HANDLER = @HAVE_MSVC_INVALID_PARAMETER_HANDLER@
 HAVE_NANOSLEEP = @HAVE_NANOSLEEP@
-HAVE_NEWLOCALE = @HAVE_NEWLOCALE@
 HAVE_OFF64_T = @HAVE_OFF64_T@
 HAVE_OPENAT = @HAVE_OPENAT@
+HAVE_OPENAT2 = @HAVE_OPENAT2@
 HAVE_OS_H = @HAVE_OS_H@
 HAVE_PCLOSE = @HAVE_PCLOSE@
 HAVE_PIPE = @HAVE_PIPE@
@@ -1188,7 +1245,6 @@ HAVE_PWRITE = @HAVE_PWRITE@
 HAVE_QSORT_R = @HAVE_QSORT_R@
 HAVE_RAISE = @HAVE_RAISE@
 HAVE_RANDOM = @HAVE_RANDOM@
-HAVE_RANDOM_H = @HAVE_RANDOM_H@
 HAVE_RANDOM_R = @HAVE_RANDOM_R@
 HAVE_RAWMEMCHR = @HAVE_RAWMEMCHR@
 HAVE_READLINK = @HAVE_READLINK@
@@ -1215,7 +1271,9 @@ HAVE_SIGNED_WCHAR_T = @HAVE_SIGNED_WCHAR_T@
 HAVE_SIGNED_WINT_T = @HAVE_SIGNED_WINT_T@
 HAVE_SIGSET_T = @HAVE_SIGSET_T@
 HAVE_SLEEP = @HAVE_SLEEP@
+HAVE_STDBIT_H = @HAVE_STDBIT_H@
 HAVE_STDCKDINT_H = @HAVE_STDCKDINT_H@
+HAVE_STDCOUNTOF_H = @HAVE_STDCOUNTOF_H@
 HAVE_STDINT_H = @HAVE_STDINT_H@
 HAVE_STPCPY = @HAVE_STPCPY@
 HAVE_STPNCPY = @HAVE_STPNCPY@
@@ -1245,6 +1303,7 @@ HAVE_SYS_CDEFS_H = @HAVE_SYS_CDEFS_H@
 HAVE_SYS_INTTYPES_H = @HAVE_SYS_INTTYPES_H@
 HAVE_SYS_LOADAVG_H = @HAVE_SYS_LOADAVG_H@
 HAVE_SYS_PARAM_H = @HAVE_SYS_PARAM_H@
+HAVE_SYS_PROCESS_H = @HAVE_SYS_PROCESS_H@
 HAVE_SYS_TYPES_H = @HAVE_SYS_TYPES_H@
 HAVE_TIMEGM = @HAVE_TIMEGM@
 HAVE_TIMESPEC_GET = @HAVE_TIMESPEC_GET@
@@ -1260,11 +1319,9 @@ HAVE_UTIMENSAT = @HAVE_UTIMENSAT@
 HAVE_VASPRINTF = @HAVE_VASPRINTF@
 HAVE_VDPRINTF = @HAVE_VDPRINTF@
 HAVE_WCHAR_H = @HAVE_WCHAR_H@
-HAVE_WINDOWS_LOCALE_T = @HAVE_WINDOWS_LOCALE_T@
 HAVE_WINSOCK2_H = @HAVE_WINSOCK2_H@
 HAVE_WORKING_CXX_STDCKDINT_H = @HAVE_WORKING_CXX_STDCKDINT_H@
 HAVE_WORKING_C_STDCKDINT_H = @HAVE_WORKING_C_STDCKDINT_H@
-HAVE_XLOCALE_H = @HAVE_XLOCALE_H@
 HAVE__EXIT = @HAVE__EXIT@
 HOST_CPU = @HOST_CPU@
 HOST_CPU_C_ABI = @HOST_CPU_C_ABI@
@@ -1290,12 +1347,12 @@ LIBSTDTHREAD = @LIBSTDTHREAD@
 LIBTHREAD = @LIBTHREAD@
 LIBTOOL = @LIBTOOL@
 LIB_PTHREAD = @LIB_PTHREAD@
+LIB_PTHREAD_SIGMASK = @LIB_PTHREAD_SIGMASK@
 LIB_SCHED_YIELD = @LIB_SCHED_YIELD@
 LIMITS_H = @LIMITS_H@
 LIPO = @LIPO@
 LN = @LN@
 LN_S = @LN_S@
-LOCALENAME_ENHANCE_LOCALE_FUNCS = @LOCALENAME_ENHANCE_LOCALE_FUNCS@
 LOCALE_EN_UTF8 = @LOCALE_EN_UTF8@
 LTLIBINTL = @LTLIBINTL@
 LTLIBMULTITHREAD = @LTLIBMULTITHREAD@
@@ -1305,6 +1362,7 @@ LT_SYS_LIBRARY_PATH = @LT_SYS_LIBRARY_PATH@
 MAKEINFO = @MAKEINFO@
 MANIFEST_TOOL = @MANIFEST_TOOL@
 MKDIR_P = @MKDIR_P@
+ML64 = @ML64@
 MNTENT_H = @MNTENT_H@
 NEXT_ASSERT_H = @NEXT_ASSERT_H@
 NEXT_AS_FIRST_DIRECTIVE_ASSERT_H = @NEXT_AS_FIRST_DIRECTIVE_ASSERT_H@
@@ -1312,12 +1370,13 @@ NEXT_AS_FIRST_DIRECTIVE_ERRNO_H = @NEXT_AS_FIRST_DIRECTIVE_ERRNO_H@
 NEXT_AS_FIRST_DIRECTIVE_ERROR_H = @NEXT_AS_FIRST_DIRECTIVE_ERROR_H@
 NEXT_AS_FIRST_DIRECTIVE_FCNTL_H = @NEXT_AS_FIRST_DIRECTIVE_FCNTL_H@
 NEXT_AS_FIRST_DIRECTIVE_LIMITS_H = @NEXT_AS_FIRST_DIRECTIVE_LIMITS_H@
-NEXT_AS_FIRST_DIRECTIVE_LOCALE_H = @NEXT_AS_FIRST_DIRECTIVE_LOCALE_H@
 NEXT_AS_FIRST_DIRECTIVE_MNTENT_H = @NEXT_AS_FIRST_DIRECTIVE_MNTENT_H@
 NEXT_AS_FIRST_DIRECTIVE_PTHREAD_H = @NEXT_AS_FIRST_DIRECTIVE_PTHREAD_H@
 NEXT_AS_FIRST_DIRECTIVE_SCHED_H = @NEXT_AS_FIRST_DIRECTIVE_SCHED_H@
 NEXT_AS_FIRST_DIRECTIVE_SIGNAL_H = @NEXT_AS_FIRST_DIRECTIVE_SIGNAL_H@
+NEXT_AS_FIRST_DIRECTIVE_STDBIT_H = @NEXT_AS_FIRST_DIRECTIVE_STDBIT_H@
 NEXT_AS_FIRST_DIRECTIVE_STDCKDINT_H = @NEXT_AS_FIRST_DIRECTIVE_STDCKDINT_H@
+NEXT_AS_FIRST_DIRECTIVE_STDCOUNTOF_H = @NEXT_AS_FIRST_DIRECTIVE_STDCOUNTOF_H@
 NEXT_AS_FIRST_DIRECTIVE_STDDEF_H = @NEXT_AS_FIRST_DIRECTIVE_STDDEF_H@
 NEXT_AS_FIRST_DIRECTIVE_STDINT_H = @NEXT_AS_FIRST_DIRECTIVE_STDINT_H@
 NEXT_AS_FIRST_DIRECTIVE_STDIO_H = @NEXT_AS_FIRST_DIRECTIVE_STDIO_H@
@@ -1331,12 +1390,13 @@ NEXT_ERRNO_H = @NEXT_ERRNO_H@
 NEXT_ERROR_H = @NEXT_ERROR_H@
 NEXT_FCNTL_H = @NEXT_FCNTL_H@
 NEXT_LIMITS_H = @NEXT_LIMITS_H@
-NEXT_LOCALE_H = @NEXT_LOCALE_H@
 NEXT_MNTENT_H = @NEXT_MNTENT_H@
 NEXT_PTHREAD_H = @NEXT_PTHREAD_H@
 NEXT_SCHED_H = @NEXT_SCHED_H@
 NEXT_SIGNAL_H = @NEXT_SIGNAL_H@
+NEXT_STDBIT_H = @NEXT_STDBIT_H@
 NEXT_STDCKDINT_H = @NEXT_STDCKDINT_H@
+NEXT_STDCOUNTOF_H = @NEXT_STDCOUNTOF_H@
 NEXT_STDDEF_H = @NEXT_STDDEF_H@
 NEXT_STDINT_H = @NEXT_STDINT_H@
 NEXT_STDIO_H = @NEXT_STDIO_H@
@@ -1364,6 +1424,8 @@ PATH_SEPARATOR = @PATH_SEPARATOR@
 PRAGMA_COLUMNS = @PRAGMA_COLUMNS@
 PRAGMA_SYSTEM_HEADER = @PRAGMA_SYSTEM_HEADER@
 PTHREAD_H_DEFINES_STRUCT_TIMESPEC = @PTHREAD_H_DEFINES_STRUCT_TIMESPEC@
+PTHREAD_ONCE_LIB = @PTHREAD_ONCE_LIB@
+PTHREAD_SIGMASK_LIB = @PTHREAD_SIGMASK_LIB@
 PTRDIFF_T_SUFFIX = @PTRDIFF_T_SUFFIX@
 RANLIB = @RANLIB@
 REPLACE_ABORT = @REPLACE_ABORT@
@@ -1382,7 +1444,6 @@ REPLACE_DPRINTF = @REPLACE_DPRINTF@
 REPLACE_DUP = @REPLACE_DUP@
 REPLACE_DUP2 = @REPLACE_DUP2@
 REPLACE_DUP3 = @REPLACE_DUP3@
-REPLACE_DUPLOCALE = @REPLACE_DUPLOCALE@
 REPLACE_ERROR = @REPLACE_ERROR@
 REPLACE_ERROR_AT_LINE = @REPLACE_ERROR_AT_LINE@
 REPLACE_EXECL = @REPLACE_EXECL@
@@ -1407,7 +1468,6 @@ REPLACE_FOPEN_FOR_FOPEN_GNU = @REPLACE_FOPEN_FOR_FOPEN_GNU@
 REPLACE_FPRINTF = @REPLACE_FPRINTF@
 REPLACE_FPURGE = @REPLACE_FPURGE@
 REPLACE_FREE = @REPLACE_FREE@
-REPLACE_FREELOCALE = @REPLACE_FREELOCALE@
 REPLACE_FREOPEN = @REPLACE_FREOPEN@
 REPLACE_FSEEK = @REPLACE_FSEEK@
 REPLACE_FSEEKO = @REPLACE_FSEEKO@
@@ -1425,7 +1485,6 @@ REPLACE_GETENTROPY = @REPLACE_GETENTROPY@
 REPLACE_GETGROUPS = @REPLACE_GETGROUPS@
 REPLACE_GETLINE = @REPLACE_GETLINE@
 REPLACE_GETLOADAVG = @REPLACE_GETLOADAVG@
-REPLACE_GETLOCALENAME_L = @REPLACE_GETLOCALENAME_L@
 REPLACE_GETLOGIN = @REPLACE_GETLOGIN@
 REPLACE_GETLOGIN_R = @REPLACE_GETLOGIN_R@
 REPLACE_GETPAGESIZE = @REPLACE_GETPAGESIZE@
@@ -1441,7 +1500,6 @@ REPLACE_ISATTY = @REPLACE_ISATTY@
 REPLACE_LCHOWN = @REPLACE_LCHOWN@
 REPLACE_LINK = @REPLACE_LINK@
 REPLACE_LINKAT = @REPLACE_LINKAT@
-REPLACE_LOCALECONV = @REPLACE_LOCALECONV@
 REPLACE_LOCALTIME = @REPLACE_LOCALTIME@
 REPLACE_LOCALTIME_R = @REPLACE_LOCALTIME_R@
 REPLACE_LOCALTIME_RZ = @REPLACE_LOCALTIME_RZ@
@@ -1467,7 +1525,6 @@ REPLACE_MKSTEMP = @REPLACE_MKSTEMP@
 REPLACE_MKTIME = @REPLACE_MKTIME@
 REPLACE_MKTIME_Z = @REPLACE_MKTIME_Z@
 REPLACE_NANOSLEEP = @REPLACE_NANOSLEEP@
-REPLACE_NEWLOCALE = @REPLACE_NEWLOCALE@
 REPLACE_NULL = @REPLACE_NULL@
 REPLACE_OBSTACK_PRINTF = @REPLACE_OBSTACK_PRINTF@
 REPLACE_OPEN = @REPLACE_OPEN@
@@ -1553,7 +1610,6 @@ REPLACE_RMDIR = @REPLACE_RMDIR@
 REPLACE_SCHED_YIELD = @REPLACE_SCHED_YIELD@
 REPLACE_SETENV = @REPLACE_SETENV@
 REPLACE_SETHOSTNAME = @REPLACE_SETHOSTNAME@
-REPLACE_SETLOCALE = @REPLACE_SETLOCALE@
 REPLACE_SETSTATE = @REPLACE_SETSTATE@
 REPLACE_SLEEP = @REPLACE_SLEEP@
 REPLACE_SNPRINTF = @REPLACE_SNPRINTF@
@@ -1572,6 +1628,7 @@ REPLACE_STRERROR_L = @REPLACE_STRERROR_L@
 REPLACE_STRERROR_R = @REPLACE_STRERROR_R@
 REPLACE_STRFTIME = @REPLACE_STRFTIME@
 REPLACE_STRNCAT = @REPLACE_STRNCAT@
+REPLACE_STRNCPY = @REPLACE_STRNCPY@
 REPLACE_STRNDUP = @REPLACE_STRNDUP@
 REPLACE_STRNLEN = @REPLACE_STRNLEN@
 REPLACE_STRSIGNAL = @REPLACE_STRSIGNAL@
@@ -1584,7 +1641,6 @@ REPLACE_STRTOLD = @REPLACE_STRTOLD@
 REPLACE_STRTOLL = @REPLACE_STRTOLL@
 REPLACE_STRTOUL = @REPLACE_STRTOUL@
 REPLACE_STRTOULL = @REPLACE_STRTOULL@
-REPLACE_STRUCT_LCONV = @REPLACE_STRUCT_LCONV@
 REPLACE_STRVERSCMP = @REPLACE_STRVERSCMP@
 REPLACE_SYMLINK = @REPLACE_SYMLINK@
 REPLACE_SYMLINKAT = @REPLACE_SYMLINKAT@
@@ -1616,7 +1672,9 @@ SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 SIG_ATOMIC_T_SUFFIX = @SIG_ATOMIC_T_SUFFIX@
 SIZE_T_SUFFIX = @SIZE_T_SUFFIX@
+STDBIT_H = @STDBIT_H@
 STDCKDINT_H = @STDCKDINT_H@
+STDCOUNTOF_H = @STDCOUNTOF_H@
 STDDEF_H = @STDDEF_H@
 STDDEF_NOT_IDEMPOTENT = @STDDEF_NOT_IDEMPOTENT@
 STDINT_H = @STDINT_H@
@@ -1709,6 +1767,7 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AUTOMAKE_OPTIONS = 1.14 gnits subdir-objects
 SUBDIRS = 
+TESTS_ENVIRONMENT = 
 noinst_HEADERS = 
 noinst_LIBRARIES = 
 noinst_LTLIBRARIES = libgnu.la
@@ -1716,38 +1775,42 @@ pkgdata_DATA =
 EXTRA_DIST = alloca.in.h assert.in.h verify.h asyncsafe-spin.h \
 	attribute.h basename-lgpl.h clean-temp-private.h cloexec.h \
 	errno.in.h error.in.h fcntl.in.h fd-hook.h filename.h \
-	stat-w32.c stat-w32.h getprogname.h intprops-internal.h \
-	intprops.h limits.in.h locale.in.h malloca.h mntent.in.h \
-	msvc-inval.h msvc-nothrow.h pathmax.h pthread.in.h sched.in.h \
-	sig-handler.h signal.in.h _Noreturn.h arg-nonnull.h c++defs.h \
-	warn-on-use.h glthread/spin.h stat-w32.c stat-w32.h \
-	stat-time.h intprops-internal.h stdckdint.in.h stddef.in.h \
+	fseterr.h stdio-impl.h stat-w32.c stat-w32.h getprogname.h \
+	intprops-internal.h intprops.h limits.in.h malloca.h \
+	mntent.in.h msvc-inval.h msvc-nothrow.h pathmax.h pthread.in.h \
+	sched.in.h sig-handler.h sigdelay.h signal.in.h _Noreturn.h \
+	arg-nonnull.h c++defs.h warn-on-use.h glthread/spin.h \
+	stat-w32.c stat-w32.h stat-time.h stdbit.in.h \
+	intprops-internal.h stdckdint.in.h stdcountof.in.h stddef.in.h \
 	stdint.in.h stdio.in.h stdlib.in.h stdnoreturn.in.h \
 	strerror-override.h string.in.h sys_stat.in.h sys_types.in.h \
+	$(am__append_87) thread-creators.gperf thread-optim-proto.c \
 	thread-optim.h time.in.h unistd.in.h vma-iter.h vma-prot.h \
 	windows-initguard.h windows-mutex.h windows-once.h \
 	windows-initguard.h windows-recmutex.h windows-initguard.h \
-	windows-rwlock.h windows-spin.h xalloc-oversized.h
+	windows-rwlock.h windows-spin.h windows-tls.h \
+	xalloc-oversized.h
 BUILT_SOURCES = $(am__append_1) $(am__append_3) $(am__append_11) \
-	$(am__append_14) $(am__append_18) $(LIMITS_H) $(am__append_31) \
-	$(am__append_35) $(am__append_40) $(am__append_45) \
-	$(am__append_49) $(am__append_56) $(am__append_58) $(STDINT_H) \
-	$(am__append_60) $(am__append_64) $(STDNORETURN_H) \
-	$(am__append_69) $(am__append_71) sys/types.h $(am__append_74) \
-	$(am__append_76)
+	$(am__append_14) $(am__append_18) $(LIMITS_H) $(am__append_35) \
+	$(am__append_40) $(am__append_46) $(am__append_51) \
+	$(am__append_58) $(am__append_61) $(am__append_63) \
+	$(am__append_65) $(STDINT_H) $(am__append_67) $(am__append_72) \
+	$(STDNORETURN_H) $(am__append_78) $(am__append_80) sys/types.h \
+	$(am__append_84) $(am__append_88) $(am__append_90)
 SUFFIXES = 
 MOSTLYCLEANFILES = core *.stackdump $(am__append_2) $(am__append_4) \
 	$(am__append_12) $(am__append_15) $(am__append_19) limits.h \
-	limits.h-t $(am__append_32) $(am__append_36) $(am__append_41) \
-	$(am__append_46) $(am__append_50) $(am__append_57) \
-	$(am__append_59) stdint.h stdint.h-t $(am__append_61) \
-	$(am__append_66) stdnoreturn.h stdnoreturn.h-t \
-	$(am__append_70) $(am__append_72) sys/types.h sys/types.h-t \
-	$(am__append_75) $(am__append_78)
-MOSTLYCLEANDIRS = $(am__append_73) sys
+	limits.h-t $(am__append_36) $(am__append_41) $(am__append_47) \
+	$(am__append_52) $(am__append_59) $(am__append_62) \
+	$(am__append_64) $(am__append_66) stdint.h stdint.h-t \
+	$(am__append_68) $(am__append_74) stdnoreturn.h \
+	stdnoreturn.h-t $(am__append_79) $(am__append_81) sys/types.h \
+	sys/types.h-t $(am__append_85) $(am__append_89) \
+	$(am__append_92)
+MOSTLYCLEANDIRS = $(am__append_82) sys
 CLEANFILES = 
 DISTCLEANFILES = 
-MAINTAINERCLEANFILES = 
+MAINTAINERCLEANFILES = $(am__append_86)
 # No GNU Make output.
 AM_CPPFLAGS = 
 AM_CFLAGS = 
@@ -1757,24 +1820,28 @@ libgnu_la_SOURCES = $(am__append_5) $(am__append_6) $(am__append_7) \
 	$(am__append_20) $(am__append_21) $(am__append_22) \
 	$(am__append_23) $(am__append_24) $(am__append_25) \
 	$(am__append_26) $(am__append_27) $(am__append_28) \
-	$(am__append_29) $(am__append_30) glthread/lock.h \
-	glthread/lock.c $(am__append_33) $(am__append_34) \
-	$(am__append_37) $(am__append_38) glthread/once.h \
-	glthread/once.c $(am__append_39) $(am__append_42) \
-	$(am__append_43) $(am__append_44) $(am__append_47) \
-	$(am__append_48) $(am__append_51) $(am__append_52) \
-	$(am__append_53) $(am__append_54) $(am__append_55) \
-	$(am__append_62) $(am__append_63) $(am__append_65) \
-	$(am__append_67) $(am__append_68) glthread/threadlib.c \
-	$(am__append_77) $(am__append_79) $(am__append_80) \
-	$(am__append_81) $(am__append_82) $(am__append_83) \
-	$(am__append_84) $(am__append_85) $(am__append_86)
+	$(am__append_29) $(am__append_30) $(am__append_31) \
+	glthread/lock.h glthread/lock.c $(am__append_32) \
+	$(am__append_33) $(am__append_34) $(am__append_37) \
+	$(am__append_38) glthread/once.h glthread/once.c \
+	$(am__append_39) $(am__append_42) $(am__append_43) \
+	$(am__append_44) $(am__append_45) $(am__append_48) \
+	$(am__append_49) $(am__append_50) $(am__append_53) \
+	$(am__append_54) $(am__append_55) $(am__append_56) \
+	$(am__append_57) $(am__append_60) $(am__append_69) \
+	$(am__append_70) $(am__append_71) $(am__append_73) \
+	$(am__append_75) $(am__append_76) $(am__append_77) \
+	$(am__append_83) glthread/threadlib.c $(am__append_91) \
+	$(am__append_93) $(am__append_94) $(am__append_95) \
+	$(am__append_96) $(am__append_97) $(am__append_98) \
+	$(am__append_99) $(am__append_100) $(am__append_101)
 libgnu_la_CFLAGS = $(AM_CFLAGS) $(GL_CFLAG_GNULIB_WARNINGS) $(GL_CFLAG_ALLOW_WARNINGS)
 libgnu_la_LIBADD = $(gl_libgnu_LTLIBOBJS)
 libgnu_la_DEPENDENCIES = $(gl_libgnu_LTLIBOBJS)
-EXTRA_libgnu_la_SOURCES = stat-w32.c stat-w32.c
-libgnu_la_LDFLAGS = $(AM_LDFLAGS) -no-undefined $(LIBPMULTITHREAD) \
-	$(LIBPTHREAD) $(LIBTHREAD) $(LTLIBINTL)
+EXTRA_libgnu_la_SOURCES = stat-w32.c stat-w32.c thread-optim-proto.c
+libgnu_la_LDFLAGS = $(AM_LDFLAGS) -no-undefined $(LIBPTHREAD) \
+	$(LIBTHREAD) $(LTLIBINTL) $(PTHREAD_ONCE_LIB) \
+	$(PTHREAD_SIGMASK_LIB)
 
 # Use this preprocessor expression to decide whether #include_next works.
 # Do not rely on a 'configure'-time test for this, since the expression
@@ -1796,6 +1863,10 @@ SED_HEADER_TO_AT_t = $(SED_HEADER_STDOUT) -n -e 'w $@-t'
 # Use $(gl_V_at) instead of $(AM_V_GEN) or $(AM_V_at) on a line that
 # is its recipe's first line if and only if @NMD@ lines are absent.
 gl_V_at = $(AM_V_GEN)
+@gl_GNULIB_ENABLED_gperf_TRUE@GPERF = gperf
+@gl_GNULIB_ENABLED_gperf_TRUE@V_GPERF = $(V_GPERF_@AM_V@)
+@gl_GNULIB_ENABLED_gperf_TRUE@V_GPERF_ = $(V_GPERF_@AM_DEFAULT_V@)
+@gl_GNULIB_ENABLED_gperf_TRUE@V_GPERF_0 = @echo "  GPERF   " $@;
 
 # Because this Makefile snippet defines a variable used by other
 # gnulib Makefile snippets, it must be present in all makefiles that
@@ -1898,6 +1969,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-fatal-signal.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-fcntl.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-fd-hook.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-fseterr.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-fstat.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-getdtablesize.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-getpagesize.Plo@am__quote@ # am--include-marker
@@ -1908,23 +1980,31 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-hasmntopt.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-lstat.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-malloca.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-memeq.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-msvc-inval.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-msvc-nothrow.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-open.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-pthread-once.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-pthread_sigmask.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-raise.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-rmdir.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-sig-handler.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-sigaction.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-sigdelay.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-sigprocmask.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-stat-time.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-stat-w32.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-stat.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-stdc_rotate_left.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-stdio-consolesafe.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-stdio-read.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-stdio-write.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-stdlib.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-streq.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-strerror-override.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-strerror.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-thread-optim-proto.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-thread-optim.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-unistd.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-vma-iter.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-vma-prot.Plo@am__quote@ # am--include-marker
@@ -1933,6 +2013,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-windows-recmutex.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-windows-rwlock.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-windows-spin.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-windows-tls.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libgnu_la-xsize.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@glthread/$(DEPDIR)/libgnu_la-lock.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@glthread/$(DEPDIR)/libgnu_la-once.Plo@am__quote@ # am--include-marker
@@ -2039,6 +2120,13 @@ libgnu_la-fd-hook.lo: fd-hook.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -c -o libgnu_la-fd-hook.lo `test -f 'fd-hook.c' || echo '$(srcdir)/'`fd-hook.c
 
+libgnu_la-fseterr.lo: fseterr.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -MT libgnu_la-fseterr.lo -MD -MP -MF $(DEPDIR)/libgnu_la-fseterr.Tpo -c -o libgnu_la-fseterr.lo `test -f 'fseterr.c' || echo '$(srcdir)/'`fseterr.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgnu_la-fseterr.Tpo $(DEPDIR)/libgnu_la-fseterr.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='fseterr.c' object='libgnu_la-fseterr.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -c -o libgnu_la-fseterr.lo `test -f 'fseterr.c' || echo '$(srcdir)/'`fseterr.c
+
 libgnu_la-fstat.lo: fstat.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -MT libgnu_la-fstat.lo -MD -MP -MF $(DEPDIR)/libgnu_la-fstat.Tpo -c -o libgnu_la-fstat.lo `test -f 'fstat.c' || echo '$(srcdir)/'`fstat.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgnu_la-fstat.Tpo $(DEPDIR)/libgnu_la-fstat.Plo
@@ -2116,6 +2204,13 @@ libgnu_la-malloca.lo: malloca.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -c -o libgnu_la-malloca.lo `test -f 'malloca.c' || echo '$(srcdir)/'`malloca.c
 
+libgnu_la-memeq.lo: memeq.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -MT libgnu_la-memeq.lo -MD -MP -MF $(DEPDIR)/libgnu_la-memeq.Tpo -c -o libgnu_la-memeq.lo `test -f 'memeq.c' || echo '$(srcdir)/'`memeq.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgnu_la-memeq.Tpo $(DEPDIR)/libgnu_la-memeq.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='memeq.c' object='libgnu_la-memeq.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -c -o libgnu_la-memeq.lo `test -f 'memeq.c' || echo '$(srcdir)/'`memeq.c
+
 libgnu_la-msvc-inval.lo: msvc-inval.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -MT libgnu_la-msvc-inval.lo -MD -MP -MF $(DEPDIR)/libgnu_la-msvc-inval.Tpo -c -o libgnu_la-msvc-inval.lo `test -f 'msvc-inval.c' || echo '$(srcdir)/'`msvc-inval.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgnu_la-msvc-inval.Tpo $(DEPDIR)/libgnu_la-msvc-inval.Plo
@@ -2151,6 +2246,13 @@ libgnu_la-pthread-once.lo: pthread-once.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -c -o libgnu_la-pthread-once.lo `test -f 'pthread-once.c' || echo '$(srcdir)/'`pthread-once.c
 
+libgnu_la-pthread_sigmask.lo: pthread_sigmask.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -MT libgnu_la-pthread_sigmask.lo -MD -MP -MF $(DEPDIR)/libgnu_la-pthread_sigmask.Tpo -c -o libgnu_la-pthread_sigmask.lo `test -f 'pthread_sigmask.c' || echo '$(srcdir)/'`pthread_sigmask.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgnu_la-pthread_sigmask.Tpo $(DEPDIR)/libgnu_la-pthread_sigmask.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='pthread_sigmask.c' object='libgnu_la-pthread_sigmask.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -c -o libgnu_la-pthread_sigmask.lo `test -f 'pthread_sigmask.c' || echo '$(srcdir)/'`pthread_sigmask.c
+
 libgnu_la-raise.lo: raise.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -MT libgnu_la-raise.lo -MD -MP -MF $(DEPDIR)/libgnu_la-raise.Tpo -c -o libgnu_la-raise.lo `test -f 'raise.c' || echo '$(srcdir)/'`raise.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgnu_la-raise.Tpo $(DEPDIR)/libgnu_la-raise.Plo
@@ -2178,6 +2280,13 @@ libgnu_la-sig-handler.lo: sig-handler.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='sig-handler.c' object='libgnu_la-sig-handler.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -c -o libgnu_la-sig-handler.lo `test -f 'sig-handler.c' || echo '$(srcdir)/'`sig-handler.c
+
+libgnu_la-sigdelay.lo: sigdelay.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -MT libgnu_la-sigdelay.lo -MD -MP -MF $(DEPDIR)/libgnu_la-sigdelay.Tpo -c -o libgnu_la-sigdelay.lo `test -f 'sigdelay.c' || echo '$(srcdir)/'`sigdelay.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgnu_la-sigdelay.Tpo $(DEPDIR)/libgnu_la-sigdelay.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='sigdelay.c' object='libgnu_la-sigdelay.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -c -o libgnu_la-sigdelay.lo `test -f 'sigdelay.c' || echo '$(srcdir)/'`sigdelay.c
 
 libgnu_la-sigprocmask.lo: sigprocmask.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -MT libgnu_la-sigprocmask.lo -MD -MP -MF $(DEPDIR)/libgnu_la-sigprocmask.Tpo -c -o libgnu_la-sigprocmask.lo `test -f 'sigprocmask.c' || echo '$(srcdir)/'`sigprocmask.c
@@ -2207,6 +2316,13 @@ libgnu_la-stat-time.lo: stat-time.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -c -o libgnu_la-stat-time.lo `test -f 'stat-time.c' || echo '$(srcdir)/'`stat-time.c
 
+libgnu_la-stdc_rotate_left.lo: stdc_rotate_left.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -MT libgnu_la-stdc_rotate_left.lo -MD -MP -MF $(DEPDIR)/libgnu_la-stdc_rotate_left.Tpo -c -o libgnu_la-stdc_rotate_left.lo `test -f 'stdc_rotate_left.c' || echo '$(srcdir)/'`stdc_rotate_left.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgnu_la-stdc_rotate_left.Tpo $(DEPDIR)/libgnu_la-stdc_rotate_left.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='stdc_rotate_left.c' object='libgnu_la-stdc_rotate_left.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -c -o libgnu_la-stdc_rotate_left.lo `test -f 'stdc_rotate_left.c' || echo '$(srcdir)/'`stdc_rotate_left.c
+
 libgnu_la-stdio-read.lo: stdio-read.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -MT libgnu_la-stdio-read.lo -MD -MP -MF $(DEPDIR)/libgnu_la-stdio-read.Tpo -c -o libgnu_la-stdio-read.lo `test -f 'stdio-read.c' || echo '$(srcdir)/'`stdio-read.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgnu_la-stdio-read.Tpo $(DEPDIR)/libgnu_la-stdio-read.Plo
@@ -2221,12 +2337,26 @@ libgnu_la-stdio-write.lo: stdio-write.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -c -o libgnu_la-stdio-write.lo `test -f 'stdio-write.c' || echo '$(srcdir)/'`stdio-write.c
 
+libgnu_la-stdio-consolesafe.lo: stdio-consolesafe.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -MT libgnu_la-stdio-consolesafe.lo -MD -MP -MF $(DEPDIR)/libgnu_la-stdio-consolesafe.Tpo -c -o libgnu_la-stdio-consolesafe.lo `test -f 'stdio-consolesafe.c' || echo '$(srcdir)/'`stdio-consolesafe.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgnu_la-stdio-consolesafe.Tpo $(DEPDIR)/libgnu_la-stdio-consolesafe.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='stdio-consolesafe.c' object='libgnu_la-stdio-consolesafe.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -c -o libgnu_la-stdio-consolesafe.lo `test -f 'stdio-consolesafe.c' || echo '$(srcdir)/'`stdio-consolesafe.c
+
 libgnu_la-stdlib.lo: stdlib.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -MT libgnu_la-stdlib.lo -MD -MP -MF $(DEPDIR)/libgnu_la-stdlib.Tpo -c -o libgnu_la-stdlib.lo `test -f 'stdlib.c' || echo '$(srcdir)/'`stdlib.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgnu_la-stdlib.Tpo $(DEPDIR)/libgnu_la-stdlib.Plo
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='stdlib.c' object='libgnu_la-stdlib.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -c -o libgnu_la-stdlib.lo `test -f 'stdlib.c' || echo '$(srcdir)/'`stdlib.c
+
+libgnu_la-streq.lo: streq.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -MT libgnu_la-streq.lo -MD -MP -MF $(DEPDIR)/libgnu_la-streq.Tpo -c -o libgnu_la-streq.lo `test -f 'streq.c' || echo '$(srcdir)/'`streq.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgnu_la-streq.Tpo $(DEPDIR)/libgnu_la-streq.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='streq.c' object='libgnu_la-streq.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -c -o libgnu_la-streq.lo `test -f 'streq.c' || echo '$(srcdir)/'`streq.c
 
 libgnu_la-strerror.lo: strerror.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -MT libgnu_la-strerror.lo -MD -MP -MF $(DEPDIR)/libgnu_la-strerror.Tpo -c -o libgnu_la-strerror.lo `test -f 'strerror.c' || echo '$(srcdir)/'`strerror.c
@@ -2241,6 +2371,13 @@ libgnu_la-strerror-override.lo: strerror-override.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='strerror-override.c' object='libgnu_la-strerror-override.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -c -o libgnu_la-strerror-override.lo `test -f 'strerror-override.c' || echo '$(srcdir)/'`strerror-override.c
+
+libgnu_la-thread-optim.lo: thread-optim.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -MT libgnu_la-thread-optim.lo -MD -MP -MF $(DEPDIR)/libgnu_la-thread-optim.Tpo -c -o libgnu_la-thread-optim.lo `test -f 'thread-optim.c' || echo '$(srcdir)/'`thread-optim.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgnu_la-thread-optim.Tpo $(DEPDIR)/libgnu_la-thread-optim.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='thread-optim.c' object='libgnu_la-thread-optim.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -c -o libgnu_la-thread-optim.lo `test -f 'thread-optim.c' || echo '$(srcdir)/'`thread-optim.c
 
 glthread/libgnu_la-threadlib.lo: glthread/threadlib.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -MT glthread/libgnu_la-threadlib.lo -MD -MP -MF glthread/$(DEPDIR)/libgnu_la-threadlib.Tpo -c -o glthread/libgnu_la-threadlib.lo `test -f 'glthread/threadlib.c' || echo '$(srcdir)/'`glthread/threadlib.c
@@ -2305,6 +2442,13 @@ libgnu_la-windows-spin.lo: windows-spin.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -c -o libgnu_la-windows-spin.lo `test -f 'windows-spin.c' || echo '$(srcdir)/'`windows-spin.c
 
+libgnu_la-windows-tls.lo: windows-tls.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -MT libgnu_la-windows-tls.lo -MD -MP -MF $(DEPDIR)/libgnu_la-windows-tls.Tpo -c -o libgnu_la-windows-tls.lo `test -f 'windows-tls.c' || echo '$(srcdir)/'`windows-tls.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgnu_la-windows-tls.Tpo $(DEPDIR)/libgnu_la-windows-tls.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='windows-tls.c' object='libgnu_la-windows-tls.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -c -o libgnu_la-windows-tls.lo `test -f 'windows-tls.c' || echo '$(srcdir)/'`windows-tls.c
+
 libgnu_la-xsize.lo: xsize.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -MT libgnu_la-xsize.lo -MD -MP -MF $(DEPDIR)/libgnu_la-xsize.Tpo -c -o libgnu_la-xsize.lo `test -f 'xsize.c' || echo '$(srcdir)/'`xsize.c
 @am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgnu_la-xsize.Tpo $(DEPDIR)/libgnu_la-xsize.Plo
@@ -2318,6 +2462,13 @@ libgnu_la-stat-w32.lo: stat-w32.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='stat-w32.c' object='libgnu_la-stat-w32.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -c -o libgnu_la-stat-w32.lo `test -f 'stat-w32.c' || echo '$(srcdir)/'`stat-w32.c
+
+libgnu_la-thread-optim-proto.lo: thread-optim-proto.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -MT libgnu_la-thread-optim-proto.lo -MD -MP -MF $(DEPDIR)/libgnu_la-thread-optim-proto.Tpo -c -o libgnu_la-thread-optim-proto.lo `test -f 'thread-optim-proto.c' || echo '$(srcdir)/'`thread-optim-proto.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libgnu_la-thread-optim-proto.Tpo $(DEPDIR)/libgnu_la-thread-optim-proto.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='thread-optim-proto.c' object='libgnu_la-thread-optim-proto.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libgnu_la_CFLAGS) $(CFLAGS) -c -o libgnu_la-thread-optim-proto.lo `test -f 'thread-optim-proto.c' || echo '$(srcdir)/'`thread-optim-proto.c
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -2568,6 +2719,7 @@ distclean: distclean-recursive
 	-rm -f ./$(DEPDIR)/libgnu_la-fatal-signal.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-fcntl.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-fd-hook.Plo
+	-rm -f ./$(DEPDIR)/libgnu_la-fseterr.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-fstat.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-getdtablesize.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-getpagesize.Plo
@@ -2578,23 +2730,31 @@ distclean: distclean-recursive
 	-rm -f ./$(DEPDIR)/libgnu_la-hasmntopt.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-lstat.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-malloca.Plo
+	-rm -f ./$(DEPDIR)/libgnu_la-memeq.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-msvc-inval.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-msvc-nothrow.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-open.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-pthread-once.Plo
+	-rm -f ./$(DEPDIR)/libgnu_la-pthread_sigmask.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-raise.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-rmdir.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-sig-handler.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-sigaction.Plo
+	-rm -f ./$(DEPDIR)/libgnu_la-sigdelay.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-sigprocmask.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-stat-time.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-stat-w32.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-stat.Plo
+	-rm -f ./$(DEPDIR)/libgnu_la-stdc_rotate_left.Plo
+	-rm -f ./$(DEPDIR)/libgnu_la-stdio-consolesafe.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-stdio-read.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-stdio-write.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-stdlib.Plo
+	-rm -f ./$(DEPDIR)/libgnu_la-streq.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-strerror-override.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-strerror.Plo
+	-rm -f ./$(DEPDIR)/libgnu_la-thread-optim-proto.Plo
+	-rm -f ./$(DEPDIR)/libgnu_la-thread-optim.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-unistd.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-vma-iter.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-vma-prot.Plo
@@ -2603,6 +2763,7 @@ distclean: distclean-recursive
 	-rm -f ./$(DEPDIR)/libgnu_la-windows-recmutex.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-windows-rwlock.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-windows-spin.Plo
+	-rm -f ./$(DEPDIR)/libgnu_la-windows-tls.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-xsize.Plo
 	-rm -f glthread/$(DEPDIR)/libgnu_la-lock.Plo
 	-rm -f glthread/$(DEPDIR)/libgnu_la-once.Plo
@@ -2663,6 +2824,7 @@ maintainer-clean: maintainer-clean-recursive
 	-rm -f ./$(DEPDIR)/libgnu_la-fatal-signal.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-fcntl.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-fd-hook.Plo
+	-rm -f ./$(DEPDIR)/libgnu_la-fseterr.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-fstat.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-getdtablesize.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-getpagesize.Plo
@@ -2673,23 +2835,31 @@ maintainer-clean: maintainer-clean-recursive
 	-rm -f ./$(DEPDIR)/libgnu_la-hasmntopt.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-lstat.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-malloca.Plo
+	-rm -f ./$(DEPDIR)/libgnu_la-memeq.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-msvc-inval.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-msvc-nothrow.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-open.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-pthread-once.Plo
+	-rm -f ./$(DEPDIR)/libgnu_la-pthread_sigmask.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-raise.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-rmdir.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-sig-handler.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-sigaction.Plo
+	-rm -f ./$(DEPDIR)/libgnu_la-sigdelay.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-sigprocmask.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-stat-time.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-stat-w32.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-stat.Plo
+	-rm -f ./$(DEPDIR)/libgnu_la-stdc_rotate_left.Plo
+	-rm -f ./$(DEPDIR)/libgnu_la-stdio-consolesafe.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-stdio-read.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-stdio-write.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-stdlib.Plo
+	-rm -f ./$(DEPDIR)/libgnu_la-streq.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-strerror-override.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-strerror.Plo
+	-rm -f ./$(DEPDIR)/libgnu_la-thread-optim-proto.Plo
+	-rm -f ./$(DEPDIR)/libgnu_la-thread-optim.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-unistd.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-vma-iter.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-vma-prot.Plo
@@ -2698,6 +2868,7 @@ maintainer-clean: maintainer-clean-recursive
 	-rm -f ./$(DEPDIR)/libgnu_la-windows-recmutex.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-windows-rwlock.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-windows-spin.Plo
+	-rm -f ./$(DEPDIR)/libgnu_la-windows-tls.Plo
 	-rm -f ./$(DEPDIR)/libgnu_la-xsize.Plo
 	-rm -f glthread/$(DEPDIR)/libgnu_la-lock.Plo
 	-rm -f glthread/$(DEPDIR)/libgnu_la-once.Plo
@@ -2783,12 +2954,6 @@ uninstall-am: uninstall-pkgdataDATA
 @GL_GENERATE_ERRNO_H_TRUE@@gl_GNULIB_ENABLED_d873cc295cb8f2b86655a43b19b8a7e0_TRUE@	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
 @GL_GENERATE_ERRNO_H_TRUE@@gl_GNULIB_ENABLED_d873cc295cb8f2b86655a43b19b8a7e0_TRUE@	      -e 's|@''PRAGMA_COLUMNS''@|@PRAGMA_COLUMNS@|g' \
 @GL_GENERATE_ERRNO_H_TRUE@@gl_GNULIB_ENABLED_d873cc295cb8f2b86655a43b19b8a7e0_TRUE@	      -e 's|@''NEXT_ERRNO_H''@|$(NEXT_ERRNO_H)|g' \
-@GL_GENERATE_ERRNO_H_TRUE@@gl_GNULIB_ENABLED_d873cc295cb8f2b86655a43b19b8a7e0_TRUE@	      -e 's|@''EMULTIHOP_HIDDEN''@|$(EMULTIHOP_HIDDEN)|g' \
-@GL_GENERATE_ERRNO_H_TRUE@@gl_GNULIB_ENABLED_d873cc295cb8f2b86655a43b19b8a7e0_TRUE@	      -e 's|@''EMULTIHOP_VALUE''@|$(EMULTIHOP_VALUE)|g' \
-@GL_GENERATE_ERRNO_H_TRUE@@gl_GNULIB_ENABLED_d873cc295cb8f2b86655a43b19b8a7e0_TRUE@	      -e 's|@''ENOLINK_HIDDEN''@|$(ENOLINK_HIDDEN)|g' \
-@GL_GENERATE_ERRNO_H_TRUE@@gl_GNULIB_ENABLED_d873cc295cb8f2b86655a43b19b8a7e0_TRUE@	      -e 's|@''ENOLINK_VALUE''@|$(ENOLINK_VALUE)|g' \
-@GL_GENERATE_ERRNO_H_TRUE@@gl_GNULIB_ENABLED_d873cc295cb8f2b86655a43b19b8a7e0_TRUE@	      -e 's|@''EOVERFLOW_HIDDEN''@|$(EOVERFLOW_HIDDEN)|g' \
-@GL_GENERATE_ERRNO_H_TRUE@@gl_GNULIB_ENABLED_d873cc295cb8f2b86655a43b19b8a7e0_TRUE@	      -e 's|@''EOVERFLOW_VALUE''@|$(EOVERFLOW_VALUE)|g' \
 @GL_GENERATE_ERRNO_H_TRUE@@gl_GNULIB_ENABLED_d873cc295cb8f2b86655a43b19b8a7e0_TRUE@	      $(srcdir)/errno.in.h > $@-t
 @GL_GENERATE_ERRNO_H_TRUE@@gl_GNULIB_ENABLED_d873cc295cb8f2b86655a43b19b8a7e0_TRUE@	$(AM_V_at)mv $@-t $@
 @GL_GENERATE_ERRNO_H_FALSE@@gl_GNULIB_ENABLED_d873cc295cb8f2b86655a43b19b8a7e0_TRUE@errno.h: $(top_builddir)/config.status
@@ -2823,10 +2988,12 @@ uninstall-am: uninstall-pkgdataDATA
 @gl_GNULIB_ENABLED_deb6c5f14b16306a85c59bccf4d416d8_TRUE@	      -e 's/@''GNULIB_NONBLOCKING''@/$(GL_GNULIB_NONBLOCKING)/g' \
 @gl_GNULIB_ENABLED_deb6c5f14b16306a85c59bccf4d416d8_TRUE@	      -e 's/@''GNULIB_OPEN''@/$(GL_GNULIB_OPEN)/g' \
 @gl_GNULIB_ENABLED_deb6c5f14b16306a85c59bccf4d416d8_TRUE@	      -e 's/@''GNULIB_OPENAT''@/$(GL_GNULIB_OPENAT)/g' \
+@gl_GNULIB_ENABLED_deb6c5f14b16306a85c59bccf4d416d8_TRUE@	      -e 's/@''GNULIB_OPENAT2''@/$(GL_GNULIB_OPENAT2)/g' \
 @gl_GNULIB_ENABLED_deb6c5f14b16306a85c59bccf4d416d8_TRUE@	      -e 's/@''GNULIB_MDA_CREAT''@/$(GL_GNULIB_MDA_CREAT)/g' \
 @gl_GNULIB_ENABLED_deb6c5f14b16306a85c59bccf4d416d8_TRUE@	      -e 's/@''GNULIB_MDA_OPEN''@/$(GL_GNULIB_MDA_OPEN)/g' \
 @gl_GNULIB_ENABLED_deb6c5f14b16306a85c59bccf4d416d8_TRUE@	      -e 's|@''HAVE_FCNTL''@|$(HAVE_FCNTL)|g' \
 @gl_GNULIB_ENABLED_deb6c5f14b16306a85c59bccf4d416d8_TRUE@	      -e 's|@''HAVE_OPENAT''@|$(HAVE_OPENAT)|g' \
+@gl_GNULIB_ENABLED_deb6c5f14b16306a85c59bccf4d416d8_TRUE@	      -e 's|@''HAVE_OPENAT2''@|$(HAVE_OPENAT2)|g' \
 @gl_GNULIB_ENABLED_deb6c5f14b16306a85c59bccf4d416d8_TRUE@	      -e 's|@''REPLACE_CREAT''@|$(REPLACE_CREAT)|g' \
 @gl_GNULIB_ENABLED_deb6c5f14b16306a85c59bccf4d416d8_TRUE@	      -e 's|@''REPLACE_FCNTL''@|$(REPLACE_FCNTL)|g' \
 @gl_GNULIB_ENABLED_deb6c5f14b16306a85c59bccf4d416d8_TRUE@	      -e 's|@''REPLACE_OPEN''@|$(REPLACE_OPEN)|g' \
@@ -2850,45 +3017,6 @@ uninstall-am: uninstall-pkgdataDATA
 @GL_GENERATE_LIMITS_H_TRUE@	$(AM_V_at)mv $@-t $@
 @GL_GENERATE_LIMITS_H_FALSE@limits.h: $(top_builddir)/config.status
 @GL_GENERATE_LIMITS_H_FALSE@	rm -f $@
-
-# We need the following in order to create <locale.h> when the system
-# doesn't have one that provides all definitions.
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@locale.h: locale.in.h $(top_builddir)/config.status $(CXXDEFS_H) $(ARG_NONNULL_H) $(WARN_ON_USE_H)
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@	$(gl_V_at)$(SED_HEADER_STDOUT) \
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@	      -e 's|@''GUARD_PREFIX''@|GL|g' \
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@	      -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@	      -e 's|@''PRAGMA_COLUMNS''@|@PRAGMA_COLUMNS@|g' \
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@	      -e 's|@''NEXT_LOCALE_H''@|$(NEXT_LOCALE_H)|g' \
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@	      -e 's|@''HAVE_LOCALE_T''@|$(HAVE_LOCALE_T)|g' \
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@	      -e 's|@''HAVE_WINDOWS_LOCALE_T''@|$(HAVE_WINDOWS_LOCALE_T)|g' \
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@	      -e 's/@''GNULIB_LOCALECONV''@/$(GL_GNULIB_LOCALECONV)/g' \
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@	      -e 's/@''GNULIB_SETLOCALE''@/$(GL_GNULIB_SETLOCALE)/g' \
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@	      -e 's/@''GNULIB_SETLOCALE_NULL''@/$(GL_GNULIB_SETLOCALE_NULL)/g' \
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@	      -e 's/@''GNULIB_NEWLOCALE''@/$(GL_GNULIB_NEWLOCALE)/g' \
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@	      -e 's/@''GNULIB_DUPLOCALE''@/$(GL_GNULIB_DUPLOCALE)/g' \
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@	      -e 's/@''GNULIB_FREELOCALE''@/$(GL_GNULIB_FREELOCALE)/g' \
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@	      -e 's/@''GNULIB_GETLOCALENAME_L''@/$(GL_GNULIB_GETLOCALENAME_L)/g' \
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@	      -e 's/@''GNULIB_GETLOCALENAME_L_UNSAFE''@/$(GL_GNULIB_GETLOCALENAME_L_UNSAFE)/g' \
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@	      -e 's/@''GNULIB_LOCALENAME_UNSAFE''@/$(GL_GNULIB_LOCALENAME_UNSAFE)/g' \
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@	      -e 's|@''HAVE_NEWLOCALE''@|$(HAVE_NEWLOCALE)|g' \
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@	      -e 's|@''HAVE_DUPLOCALE''@|$(HAVE_DUPLOCALE)|g' \
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@	      -e 's|@''HAVE_FREELOCALE''@|$(HAVE_FREELOCALE)|g' \
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@	      -e 's|@''HAVE_GETLOCALENAME_L''@|$(HAVE_GETLOCALENAME_L)|g' \
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@	      -e 's|@''HAVE_XLOCALE_H''@|$(HAVE_XLOCALE_H)|g' \
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@	      -e 's|@''REPLACE_LOCALECONV''@|$(REPLACE_LOCALECONV)|g' \
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@	      -e 's|@''REPLACE_SETLOCALE''@|$(REPLACE_SETLOCALE)|g' \
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@	      -e 's|@''REPLACE_NEWLOCALE''@|$(REPLACE_NEWLOCALE)|g' \
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@	      -e 's|@''REPLACE_DUPLOCALE''@|$(REPLACE_DUPLOCALE)|g' \
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@	      -e 's|@''REPLACE_FREELOCALE''@|$(REPLACE_FREELOCALE)|g' \
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@	      -e 's|@''REPLACE_GETLOCALENAME_L''@|$(REPLACE_GETLOCALENAME_L)|g' \
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@	      -e 's|@''REPLACE_STRUCT_LCONV''@|$(REPLACE_STRUCT_LCONV)|g' \
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@	      -e 's|@''LOCALENAME_ENHANCE_LOCALE_FUNCS''@|$(LOCALENAME_ENHANCE_LOCALE_FUNCS)|g' \
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@	      -e '/definitions of _GL_FUNCDECL_RPL/r $(CXXDEFS_H)' \
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@	      -e '/definition of _GL_ARG_NONNULL/r $(ARG_NONNULL_H)' \
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@	      -e '/definition of _GL_WARN_ON_USE/r $(WARN_ON_USE_H)' \
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@	      $(srcdir)/locale.in.h > $@-t
-@gl_GNULIB_ENABLED_dce9a78e70979abe3a6dbad14df7de3e_TRUE@	$(AM_V_at)mv $@-t $@
 
 # We need the following in order to create <mntent.h> when desired.
 @GL_GENERATE_MNTENT_H_TRUE@@gl_GNULIB_ENABLED_b2d6fa0553693c3c9c78b24f3d6556c1_TRUE@mntent.h: mntent.in.h $(top_builddir)/config.status $(CXXDEFS_H) $(ARG_NONNULL_H) $(WARN_ON_USE_H)
@@ -3105,6 +3233,43 @@ uninstall-am: uninstall-pkgdataDATA
 @gl_GNULIB_ENABLED_af7e3f0204832604ea56703236d065c9_TRUE@	      $(srcdir)/signal.in.h > $@-t
 @gl_GNULIB_ENABLED_af7e3f0204832604ea56703236d065c9_TRUE@	$(AM_V_at)mv $@-t $@
 
+# We need the following in order to create <stdbit.h> when the system
+# doesn't have one that works with the given compiler.
+@GL_GENERATE_STDBIT_H_TRUE@@gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604_TRUE@stdbit.h: stdbit.in.h $(top_builddir)/config.status
+@GL_GENERATE_STDBIT_H_TRUE@@gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604_TRUE@	$(gl_V_at)$(SED_HEADER_STDOUT) \
+@GL_GENERATE_STDBIT_H_TRUE@@gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604_TRUE@	  -e 's/@''HAVE_STDBIT_H''@/$(HAVE_STDBIT_H)/g' \
+@GL_GENERATE_STDBIT_H_TRUE@@gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604_TRUE@	  -e 's/@''GUARD_PREFIX''@/$(GUARD_PREFIX)/g' \
+@GL_GENERATE_STDBIT_H_TRUE@@gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604_TRUE@	  -e 's/@''PRAGMA_SYSTEM_HEADER''@/$(PRAGMA_SYSTEM_HEADER)/g' \
+@GL_GENERATE_STDBIT_H_TRUE@@gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604_TRUE@	  -e 's/@''PRAGMA_COLUMNS''@/$(PRAGMA_COLUMNS)/g' \
+@GL_GENERATE_STDBIT_H_TRUE@@gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604_TRUE@	  -e 's/@''INCLUDE_NEXT''@/$(INCLUDE_NEXT)/g' \
+@GL_GENERATE_STDBIT_H_TRUE@@gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604_TRUE@	  -e 's/@''NEXT_STDBIT_H''@/$(NEXT_STDBIT_H)/g' \
+@GL_GENERATE_STDBIT_H_TRUE@@gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604_TRUE@	  -e 's/@''GNULIB_STDC_LEADING_ZEROS''@/$(GL_GNULIB_STDC_LEADING_ZEROS)/g' \
+@GL_GENERATE_STDBIT_H_TRUE@@gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604_TRUE@	  -e 's/@''GNULIB_STDC_LEADING_ONES''@/$(GL_GNULIB_STDC_LEADING_ONES)/g' \
+@GL_GENERATE_STDBIT_H_TRUE@@gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604_TRUE@	  -e 's/@''GNULIB_STDC_TRAILING_ZEROS''@/$(GL_GNULIB_STDC_TRAILING_ZEROS)/g' \
+@GL_GENERATE_STDBIT_H_TRUE@@gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604_TRUE@	  -e 's/@''GNULIB_STDC_TRAILING_ONES''@/$(GL_GNULIB_STDC_TRAILING_ONES)/g' \
+@GL_GENERATE_STDBIT_H_TRUE@@gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604_TRUE@	  -e 's/@''GNULIB_STDC_FIRST_LEADING_ZERO''@/$(GL_GNULIB_STDC_FIRST_LEADING_ZERO)/g' \
+@GL_GENERATE_STDBIT_H_TRUE@@gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604_TRUE@	  -e 's/@''GNULIB_STDC_FIRST_LEADING_ONE''@/$(GL_GNULIB_STDC_FIRST_LEADING_ONE)/g' \
+@GL_GENERATE_STDBIT_H_TRUE@@gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604_TRUE@	  -e 's/@''GNULIB_STDC_FIRST_TRAILING_ZERO''@/$(GL_GNULIB_STDC_FIRST_TRAILING_ZERO)/g' \
+@GL_GENERATE_STDBIT_H_TRUE@@gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604_TRUE@	  -e 's/@''GNULIB_STDC_FIRST_TRAILING_ONE''@/$(GL_GNULIB_STDC_FIRST_TRAILING_ONE)/g' \
+@GL_GENERATE_STDBIT_H_TRUE@@gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604_TRUE@	  -e 's/@''GNULIB_STDC_COUNT_ZEROS''@/$(GL_GNULIB_STDC_COUNT_ZEROS)/g' \
+@GL_GENERATE_STDBIT_H_TRUE@@gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604_TRUE@	  -e 's/@''GNULIB_STDC_COUNT_ONES''@/$(GL_GNULIB_STDC_COUNT_ONES)/g' \
+@GL_GENERATE_STDBIT_H_TRUE@@gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604_TRUE@	  -e 's/@''GNULIB_STDC_HAS_SINGLE_BIT''@/$(GL_GNULIB_STDC_HAS_SINGLE_BIT)/g' \
+@GL_GENERATE_STDBIT_H_TRUE@@gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604_TRUE@	  -e 's/@''GNULIB_STDC_BIT_WIDTH''@/$(GL_GNULIB_STDC_BIT_WIDTH)/g' \
+@GL_GENERATE_STDBIT_H_TRUE@@gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604_TRUE@	  -e 's/@''GNULIB_STDC_BIT_FLOOR''@/$(GL_GNULIB_STDC_BIT_FLOOR)/g' \
+@GL_GENERATE_STDBIT_H_TRUE@@gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604_TRUE@	  -e 's/@''GNULIB_STDC_BIT_CEIL''@/$(GL_GNULIB_STDC_BIT_CEIL)/g' \
+@GL_GENERATE_STDBIT_H_TRUE@@gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604_TRUE@	  -e 's/@''GNULIB_STDC_ROTATE_LEFT''@/$(GL_GNULIB_STDC_ROTATE_LEFT)/g' \
+@GL_GENERATE_STDBIT_H_TRUE@@gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604_TRUE@	  -e 's/@''GNULIB_STDC_ROTATE_RIGHT''@/$(GL_GNULIB_STDC_ROTATE_RIGHT)/g' \
+@GL_GENERATE_STDBIT_H_TRUE@@gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604_TRUE@	  -e 's/@''GNULIB_STDC_MEMREVERSE8''@/$(GL_GNULIB_STDC_MEMREVERSE8)/g' \
+@GL_GENERATE_STDBIT_H_TRUE@@gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604_TRUE@	  -e 's/@''GNULIB_STDC_MEMREVERSE8U''@/$(GL_GNULIB_STDC_MEMREVERSE8U)/g' \
+@GL_GENERATE_STDBIT_H_TRUE@@gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604_TRUE@	  -e 's/@''GNULIB_STDC_LOAD8_ALIGNED''@/$(GL_GNULIB_STDC_LOAD8_ALIGNED)/g' \
+@GL_GENERATE_STDBIT_H_TRUE@@gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604_TRUE@	  -e 's/@''GNULIB_STDC_LOAD8''@/$(GL_GNULIB_STDC_LOAD8)/g' \
+@GL_GENERATE_STDBIT_H_TRUE@@gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604_TRUE@	  -e 's/@''GNULIB_STDC_STORE8_ALIGNED''@/$(GL_GNULIB_STDC_STORE8_ALIGNED)/g' \
+@GL_GENERATE_STDBIT_H_TRUE@@gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604_TRUE@	  -e 's/@''GNULIB_STDC_STORE8''@/$(GL_GNULIB_STDC_STORE8)/g' \
+@GL_GENERATE_STDBIT_H_TRUE@@gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604_TRUE@	  $(srcdir)/stdbit.in.h > $@-t
+@GL_GENERATE_STDBIT_H_TRUE@@gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604_TRUE@	$(AM_V_at)mv $@-t $@
+@GL_GENERATE_STDBIT_H_FALSE@@gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604_TRUE@stdbit.h: $(top_builddir)/config.status
+@GL_GENERATE_STDBIT_H_FALSE@@gl_GNULIB_ENABLED_ae25b9c3e75ffda10683a66b9dde5604_TRUE@	rm -f $@
+
 # We need the following in order to create <stdckdint.h> when the system
 # doesn't have one that works with the given compiler.
 @GL_GENERATE_STDCKDINT_H_TRUE@@gl_GNULIB_ENABLED_6897f839bc8beda050d8c73ec20bb548_TRUE@stdckdint.h: stdckdint.in.h $(top_builddir)/config.status
@@ -3122,6 +3287,22 @@ uninstall-am: uninstall-pkgdataDATA
 @GL_GENERATE_STDCKDINT_H_TRUE@@gl_GNULIB_ENABLED_6897f839bc8beda050d8c73ec20bb548_TRUE@	$(AM_V_at)mv $@-t $@
 @GL_GENERATE_STDCKDINT_H_FALSE@@gl_GNULIB_ENABLED_6897f839bc8beda050d8c73ec20bb548_TRUE@stdckdint.h: $(top_builddir)/config.status
 @GL_GENERATE_STDCKDINT_H_FALSE@@gl_GNULIB_ENABLED_6897f839bc8beda050d8c73ec20bb548_TRUE@	rm -f $@
+
+# We need the following in order to create <stdcountof.h> when the system
+# doesn't have one that works with the given compiler.
+@GL_GENERATE_STDCOUNTOF_H_TRUE@@gl_GNULIB_ENABLED_c61a086c918a57eae8f997993dbe4b6f_TRUE@stdcountof.h: stdcountof.in.h $(top_builddir)/config.status
+@GL_GENERATE_STDCOUNTOF_H_TRUE@@gl_GNULIB_ENABLED_c61a086c918a57eae8f997993dbe4b6f_TRUE@	$(gl_V_at)$(SED_HEADER_STDOUT) \
+@GL_GENERATE_STDCOUNTOF_H_TRUE@@gl_GNULIB_ENABLED_c61a086c918a57eae8f997993dbe4b6f_TRUE@	      -e 's|@''GUARD_PREFIX''@|GL|g' \
+@GL_GENERATE_STDCOUNTOF_H_TRUE@@gl_GNULIB_ENABLED_c61a086c918a57eae8f997993dbe4b6f_TRUE@	      -e 's/@''HAVE_STDCOUNTOF_H''@/$(HAVE_STDCOUNTOF_H)/g' \
+@GL_GENERATE_STDCOUNTOF_H_TRUE@@gl_GNULIB_ENABLED_c61a086c918a57eae8f997993dbe4b6f_TRUE@	      -e 's/@''CXX_HAVE_STDCOUNTOF_H''@/$(CXX_HAVE_STDCOUNTOF_H)/g' \
+@GL_GENERATE_STDCOUNTOF_H_TRUE@@gl_GNULIB_ENABLED_c61a086c918a57eae8f997993dbe4b6f_TRUE@	      -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
+@GL_GENERATE_STDCOUNTOF_H_TRUE@@gl_GNULIB_ENABLED_c61a086c918a57eae8f997993dbe4b6f_TRUE@	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
+@GL_GENERATE_STDCOUNTOF_H_TRUE@@gl_GNULIB_ENABLED_c61a086c918a57eae8f997993dbe4b6f_TRUE@	      -e 's|@''PRAGMA_COLUMNS''@|@PRAGMA_COLUMNS@|g' \
+@GL_GENERATE_STDCOUNTOF_H_TRUE@@gl_GNULIB_ENABLED_c61a086c918a57eae8f997993dbe4b6f_TRUE@	      -e 's|@''NEXT_STDCOUNTOF_H''@|$(NEXT_STDCOUNTOF_H)|g' \
+@GL_GENERATE_STDCOUNTOF_H_TRUE@@gl_GNULIB_ENABLED_c61a086c918a57eae8f997993dbe4b6f_TRUE@	      $(srcdir)/stdcountof.in.h > $@-t
+@GL_GENERATE_STDCOUNTOF_H_TRUE@@gl_GNULIB_ENABLED_c61a086c918a57eae8f997993dbe4b6f_TRUE@	$(AM_V_at)mv $@-t $@
+@GL_GENERATE_STDCOUNTOF_H_FALSE@@gl_GNULIB_ENABLED_c61a086c918a57eae8f997993dbe4b6f_TRUE@stdcountof.h: $(top_builddir)/config.status
+@GL_GENERATE_STDCOUNTOF_H_FALSE@@gl_GNULIB_ENABLED_c61a086c918a57eae8f997993dbe4b6f_TRUE@	rm -f $@
 
 # We need the following in order to create <stddef.h> when the system
 # doesn't have one that works with the given compiler.
@@ -3236,6 +3417,7 @@ uninstall-am: uninstall-pkgdataDATA
 @gl_GNULIB_ENABLED_dd057631bb50a7239da8161fd88bc500_TRUE@	      -e 's/@''GNULIB_STDIO_H_SIGPIPE''@/$(GL_GNULIB_STDIO_H_SIGPIPE)/g' \
 @gl_GNULIB_ENABLED_dd057631bb50a7239da8161fd88bc500_TRUE@	      -e 's/@''GNULIB_SZPRINTF''@/$(GL_GNULIB_SZPRINTF)/g' \
 @gl_GNULIB_ENABLED_dd057631bb50a7239da8161fd88bc500_TRUE@	      -e 's/@''GNULIB_TMPFILE''@/$(GL_GNULIB_TMPFILE)/g' \
+@gl_GNULIB_ENABLED_dd057631bb50a7239da8161fd88bc500_TRUE@	      -e 's/@''GNULIB_VAPRINTF''@/$(GL_GNULIB_VAPRINTF)/g' \
 @gl_GNULIB_ENABLED_dd057631bb50a7239da8161fd88bc500_TRUE@	      -e 's/@''GNULIB_VASPRINTF''@/$(GL_GNULIB_VASPRINTF)/g' \
 @gl_GNULIB_ENABLED_dd057631bb50a7239da8161fd88bc500_TRUE@	      -e 's/@''GNULIB_VASZPRINTF''@/$(GL_GNULIB_VASZPRINTF)/g' \
 @gl_GNULIB_ENABLED_dd057631bb50a7239da8161fd88bc500_TRUE@	      -e 's/@''GNULIB_VDPRINTF''@/$(GL_GNULIB_VDPRINTF)/g' \
@@ -3259,6 +3441,7 @@ uninstall-am: uninstall-pkgdataDATA
 @gl_GNULIB_ENABLED_dd057631bb50a7239da8161fd88bc500_TRUE@	      -e 's/@''GNULIB_MDA_GETW''@/$(GL_GNULIB_MDA_GETW)/g' \
 @gl_GNULIB_ENABLED_dd057631bb50a7239da8161fd88bc500_TRUE@	      -e 's/@''GNULIB_MDA_PUTW''@/$(GL_GNULIB_MDA_PUTW)/g' \
 @gl_GNULIB_ENABLED_dd057631bb50a7239da8161fd88bc500_TRUE@	      -e 's/@''GNULIB_MDA_TEMPNAM''@/$(GL_GNULIB_MDA_TEMPNAM)/g' \
+@gl_GNULIB_ENABLED_dd057631bb50a7239da8161fd88bc500_TRUE@	      -e 's/@''GNULIB_FREE_POSIX''@/$(GL_GNULIB_FREE_POSIX)/g' \
 @gl_GNULIB_ENABLED_dd057631bb50a7239da8161fd88bc500_TRUE@	      < $(srcdir)/stdio.in.h > $@-t1
 @gl_GNULIB_ENABLED_dd057631bb50a7239da8161fd88bc500_TRUE@	$(AM_V_at)sed \
 @gl_GNULIB_ENABLED_dd057631bb50a7239da8161fd88bc500_TRUE@	      -e 's|@''HAVE_DECL_FCLOSEALL''@|$(HAVE_DECL_FCLOSEALL)|g' \
@@ -3290,6 +3473,7 @@ uninstall-am: uninstall-pkgdataDATA
 @gl_GNULIB_ENABLED_dd057631bb50a7239da8161fd88bc500_TRUE@	      -e 's|@''REPLACE_FOPEN_FOR_FOPEN_GNU''@|$(REPLACE_FOPEN_FOR_FOPEN_GNU)|g' \
 @gl_GNULIB_ENABLED_dd057631bb50a7239da8161fd88bc500_TRUE@	      -e 's|@''REPLACE_FPRINTF''@|$(REPLACE_FPRINTF)|g' \
 @gl_GNULIB_ENABLED_dd057631bb50a7239da8161fd88bc500_TRUE@	      -e 's|@''REPLACE_FPURGE''@|$(REPLACE_FPURGE)|g' \
+@gl_GNULIB_ENABLED_dd057631bb50a7239da8161fd88bc500_TRUE@	      -e 's|@''REPLACE_FREE''@|$(REPLACE_FREE)|g' \
 @gl_GNULIB_ENABLED_dd057631bb50a7239da8161fd88bc500_TRUE@	      -e 's|@''REPLACE_FREOPEN''@|$(REPLACE_FREOPEN)|g' \
 @gl_GNULIB_ENABLED_dd057631bb50a7239da8161fd88bc500_TRUE@	      -e 's|@''REPLACE_FSEEK''@|$(REPLACE_FSEEK)|g' \
 @gl_GNULIB_ENABLED_dd057631bb50a7239da8161fd88bc500_TRUE@	      -e 's|@''REPLACE_FSEEKO''@|$(REPLACE_FSEEKO)|g' \
@@ -3412,7 +3596,6 @@ uninstall-am: uninstall-pkgdataDATA
 @gl_GNULIB_ENABLED_d35c18bd66af1352be89e09b51bcb62b_TRUE@	      -e 's|@''HAVE_PTSNAME_R''@|$(HAVE_PTSNAME_R)|g' \
 @gl_GNULIB_ENABLED_d35c18bd66af1352be89e09b51bcb62b_TRUE@	      -e 's|@''HAVE_QSORT_R''@|$(HAVE_QSORT_R)|g' \
 @gl_GNULIB_ENABLED_d35c18bd66af1352be89e09b51bcb62b_TRUE@	      -e 's|@''HAVE_RANDOM''@|$(HAVE_RANDOM)|g' \
-@gl_GNULIB_ENABLED_d35c18bd66af1352be89e09b51bcb62b_TRUE@	      -e 's|@''HAVE_RANDOM_H''@|$(HAVE_RANDOM_H)|g' \
 @gl_GNULIB_ENABLED_d35c18bd66af1352be89e09b51bcb62b_TRUE@	      -e 's|@''HAVE_RANDOM_R''@|$(HAVE_RANDOM_R)|g' \
 @gl_GNULIB_ENABLED_d35c18bd66af1352be89e09b51bcb62b_TRUE@	      -e 's|@''HAVE_REALLOCARRAY''@|$(HAVE_REALLOCARRAY)|g' \
 @gl_GNULIB_ENABLED_d35c18bd66af1352be89e09b51bcb62b_TRUE@	      -e 's|@''HAVE_REALPATH''@|$(HAVE_REALPATH)|g' \
@@ -3430,6 +3613,7 @@ uninstall-am: uninstall-pkgdataDATA
 @gl_GNULIB_ENABLED_d35c18bd66af1352be89e09b51bcb62b_TRUE@	      -e 's|@''HAVE_STRTOULL''@|$(HAVE_STRTOULL)|g' \
 @gl_GNULIB_ENABLED_d35c18bd66af1352be89e09b51bcb62b_TRUE@	      -e 's|@''HAVE_STRUCT_RANDOM_DATA''@|$(HAVE_STRUCT_RANDOM_DATA)|g' \
 @gl_GNULIB_ENABLED_d35c18bd66af1352be89e09b51bcb62b_TRUE@	      -e 's|@''HAVE_SYS_LOADAVG_H''@|$(HAVE_SYS_LOADAVG_H)|g' \
+@gl_GNULIB_ENABLED_d35c18bd66af1352be89e09b51bcb62b_TRUE@	      -e 's|@''HAVE_SYS_PROCESS_H''@|$(HAVE_SYS_PROCESS_H)|g' \
 @gl_GNULIB_ENABLED_d35c18bd66af1352be89e09b51bcb62b_TRUE@	      -e 's|@''HAVE_UNLOCKPT''@|$(HAVE_UNLOCKPT)|g' \
 @gl_GNULIB_ENABLED_d35c18bd66af1352be89e09b51bcb62b_TRUE@	      -e 's|@''HAVE_DECL_UNSETENV''@|$(HAVE_DECL_UNSETENV)|g' \
 @gl_GNULIB_ENABLED_d35c18bd66af1352be89e09b51bcb62b_TRUE@	      < $@-t1 > $@-t2
@@ -3524,6 +3708,7 @@ uninstall-am: uninstall-pkgdataDATA
 @gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's/@''GNULIB_MBS_ENDSWITH''@/$(GL_GNULIB_MBS_ENDSWITH)/g' \
 @gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's/@''GNULIB_MBS_STARTSWITH''@/$(GL_GNULIB_MBS_STARTSWITH)/g' \
 @gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's/@''GNULIB_MEMCHR''@/$(GL_GNULIB_MEMCHR)/g' \
+@gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's/@''GNULIB_MEMEQ''@/$(GL_GNULIB_MEMEQ)/g' \
 @gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's/@''GNULIB_MEMMEM''@/$(GL_GNULIB_MEMMEM)/g' \
 @gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's/@''GNULIB_MEMPCPY''@/$(GL_GNULIB_MEMPCPY)/g' \
 @gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's/@''GNULIB_MEMRCHR''@/$(GL_GNULIB_MEMRCHR)/g' \
@@ -3533,9 +3718,12 @@ uninstall-am: uninstall-pkgdataDATA
 @gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's/@''GNULIB_STPNCPY''@/$(GL_GNULIB_STPNCPY)/g' \
 @gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's/@''GNULIB_STRCHRNUL''@/$(GL_GNULIB_STRCHRNUL)/g' \
 @gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's/@''GNULIB_STRDUP''@/$(GL_GNULIB_STRDUP)/g' \
+@gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's/@''GNULIB_STREQ''@/$(GL_GNULIB_STREQ)/g' \
 @gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's/@''GNULIB_STRNCAT''@/$(GL_GNULIB_STRNCAT)/g' \
+@gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's/@''GNULIB_STRNCPY''@/$(GL_GNULIB_STRNCPY)/g' \
 @gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's/@''GNULIB_STRNDUP''@/$(GL_GNULIB_STRNDUP)/g' \
 @gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's/@''GNULIB_STRNLEN''@/$(GL_GNULIB_STRNLEN)/g' \
+@gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's/@''GNULIB_STRNUL''@/$(GL_GNULIB_STRNUL)/g' \
 @gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's/@''GNULIB_STRPBRK''@/$(GL_GNULIB_STRPBRK)/g' \
 @gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's/@''GNULIB_STRSEP''@/$(GL_GNULIB_STRSEP)/g' \
 @gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's/@''GNULIB_STRSTR''@/$(GL_GNULIB_STRSTR)/g' \
@@ -3560,6 +3748,7 @@ uninstall-am: uninstall-pkgdataDATA
 @gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's|@''HAVE_FFSL''@|$(HAVE_FFSL)|g' \
 @gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's|@''HAVE_FFSLL''@|$(HAVE_FFSLL)|g' \
 @gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's|@''HAVE_MBSLEN''@|$(HAVE_MBSLEN)|g' \
+@gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's|@''HAVE_DECL_MEMEQ''@|$(HAVE_DECL_MEMEQ)|g' \
 @gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's|@''HAVE_DECL_MEMMEM''@|$(HAVE_DECL_MEMMEM)|g' \
 @gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's|@''HAVE_MEMPCPY''@|$(HAVE_MEMPCPY)|g' \
 @gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's|@''HAVE_DECL_MEMRCHR''@|$(HAVE_DECL_MEMRCHR)|g' \
@@ -3569,6 +3758,7 @@ uninstall-am: uninstall-pkgdataDATA
 @gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's|@''HAVE_STPNCPY''@|$(HAVE_STPNCPY)|g' \
 @gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's|@''HAVE_STRCHRNUL''@|$(HAVE_STRCHRNUL)|g' \
 @gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's|@''HAVE_DECL_STRDUP''@|$(HAVE_DECL_STRDUP)|g' \
+@gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's|@''HAVE_DECL_STREQ''@|$(HAVE_DECL_STREQ)|g' \
 @gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's|@''HAVE_DECL_STRNDUP''@|$(HAVE_DECL_STRNDUP)|g' \
 @gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's|@''HAVE_DECL_STRNLEN''@|$(HAVE_DECL_STRNLEN)|g' \
 @gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's|@''HAVE_STRPBRK''@|$(HAVE_STRPBRK)|g' \
@@ -3593,6 +3783,7 @@ uninstall-am: uninstall-pkgdataDATA
 @gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's|@''REPLACE_STRCHRNUL''@|$(REPLACE_STRCHRNUL)|g' \
 @gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's|@''REPLACE_STRDUP''@|$(REPLACE_STRDUP)|g' \
 @gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's|@''REPLACE_STRNCAT''@|$(REPLACE_STRNCAT)|g' \
+@gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's|@''REPLACE_STRNCPY''@|$(REPLACE_STRNCPY)|g' \
 @gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's|@''REPLACE_STRNDUP''@|$(REPLACE_STRNDUP)|g' \
 @gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's|@''REPLACE_STRNLEN''@|$(REPLACE_STRNLEN)|g' \
 @gl_GNULIB_ENABLED_e035c32581f0bd5cfb8722f9c12f75f2_TRUE@	      -e 's|@''REPLACE_STRSTR''@|$(REPLACE_STRSTR)|g' \
@@ -3692,6 +3883,14 @@ sys/types.h: sys_types.in.h $(top_builddir)/config.status
 	      -e 's|@''HAVE_BLKCNT_T''@|$(HAVE_BLKCNT_T)|g' \
 	      $(srcdir)/sys_types.in.h > $@-t
 	$(AM_V_at)mv $@-t $@
+
+@gl_GNULIB_ENABLED_ff372e41059705989544356242e580a9_TRUE@$(srcdir)/thread-creators.h: $(srcdir)/thread-creators.gperf
+@gl_GNULIB_ENABLED_ff372e41059705989544356242e580a9_TRUE@	$(V_GPERF)$(GPERF) -m 10 $(srcdir)/thread-creators.gperf > $(srcdir)/thread-creators.h-t1 \
+@gl_GNULIB_ENABLED_ff372e41059705989544356242e580a9_TRUE@	&& sed -e 's/^const/static const/' \
+@gl_GNULIB_ENABLED_ff372e41059705989544356242e580a9_TRUE@	       -e 's|\([ "]\)[^ "]*/thread-creators\.gperf\([ "]\)|\1thread-creators.gperf\2|' \
+@gl_GNULIB_ENABLED_ff372e41059705989544356242e580a9_TRUE@	       < $(srcdir)/thread-creators.h-t1 > $(srcdir)/thread-creators.h-t2 \
+@gl_GNULIB_ENABLED_ff372e41059705989544356242e580a9_TRUE@	&& rm -f $(srcdir)/thread-creators.h-t1 \
+@gl_GNULIB_ENABLED_ff372e41059705989544356242e580a9_TRUE@	&& mv $(srcdir)/thread-creators.h-t2 $(srcdir)/thread-creators.h
 
 # We need the following in order to create <time.h> when the system
 # doesn't have one that works with the given compiler.

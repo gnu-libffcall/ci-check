@@ -1,5 +1,5 @@
 /* Abstract sequential list data type.  -*- coding: utf-8 -*-
-   Copyright (C) 2006-2025 Free Software Foundation, Inc.
+   Copyright (C) 2006-2026 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This file is free software: you can redistribute it and/or modify
@@ -916,6 +916,14 @@ gl_sortedlist_remove (gl_list_t list, gl_listelement_compar_fn compar, const voi
   return ((const struct gl_list_impl_base *) list)->vtable
          ->sortedlist_remove (list, compar, elt);
 }
+
+/* Avoid that the reinterpret_cast<>s in gl_list.hh cause runtime errors
+   "call to function ... through pointer to incorrect function type".  */
+#if _GL_HAVE_LIST_HH && defined __clang__ && __clang_major__ >= 4
+# define _GL_LIST_INVOKES_FN_PTR __attribute__ ((no_sanitize ("function")))
+#else
+# define _GL_LIST_INVOKES_FN_PTR
+#endif
 
 #ifdef __cplusplus
 }
