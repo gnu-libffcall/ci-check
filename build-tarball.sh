@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Copyright (C) 2024 Free Software Foundation, Inc.
+# Copyright (C) 2024-2026 Free Software Foundation, Inc.
 #
 # This file is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published
@@ -24,7 +24,15 @@ package="$1"
 set -e
 
 # We expect the sources from a tarball to be unpacked here.
-cd "$package"
+cd "$package" || exit 1
+
+# Bring the time stamps into an order that will not require autoconf, automake, etc. to run again.
+sleep 1; touch `find . -name aclocal.m4 -type f`
+sleep 1; touch `find . -name configure -type f`
+sleep 1; touch `find . -name config.h.in -type f` `find . -name config.hin -type f`
+sleep 1; touch `find . -name Makefile.in -type f`
+sleep 1; touch . `find . -name stamp-vti -type f`
+sleep 1; touch . `find . -name '*.info' -type f`
 
 # Fetch extra files and generate files (uses packages wget, python3, automake, autoconf, m4).
 date=`date --utc --iso-8601 | sed -e 's/-//g'`; sed -i -e "s/\\([0-9][0-9.]*\\)/\\1-${date}/" VERSION
