@@ -1,8 +1,6 @@
 #include "asm-arm64.h"
-	.cpu generic+fp+simd
-	.text
-	.align	2
-	.p2align 3,,7
+	TEXT()
+	P2ALIGN(3,7)
 	DECLARE_FUNCTION(callback_receiver)
 FUNBEGIN(callback_receiver)
 	stp	x29, x30, [sp, -256]!
@@ -82,45 +80,45 @@ FUNBEGIN(callback_receiver)
 	lsl	w10, w10, 3
 	and	x9, x9, x11
 	asr	x0, x9, x10
-L(1):
+LDEF(1)
 	ldp	x29, x30, [sp], 256
 	ret
-	.p2align 3
-L(25):
+	P2ALIGN(3,7)
+LDEF(25)
 	ldrb	w0, [x29, 24]
 	ldp	x29, x30, [sp], 256
 	ret
-	.p2align 3
-L(27):
+	P2ALIGN(3,7)
+LDEF(27)
 	ldr	x0, [x29, 24]
 	b	L(1)
-	.p2align 3
-L(29):
+	P2ALIGN(3,7)
+LDEF(29)
 	ldrsb	x0, [x29, 24]
 	b	L(1)
-	.p2align 3
-L(30):
+	P2ALIGN(3,7)
+LDEF(30)
 	ldrsh	x0, [x29, 24]
 	b	L(1)
-	.p2align 3
-L(31):
+	P2ALIGN(3,7)
+LDEF(31)
 	ldrh	w0, [x29, 24]
 	b	L(1)
-	.p2align 3
-L(32):
+	P2ALIGN(3,7)
+LDEF(32)
 	ldrsw	x0, [x29, 24]
 	b	L(1)
-	.p2align 3
-L(33):
+	P2ALIGN(3,7)
+LDEF(33)
 	ldr	w0, [x29, 24]
 	b	L(1)
-L(34):
+LDEF(34)
 	ldr	s0, [x29, 24]
 	b	L(1)
-L(35):
+LDEF(35)
 	ldr	d0, [x29, 24]
 	b	L(1)
-L(15):
+LDEF(15)
 	cmp	x9, 16
 	lsl	w9, w9, 3
 	bls	L(36)
@@ -141,7 +139,7 @@ L(15):
 	orr	x0, x11, x16
 	orr	x1, x10, x14
 	b	L(1)
-L(16):
+LDEF(16)
 	mov	w13, -8
 	mov	x14, 2
 	sub	w9, w9, $65
@@ -157,7 +155,7 @@ L(16):
 	lsl	x9, x9, x10
 	orr	x0, x9, x11
 	b	L(1)
-L(36):
+LDEF(36)
 	mov	w13, -4
 	mov	x14, 2
 	sub	w9, w9, $65
@@ -176,15 +174,15 @@ L(36):
 	orr	x0, x11, x9
 	b	L(1)
 	FUNEND(callback_receiver)
-	.align	2
-	.p2align 3,,7
-	.global C(callback_get_receiver)
+	P2ALIGN(3,7)
+	GLOBL(C(callback_get_receiver))
 	DECLARE_FUNCTION(callback_get_receiver)
 FUNBEGIN(callback_get_receiver)
 	adrp	x9, PAGE(C(callback_receiver))
 	add	x0, x9, PAGEOFF(C(callback_receiver))
 	ret
 	FUNEND(callback_get_receiver)
+	FILEEND()
 #if defined __linux__ || defined __FreeBSD__ || defined __FreeBSD_kernel__ || defined __DragonFly__
 	.section .note.GNU-stack,"",%progbits
 #endif

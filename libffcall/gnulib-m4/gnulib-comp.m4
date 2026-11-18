@@ -1218,6 +1218,7 @@ AC_DEFUN([gl_INIT],
       case "$host_os" in
         mingw* | windows*)
           AC_EGREP_CPP([Special], [
+      #include <stdio.h>
       #ifndef _UCRT
        Special
       #endif
@@ -1332,9 +1333,11 @@ AC_DEFUN([gl_INIT],
       dnl Haiku has dl_iterate_phdr in a separate library libbsd.
       dnl We don't want a link dependency here.
       AC_CHECK_FUNCS([dl_iterate_phdr])
+      gl_MUSL_LIBC
       gl_gnulib_enabled_ff372e41059705989544356242e580a9=true
       func_gl_gnulib_m4code_bool
       func_gl_gnulib_m4code_gperf
+      func_gl_gnulib_m4code_streq
     fi
   }
   func_gl_gnulib_m4code_cb7562e84d8cf7185af782fe497b53dd ()

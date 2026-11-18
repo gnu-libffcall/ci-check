@@ -1,9 +1,7 @@
 #include "asm-arm64.h"
-	.cpu generic+fp+simd
-	.text
-	.align	2
-	.p2align 3,,7
-	.global C(avcall_call)
+	TEXT()
+	P2ALIGN(3,7)
+	GLOBL(C(avcall_call))
 	DECLARE_FUNCTION(avcall_call)
 FUNBEGIN(avcall_call)
 	stp	x29, x30, [sp, -48]!
@@ -22,14 +20,14 @@ FUNBEGIN(avcall_call)
 	mov	x13, sp
 	mov	x9, 0
 	mov	w11, w10
-	.p2align 2
-L(86):
+	P2ALIGN(2,3)
+LDEF(86)
 	ldr	x10, [x12, x9, lsl 3]
 	str	x10, [x13, x9, lsl 3]
 	add	x9, x9, 1
 	cmp	w11, w9
 	bgt	L(86)
-L(6):
+LDEF(6)
 	cbz	w15, L(7)
 	cmp	w15, 1
 	ldr	x0, [x19, 72]
@@ -53,53 +51,53 @@ L(6):
 	ldr	x6, [x19, 120]
 	beq	L(7)
 	ldr	x7, [x19, 128]
-	.p2align 2
-L(7):
+	P2ALIGN(2,3)
+LDEF(7)
 	cbz	w14, L(9)
 	ldr	w9, [x19, 144]
 	tbz	x9, 0, L(10)
 	ldr	d0, [x19, 184]
-L(11):
+LDEF(11)
 	cmp	w14, 1
 	bls	L(9)
 	tbnz	x9, 1, L(119)
 	ldr	w10, [x19, 140]
 	tbz	x10, 1, L(14)
 	ldr	s1, [x19, 152]
-L(14):
+LDEF(14)
 	cmp	w14, 2
 	beq	L(9)
 	tbz	x9, 2, L(15)
 	ldr	d2, [x19, 200]
-L(16):
+LDEF(16)
 	cmp	w14, 3
 	beq	L(9)
 	tbnz	x9, 3, L(120)
 	ldr	w10, [x19, 140]
 	tbz	x10, 3, L(18)
 	ldr	s3, [x19, 160]
-L(18):
+LDEF(18)
 	cmp	w14, 4
 	beq	L(9)
 	tbz	x9, 4, L(19)
 	ldr	d4, [x19, 216]
-L(20):
+LDEF(20)
 	cmp	w14, 5
 	beq	L(9)
 	tbz	x9, 5, L(21)
 	ldr	d5, [x19, 224]
-L(22):
+LDEF(22)
 	cmp	w14, 6
 	beq	L(9)
 	tbz	x9, 6, L(23)
 	ldr	d6, [x19, 232]
-L(24):
+LDEF(24)
 	cmp	w14, 7
 	beq	L(9)
 	tbz	x9, 7, L(25)
 	ldr	d7, [x19, 240]
-	.p2align 2
-L(9):
+	P2ALIGN(2,3)
+LDEF(9)
 	ldr	w9, [x19, 24]
 	cmp	w9, 13
 	beq	L(121)
@@ -163,21 +161,21 @@ L(9):
 	fmov	d8, x9
 	bif	v8.8b, v17.8b, v16.8b
 	str	d8, [x13]
-L(27):
+LDEF(27)
 	add	sp, x29, 0
 	ldr	d8, [sp, 32]
 	mov	w0, 0
 	ldp	x19, x20, [sp, 16]
 	ldp	x29, x30, [sp], 48
 	ret
-	.p2align 3
-L(10):
+	P2ALIGN(3,7)
+LDEF(10)
 	ldr	w10, [x19, 140]
 	tbz	x10, 0, L(11)
 	ldr	s0, [x19, 148]
 	b	L(11)
-	.p2align 3
-L(113):
+	P2ALIGN(3,7)
+LDEF(113)
 	ldr	x9, [x19, 16]
 	mov	w0, 0
 	strb	w16, [x9]
@@ -186,12 +184,12 @@ L(113):
 	ldp	x19, x20, [sp, 16]
 	ldp	x29, x30, [sp], 48
 	ret
-	.p2align 3
-L(119):
+	P2ALIGN(3,7)
+LDEF(119)
 	ldr	d1, [x19, 192]
 	b	L(14)
-	.p2align 3
-L(114):
+	P2ALIGN(3,7)
+LDEF(114)
 	ldr	x9, [x19, 16]
 	mov	w0, 0
 	strh	w16, [x9]
@@ -200,12 +198,12 @@ L(114):
 	ldp	x19, x20, [sp, 16]
 	ldp	x29, x30, [sp], 48
 	ret
-L(117):
+LDEF(117)
 	ldr	x9, [x19, 16]
 	str	x16, [x9]
 	b	L(27)
-	.p2align 3
-L(122):
+	P2ALIGN(3,7)
+LDEF(122)
 	ldp	x9, x20, [x19, 8]
 	blr	x9
 	str	d0, [x20]
@@ -215,44 +213,44 @@ L(122):
 	ldp	x19, x20, [sp, 16]
 	ldp	x29, x30, [sp], 48
 	ret
-L(121):
+LDEF(121)
 	ldp	x9, x20, [x19, 8]
 	blr	x9
 	str	s0, [x20]
 	b	L(27)
-L(15):
+LDEF(15)
 	ldr	w10, [x19, 140]
 	tbz	x10, 2, L(16)
 	ldr	s2, [x19, 156]
 	b	L(16)
-L(115):
+LDEF(115)
 	ldr	x9, [x19, 16]
 	str	w16, [x9]
 	b	L(27)
-L(120):
+LDEF(120)
 	ldr	d3, [x19, 208]
 	b	L(18)
-L(19):
+LDEF(19)
 	ldr	w10, [x19, 140]
 	tbz	x10, 4, L(20)
 	ldr	s4, [x19, 164]
 	b	L(20)
-L(21):
+LDEF(21)
 	ldr	w10, [x19, 140]
 	tbz	x10, 5, L(22)
 	ldr	s5, [x19, 168]
 	b	L(22)
-L(23):
+LDEF(23)
 	ldr	w10, [x19, 140]
 	tbz	x10, 6, L(24)
 	ldr	s6, [x19, 172]
 	b	L(24)
-L(25):
+LDEF(25)
 	ldr	w9, [x19, 140]
 	tbz	x9, 7, L(9)
 	ldr	s7, [x19, 176]
 	b	L(9)
-L(39):
+LDEF(39)
 	lsl	w14, w9, 3
 	cmp	x12, 16
 	movi	d16, -1
@@ -282,7 +280,7 @@ L(39):
 	fmov	x11, d16
 	stp	x10, x11, [x13, 8]
 	b	L(27)
-L(40):
+LDEF(40)
 	lsl	w14, w9, 3
 	neg	w9, w9, lsl 3
 	movi	d16, -1
@@ -304,7 +302,7 @@ L(40):
 	bif	v17.8b, v18.8b, v8.8b
 	str	d17, [x13, 8]
 	b	L(27)
-L(123):
+LDEF(123)
 	neg	w9, w9, lsl 2
 	lsl	w12, w12, 3
 	add	w9, w9, 32
@@ -323,6 +321,7 @@ L(123):
 	str	d16, [x13, 8]
 	b	L(27)
 	FUNEND(avcall_call)
+	FILEEND()
 #if defined __linux__ || defined __FreeBSD__ || defined __FreeBSD_kernel__ || defined __DragonFly__
 	.section .note.GNU-stack,"",%progbits
 #endif
